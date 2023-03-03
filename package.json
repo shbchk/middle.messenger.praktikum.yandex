@@ -1,0 +1,23 @@
+{
+  "name": "messenger",
+  "version": "1.0.0",
+  "description": "---",
+  "private": "true",
+  "scripts": {
+    "dev": "parcel ./src/index.hbs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shbchk/middle.messenger.praktikum.yandex.git"
+  },
+  "author": "Dmitry Kuchev <dmitry@kuchev.com>",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/shbchk/middle.messenger.praktikum.yandex/issues"
+  },
+  "homepage": "https://github.com/shbchk/middle.messenger.praktikum.yandex#readme",
+  "devDependencies": {
+    "@anikin/parcel-transformer-handlebars": "^1.0.9",
+    "parcel": "^2.8.3"
+  }
+}
