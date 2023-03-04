@@ -1,0 +1,129 @@
+:root {
+  --shadow-light: 0 0 6px 0 rgba(0,0,0,0.14);
+  --font-main: 'Roboto', sans-serif;
+  --font-inactive: #999999;
+  --accent: #3369F3;
+  --error: #FF2F2F;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-main);
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+}
+
+.flex-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rounded {
+  border-radius: 12px;
+}
+
+.modal__backdrop {
+  .flex-centered();
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.modal__box {
+  .rounded();
+  padding: 4rem 2rem 3rem;
+  width: 23rem;
+  height: max-content;
+  box-shadow: var(--shadow-light);
+}
+
+.modal__header {
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+
+.modal__floatgroup {
+  position: relative;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.modal__input {
+  width: 100%;
+  border: none;
+  border-bottom-color: var(--accent);
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  padding: 0.3rem 0;
+}
+
+.modal__input:focus {
+  outline: none;
+}
+
+.modal__float-placeholder {
+  font-size: 1rem;
+  color: var(--font-inactive);
+  position: absolute;
+  pointer-events: none;
+  top: 0.25rem;
+  left: 0;
+  transition: all 0.3s ease;
+}
+
+.modal__input:focus ~ .modal__float-placeholder,
+.modal__input:not(:focus):valid ~ .modal__float-placeholder {
+  top: -1rem;
+  bottom: 0px;
+  left: 0px;
+  font-size: 0.7rem;
+  color: var(--font-inactive);
+}
+
+.modal__button {
+  margin-top: 5rem;
+}
+
+.modal__validation-error-message {
+  margin-top: 0.4rem;
+  font-size: 0.7rem;
+  color: var(--error);
+}
+
+.modal__input--error {
+  border-bottom-color: var(--error);
+  color: var(--error);
+}
+
+.modal__buttonsgroup {
+  text-align: center;
+}
+
+.modal__button {
+  background-color: var(--accent);
+  color: #ffffff;
+  border-radius: 8px;
+  width: 100%;
+  text-align: center;
+  padding: 0.7rem;
+  border: none;
+}
+
+.modal__authlink {
+  display: inline-block;
+  margin-top: 1rem;
+  color: var(--accent);
+  text-decoration: none;
+}
