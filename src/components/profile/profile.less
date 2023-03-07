@@ -1,0 +1,119 @@
+@import '../../styles/common.less';
+
+.profile-wrap {
+  width: 50rem;
+  margin: 2rem auto;
+}
+
+.profile__avatar-wrap {
+  width: max-content;
+  margin: 0 auto 1rem;
+  position: relative;
+}
+
+.profile__avatar {
+  background-color: var(--neutral-200);
+  .flex-centered();
+  border-radius: 100%;
+  .square(7rem);
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.profile__avatar:hover {
+  filter: brightness(0.5);
+}
+
+.profile__avatar:hover~.profile__avatar-change-overlay {
+  visibility: visible;
+}
+
+.profile__avatar-change-overlay {
+  position: absolute;
+  .fullscreen();
+  .flex-centered();
+  font-size: 0.7rem;
+  color: white;
+  text-align: center;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.profile__display-name {
+  width: max-content;
+  max-width: 100%;
+  margin: 0 auto;
+  font-weight: 500;
+  text-align: center;
+}
+
+.profile__row {
+  padding: 0.8rem 0;
+  border-bottom: 1px var(--neutral-200) solid;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+}
+
+.profile__row:first-of-type {
+  margin-top: 3rem;
+}
+
+.profile__row:last-of-type {
+  border: none;
+  margin-bottom: 3rem;
+}
+
+.profile__row-label {
+  font-weight: 500;
+}
+
+.profile__row-value {
+  text-align: right;
+  color: var(--neutral-600);
+}
+
+.profile__row-value-input {
+  text-align: right;
+  padding: 0.1rem;
+  border: none;
+  border-bottom: 1px var(--neutral-200) dashed;
+  outline: none;
+}
+
+.profile__row-value-input:disabled {
+  background-color: #ffffff;
+  border: none;
+}
+
+.profile__edit-button {
+  background: none;
+  border: none;
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.profile__edit-button--logout {
+  color: var(--danger);
+}
+
+.profile__buttons-group {
+  width: 100%;
+  text-align: center
+}
+
+.profile__save-button {
+  .action-button();
+}
+
+.profile_back-button {
+  background-color: var(--neutral-20);
+  .flex-centered();
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 3rem;
+  border: none;
+  cursor: pointer;
+  border-right: 1px var(--neutral-200) solid;
+}

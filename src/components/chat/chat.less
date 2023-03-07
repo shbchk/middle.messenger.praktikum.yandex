@@ -1,0 +1,269 @@
+@import '../../styles/common.less';
+
+body {
+  overflow: hidden;
+}
+
+.chat-layout {
+  display: grid;
+  grid-template-columns: minmax(15rem, 0.25fr) 1fr;
+  gap: 0;
+  position: fixed;
+  .fullscreen();
+}
+
+.chatlist {
+  background-color: var(--neutral-20);
+  position: relative;
+}
+
+.messages {
+  background-color: hsl(0, 0%, 100%);
+  position: relative;
+}
+
+.messages__empty-message {
+  .flex-centered();
+  position: absolute;
+  .fullscreen();
+  color: var(--neutral-300);
+  pointer-events: none;
+}
+
+.chatlist__chat {
+  display: flex;
+  padding: 0.5rem 0;
+  position: relative;
+  align-items: center;
+  cursor: pointer;
+}
+
+.chatlist__chat:hover {
+  background-color: var(--accent--light);
+}
+
+.chatlist__avatar-wrap {
+  margin-left: 0.5rem;
+}
+
+.chatlist__avatar {
+  background-color: var(--neutral-200);
+  .flex-centered();
+  border-radius: 100%;
+  .square(2.3rem);
+  object-fit: cover;
+}
+
+.chatlist__chat-preview {
+  padding: 0 1rem 0 0.5rem;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.chatlist__chatheading {
+  white-space: nowrap;
+  overflow: hidden;
+  padding-right: 1rem;
+  font-weight: 500;
+  font-size: 0.8rem;
+  text-overflow: ellipsis;
+  padding-right: 4.5rem;
+}
+
+.chatlist__chattext {
+  padding-right: 1rem;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 2rem;
+}
+
+.chatlist__hr {
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  height: 1px;
+  background-color: var(--neutral-100);
+  margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+
+.chatlist__time {
+  position: absolute;
+  top: 0.4rem;
+  right: 0;
+  color: var(--neutral-300);
+  font-size: 0.7rem;
+  margin-right: 1rem;
+}
+
+.chatlist__newcount {
+  padding: 0.1rem;
+  background-color: var(--accent);
+  color: hsl(0, 0%, 100%);
+  border-radius: 100%;
+  position: absolute;
+  bottom: 0.6rem;
+  right: 0;
+  font-size: 0.7rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  line-height: 1;
+  .flex-centered();
+  margin-right: 1rem;
+}
+
+.chatlist__header {
+  display: block;
+  margin: 1rem 0;
+}
+
+.chatlist__header-search {
+  width: 100%;
+  padding: 0 0.5rem;
+  margin: 1rem 0;
+}
+
+.chatlist__search-input {
+  width: 100%;
+  background-color: var(--neutral-50);
+  border: none;
+  outline: none;
+  padding: 0.2rem 0.1rem;
+  font-size: 0.9rem;
+  line-height: 1;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.chatlist__header-profile {
+  display: flex;
+}
+
+.chatlist__avatar--profile {
+  .square(2.5rem);
+}
+
+.chatlist__chattext {
+  color: var(--neutral-600);
+}
+
+.messages {
+  position: relative;
+}
+
+.messages__messages-wrap {
+  position: absolute;
+  .fullscreen();
+  display: flex;
+  flex-direction: column-reverse;
+  // justify-content: end;
+  padding-bottom: 2rem;
+  overflow-y: auto;
+  margin-bottom: 3rem;
+}
+
+.messages__message {
+  padding: 0.7rem 0.8rem;
+  margin: 1rem;
+  border-radius: 5px;
+  max-width: 60%;
+  min-width: min-content;
+  box-shadow: var(--shadow-message);
+  position: relative;
+}
+
+.messages__message--in {
+  background-color: var(--neutral-20);
+}
+
+.messages__message--out {
+  align-self: flex-end;
+  background-color: var(--accent--light);
+}
+
+.messages__message--image {
+  max-width: 40%;
+  max-height: 300px;
+  width: fit-content;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.messages__message-time {
+  position: absolute;
+  font-size: 0.7rem;
+  bottom: -1.2rem;
+  right: 0;
+}
+
+.messages__input-wrap {
+  max-width: 100%;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  margin-right: 1rem;
+}
+
+// TEXTAREA AUTOSIZING CLEVER SOLUTION BY shshaw
+// https://codepen.io/shshaw/pen/bGNJJBE
+
+.messages__input-form {
+  max-width: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.messages__input-box {
+  display: inline-grid;
+  position: relative;
+  border: solid 1px;
+  width: 100%;
+  border-radius: 5px;
+  padding: 0.3rem 0.2rem;
+  background-color: var(--neutral-50);
+  align-items: stretch;
+  
+  &::after,
+  input,
+  textarea {
+    width: 100%;
+    min-width: 100%;
+    grid-area: 2 / 1;
+    margin: 0;
+    resize: none;
+    appearance: none;
+    border: none;
+    font-size: 0.9rem;
+    background-color: var(--neutral-50);
+  }
+  
+  &::after {
+    content: attr(data-value) ' ';
+    visibility: hidden;
+    white-space: pre-wrap;
+  }
+  
+  &:focus-within {    
+    textarea:focus,
+    input:focus {
+      outline: none;
+    }
+  }
+}
+
+// END TEXTAREA AUTOSIZING CLEVER SOLUTION BY shshaw
+
+.messages__button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+}

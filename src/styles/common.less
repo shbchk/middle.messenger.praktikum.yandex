@@ -1,0 +1,75 @@
+:root {
+  --shadow-light: 0 0 6px 0 rgba(0, 0, 0, 0.14);
+  --shadow-message: 1px 1px 2px 0 rgba(0, 0, 0, 0.14);
+  --font-main: 'Roboto', sans-serif;
+  --font-inactive: #999999;
+  --accent: hsl(223, 89%, 58%);
+  --accent--light: hsl(223, 89%, 95%);
+  --error: hsl(0, 100%, 59%);
+  --danger: hsl(0, 100%, 59%);
+  --neutral-900: hsl(0, 0%, 10%);
+  --neutral-600: hsl(0, 0%, 40%);
+  --neutral-400: hsl(0, 0%, 60%);
+  --neutral-300: hsl(0, 0%, 70%);
+  --neutral-200: hsl(0, 0%, 80%);
+  --neutral-100: hsl(0, 0%, 90%);
+  --neutral-50: hsl(0, 0%, 95%);
+  --neutral-20: hsl(0, 0%, 98%);
+}
+
+*,
+*::before,
+*::after { 
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-main);
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+
+.flex-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rounded {
+  border-radius: 12px;
+}
+
+.fullscreen {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.square(@value) {
+  min-width: @value;
+  min-height: @value;
+  max-width: @value;
+  max-height: @value;
+  width: @value;
+}
+
+.action-button {
+  background-color: var(--accent);
+  color: #ffffff;
+  border-radius: 8px;
+  width: 15rem;
+  text-align: center;
+  padding: 0.7rem;
+  border: none;
+}
