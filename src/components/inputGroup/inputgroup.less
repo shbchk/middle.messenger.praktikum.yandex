@@ -1,29 +1,6 @@
 @import '../../styles/common.less';
 
-.modal__backdrop {
-  .flex-centered();
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-
-.modal__box {
-  .rounded();
-  padding: 4rem 2rem 3rem;
-  width: 23rem;
-  height: max-content;
-  box-shadow: var(--shadow-light);
-}
-
-.modal__header {
-  text-align: center;
-  font-weight: 500;
-  font-size: 1.2rem;
-}
-
-.modal__floatgroup {
+.modal__inputgroup {
   position: relative;
   margin-top: 2rem;
   margin-bottom: 2rem;
@@ -44,47 +21,27 @@
 
 .modal__float-placeholder {
   font-size: 1rem;
-  color: var(--font-inactive);
+  color: var(--neutral-600);
   position: absolute;
   pointer-events: none;
   top: 0.25rem;
   left: 0;
-  transition: all 0.3s ease;
+  transition: top 0.3s ease, font-size 0.3s ease;
 }
 
 .modal__input:focus ~ .modal__float-placeholder,
 .modal__input:not(:focus):valid ~ .modal__float-placeholder {
   top: -1rem;
-  bottom: 0px;
-  left: 0px;
   font-size: 0.7rem;
-  color: var(--font-inactive);
 }
 
 .modal__validation-error-message {
   margin-top: 0.4rem;
   font-size: 0.7rem;
-  color: var(--error);
+  color: var(--danger);
 }
 
 .modal__input--error {
   border-bottom-color: var(--error);
   color: var(--error);
-}
-
-.modal__buttonsgroup {
-  text-align: center;
-}
-
-.modal__button {
-  .action-button();
-  margin-top: 2rem;
-  width: 100%;
-}
-
-.modal__authlink {
-  display: inline-block;
-  margin-top: 1rem;
-  color: var(--accent);
-  text-decoration: none;
 }
