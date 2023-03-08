@@ -14,10 +14,14 @@ import ('normalize.css')
 
 
 /* SIGN UP PAGE */
-const { Modal } = require('./components/modal');
-const { Signup } = require('./components/signup');
-const renderedTemplate = Modal({ modalHeader: 'Зарегистрироваться', modalContent: Signup() });
+// const { Modal } = require('./components/modal');
+// const { Signup } = require('./components/signup');
+// const renderedTemplate = Modal({ modalHeader: 'Зарегистрироваться', modalContent: Signup() });
 
+/* PROFILE PAGE */
+
+const { Profile } = require('./components/profile');
+const renderedTemplate = Profile();
 
 
 const root = document.getElementById('root');
