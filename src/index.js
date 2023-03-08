@@ -1,13 +1,21 @@
 const Handlebars = require('handlebars');
 import ('normalize.css')
 
-const { Modal } = require('./components/modal');
-const { Signin } = require('./components/signin');
+/* SIGN IN PAGE */
+// const { Modal } = require('./components/modal');
+// const { Signin } = require('./components/signin');
+
+// const renderedTemplate = Modal({ modalHeader: 'Войти', modalContent: Signin() });
+
+
+/* ERROR PAGE */
+// const { Error } = require('./components/error');
+
+// const renderedTemplate = Error({ errorCode: '😱', errorMessage: 'Ой!' });
+
+
+
+
 
 const root = document.getElementById('root');
-
-document.title = "Авторизация"
-
-const renderedTemplate = Modal({ header: 'Войти', modalContent: Signin() });
-
 root.innerHTML = renderedTemplate;

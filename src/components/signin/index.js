@@ -1,6 +1,6 @@
 import Handlebars from 'handlebars';
 import signin from 'bundle-text:./signin.hbs';
-import ('./signin.less')
+import('./signin.less');
 
 const { ModalButton } = require('../modalButton');
 const { InputGroup } = require('../inputGroup');
@@ -24,7 +24,9 @@ const inputgroups = [
   }),
 ];
 
-const button = ModalButton({ text: 'Войти', type: 'submit'})
+const button = ModalButton({ text: 'Войти', type: 'submit' });
 
-
-export const Signin = () => Handlebars.compile(signin)({ inputgroups, button });
+export const Signin = () => {
+  document.title = 'Авторизация';
+  return Handlebars.compile(signin)({ inputgroups, button });
+};
