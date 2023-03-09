@@ -6,7 +6,7 @@ import { Chat } from './pages/Chat';
 import { ErrorPage } from './pages/ErrorPage';
 import { ProfileEdit } from './pages/ProfileEdit';
 import { Profile } from './pages/Profile';
-import { PasswordChange } from './pages/passwordChange';
+import { PasswordChange } from './pages/PasswordChange';
 
 import('normalize.css');
 
