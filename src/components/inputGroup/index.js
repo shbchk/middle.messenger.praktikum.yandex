@@ -1,7 +1,6 @@
 import Handlebars from 'handlebars';
-
+import { inputgroupTemplate } from './inputgroup.tmpl';
 import('./inputgroup.less');
-import modal from 'bundle-text:./inputgroup.hbs';
 
 export const InputGroup = ({ inputType, inputName, inputId, inputRequired, inputLabel, errorMessage }) =>
-  Handlebars.compile(modal)({ inputType, inputName, inputId, inputRequired, inputLabel, errorMessage });
+  Handlebars.compile(inputgroupTemplate)({ inputType, inputName, inputId, inputRequired, inputLabel, errorMessage });

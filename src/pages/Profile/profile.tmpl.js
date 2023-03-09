@@ -1,4 +1,4 @@
-<div class='profile-wrap'>
+export const profileTemplate = `<div class='profile-wrap'>
 
   <div class='profile__avatar-wrap'>
     <img src='{{profileAvatar}}' class='profile__avatar' />
@@ -15,20 +15,20 @@
   <div class='profile__rows'>
 
     <div class='profile__row'>
-      <div class='profile__row-label'><button class='profile__edit-button' type='button'>Изменить данные</button>
+      <div class='profile__row-label'><a href='/edit.html' class='profile__edit-button' type='button'>Изменить данные</a>
       </div>
     </div>
 
     <div class='profile__row'>
-      <div class='profile__row-label'><button class='profile__edit-button' type='button'>Изменить пароль</button>
+      <div class='profile__row-label'><a href='/password.html' class='profile__edit-button' type='button'>Изменить пароль</a>
       </div>
     </div>
 
     <div class='profile__row'>
-      <div class='profile__row-label'><button class='profile__edit-button profile__edit-button--logout' type='button'>Выйти</button></div>
+      <div class='profile__row-label'><a href='/signin.html' class='profile__edit-button profile__edit-button--logout' type='button'>Выйти</a></div>
     </div>
 
   </div>
 </div>
 
-{{{backButton}}}
+{{{backButton}}}`;

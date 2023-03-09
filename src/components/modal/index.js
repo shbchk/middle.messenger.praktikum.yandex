@@ -1,6 +1,6 @@
 import Handlebars from 'handlebars';
 
 import('./modal.less');
-import modal from 'bundle-text:./modal.hbs';
+import { modalTemplate } from './modal.tmpl';
 
-export const Modal = ({ modalHeader, modalContent }) => Handlebars.compile(modal)({ modalHeader, modalContent });
+export const Modal = ({ modalHeader, modalContent }) => Handlebars.compile(modalTemplate)({ modalHeader, modalContent });

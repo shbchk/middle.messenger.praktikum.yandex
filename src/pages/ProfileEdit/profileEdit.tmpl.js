@@ -1,4 +1,4 @@
-<div class='profile-wrap'>
+export const profileEditTemplate = `<div class='profile-wrap'>
 
   <div class='profile__avatar-wrap'>
     <img src='{{profileAvatar}}' class='profile__avatar' />
@@ -15,4 +15,4 @@
   </div>
 </div>
 
-{{{backButton}}}
+{{{backButton}}}`;

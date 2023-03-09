@@ -1,5 +1,5 @@
-import Handlebars from 'handlebars'
-import modalButton from 'bundle-text:./modalButton.hbs'
-import ('./modalButton.less')
+import Handlebars from 'handlebars';
+import { modalButtonTemplate } from './modalButton.tmpl';
+import('./modalButton.less');
 
-export const ModalButton = ({ type, text }) => Handlebars.compile(modalButton)({ type, text })
+export const ModalButton = ({ type, text, link }) => Handlebars.compile(modalButtonTemplate)({ type, text, link });

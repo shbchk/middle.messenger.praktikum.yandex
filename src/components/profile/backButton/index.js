@@ -1,5 +1,5 @@
 import Handlebars from 'handlebars';
-import backButton from 'bundle-text:./backButton.hbs';
+import { backButtonTemplate } from './backButton.tmpl';
 import('./backButton.less');
 
-export const BackButton = () => Handlebars.compile(backButton)();
+export const BackButton = () => Handlebars.compile(backButtonTemplate)();

@@ -1,11 +1,10 @@
 import Handlebars from 'handlebars';
-import profileEdit from 'bundle-text:./profileEdit.hbs';
+import { profileEditTemplate } from './profileEdit.tmpl';
+import { ProfileRow } from '../../components/profile/profileRow';
+import { BackButton } from '../../components/profile/backButton';
+import { ModalButton } from '../../components/modalButton';
 
-import('../profile.less');
-
-const { ProfileRow } = require('../profileRow');
-const { BackButton } = require('../backButton');
-const { ModalButton } = require('../../modalButton');
+import('../Profile/profile.less');
 
 const profileName = 'Васисуалий Початков';
 
@@ -61,5 +60,5 @@ const saveButton = ModalButton({ type: 'button', text: 'Сохранить' });
 
 export const ProfileEdit = () => {
   document.title = 'Редактировать профиль';
-  return Handlebars.compile(profileEdit)({ profileName, profileAvatar, profileRows, backButton, saveButton });
+  return Handlebars.compile(profileEditTemplate)({ profileName, profileAvatar, profileRows, backButton, saveButton });
 };

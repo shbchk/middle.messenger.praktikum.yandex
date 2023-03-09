@@ -1,3 +1,4 @@
+export const chatTemplate = `
 <div class='chat-layout'>
   <div class='chatlist'>
 
@@ -8,7 +9,7 @@
         </div>
         <div class='chatlist__chat-preview'>
           <div class='chatlist__chatheading'>Студент Практикума</div>
-          <a href='#' class='chatlist__chattext'>Профиль</a>
+          <a href='/profile.html' class='chatlist__chattext'>Профиль</a>
         </div>
 
       </div>
@@ -158,3 +159,4 @@
 
   </div>
 </div>
+`;

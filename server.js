@@ -10,5 +10,5 @@ app.get('/*.html', (req, res) => {
 });
 
 app.listen(PORT, function () {
-  console.log(`Привет, Паша! Сервер слушает порт ${PORT}, fyi :)`);
+  console.log(`Привет, Паша! :) Сервер слушает порт ${PORT}, ткнуть можно сюда: http://localhost:3000/ `);
 });

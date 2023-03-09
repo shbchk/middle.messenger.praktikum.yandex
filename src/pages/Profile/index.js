@@ -1,10 +1,9 @@
 import Handlebars from 'handlebars';
-import profile from 'bundle-text:./profile.hbs';
+import { BackButton } from '../../components/profile/backButton';
+import { ProfileRow } from '../../components/profile/profileRow';
+import { profileTemplate } from './profile.tmpl';
 
 import('./profile.less');
-
-const { ProfileRow } = require('./profileRow');
-const { BackButton } = require('./backButton');
 
 const profileName = 'Васисуалий Початков';
 
@@ -59,5 +58,5 @@ const backButton = BackButton();
 
 export const Profile = () => {
   document.title = 'Профиль';
-  return Handlebars.compile(profile)({ profileName, profileAvatar, profileRows, backButton });
+  return Handlebars.compile(profileTemplate)({ profileName, profileAvatar, profileRows, backButton });
 };

@@ -1,11 +1,10 @@
 import Handlebars from 'handlebars';
-import profileEdit from 'bundle-text:../profileEdit/profileEdit.hbs';
+import { profileEditTemplate } from '../ProfileEdit/profileEdit.tmpl';
+import { ModalButton } from '../../components/modalButton';
+import { BackButton } from '../../components/profile/backButton';
+import { ProfileRow } from '../../components/profile/profileRow';
 
-import('../profile.less');
-
-const { ProfileRow } = require('../profileRow');
-const { BackButton } = require('../backButton');
-const { ModalButton } = require('../../modalButton');
+import('../Profile/profile.less');
 
 const profileName = 'Васисуалий Початков';
 
@@ -39,9 +38,9 @@ const profileRows = [
 ];
 
 const backButton = BackButton();
-const saveButton = ModalButton({ type: 'button', text: 'Изменить пароль' });
+const saveButton = ModalButton({ type: 'button', text: 'Изменить', link: '/chat.html' });
 
 export const PasswordChange = () => {
   document.title = 'Изменить пароль';
-  return Handlebars.compile(profileEdit)({ profileName, profileAvatar, profileRows, backButton, saveButton });
+  return Handlebars.compile(profileEditTemplate)({ profileName, profileAvatar, profileRows, backButton, saveButton });
 };

@@ -1,4 +1,13 @@
 const Handlebars = require('handlebars');
+import { Modal } from './components/modal';
+import { Signup } from './pages/Signup';
+import { Signin } from './pages/Signin';
+import { Chat } from './pages/Chat';
+import { ErrorPage } from './pages/ErrorPage';
+import { ProfileEdit } from './pages/ProfileEdit';
+import { Profile } from './pages/Profile';
+import { PasswordChange } from './pages/passwordChange';
+
 import('normalize.css');
 
 const currentPath = window.location.pathname;
@@ -6,38 +15,36 @@ let renderedTemplate;
 
 /* ERROR PAGE */
 if (currentPath === '/404.html') {
-  const { Error } = require('./components/error');
-  renderedTemplate = Error({ errorCode: '😱', errorMessage: 'Ой!' });
+  renderedTemplate = ErrorPage({ errorCode: '😱', errorMessage: 'Ой!' });
 }
 
 /* SIGN IN PAGE */
 if (currentPath === '/signin.html' || currentPath === '/') {
-  const { Modal } = require('./components/modal');
-  const { Signin } = require('./components/signin');
   renderedTemplate = Modal({ modalHeader: 'Войти', modalContent: Signin() });
 }
 
 /* SIGN UP PAGE */
 if (currentPath === '/signup.html') {
-  const { Modal } = require('./components/modal');
-  const { Signup } = require('./components/signup');
   renderedTemplate = Modal({ modalHeader: 'Зарегистрироваться', modalContent: Signup() });
 }
 
 /* PROFILE PAGE */
 if (currentPath === '/profile.html') {
-  const { Profile } = require('./components/profile');
   renderedTemplate = Profile();
 }
 
 /* PROFILE EDIT PAGE */
 if (currentPath === '/edit.html') {
-  const { ProfileEdit } = require('./components/profile/profileEdit');
   renderedTemplate = ProfileEdit();
 }
-/* PASSWORD EDIT PAGE */
+
+/* PASSWORD CHANGE PAGE */
+if (currentPath === '/password.html') {
+  renderedTemplate = PasswordChange();
+}
+
+/* CHAT PAGE */
 if (currentPath === '/chat.html') {
-  const { Chat } = require('./components/chat');
   renderedTemplate = Chat();
 }
 

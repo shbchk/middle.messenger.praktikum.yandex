@@ -1,9 +1,8 @@
 import Handlebars from 'handlebars';
-import signin from 'bundle-text:./signin.hbs';
+import { signinTemplate } from './signin.tmpl';
+import { InputGroup } from '../../components/inputGroup';
+import { ModalButton } from '../../components/modalButton';
 import('./signin.less');
-
-const { ModalButton } = require('../modalButton');
-const { InputGroup } = require('../inputGroup');
 
 const inputgroups = [
   InputGroup({
@@ -24,9 +23,9 @@ const inputgroups = [
   }),
 ];
 
-const button = ModalButton({ text: 'Войти', type: 'submit' });
+const button = ModalButton({ text: 'Войти', type: 'submit', link: '/chat.html' });
 
 export const Signin = () => {
   document.title = 'Авторизация';
-  return Handlebars.compile(signin)({ inputgroups, button });
+  return Handlebars.compile(signinTemplate)({ inputgroups, button });
 };
