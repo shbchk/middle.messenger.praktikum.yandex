@@ -35,6 +35,11 @@ if (currentPath === '/edit.html') {
   const { ProfileEdit } = require('./components/profile/profileEdit');
   renderedTemplate = ProfileEdit();
 }
+/* PASSWORD EDIT PAGE */
+if (currentPath === '/password.html') {
+  const { PasswordChange } = require('./components/profile/passwordChange');
+  renderedTemplate = PasswordChange();
+}
 
 const root = document.getElementById('root');
 root.innerHTML = renderedTemplate;
