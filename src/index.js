@@ -1,27 +1,40 @@
 const Handlebars = require('handlebars');
 import('normalize.css');
 
+const currentPath = window.location.pathname;
+let renderedTemplate;
+
 /* ERROR PAGE */
-// const { Error } = require('./components/error');
-// const renderedTemplate = Error({ errorCode: '😱', errorMessage: 'Ой!' });
+if (currentPath === '/404.html') {
+  const { Error } = require('./components/error');
+  renderedTemplate = Error({ errorCode: '😱', errorMessage: 'Ой!' });
+}
 
 /* SIGN IN PAGE */
-// const { Modal } = require('./components/modal');
-// const { Signin } = require('./components/signin');
-// const renderedTemplate = Modal({ modalHeader: 'Войти', modalContent: Signin() });
+if (currentPath === '/signin.html' || currentPath === '/') {
+  const { Modal } = require('./components/modal');
+  const { Signin } = require('./components/signin');
+  renderedTemplate = Modal({ modalHeader: 'Войти', modalContent: Signin() });
+}
 
 /* SIGN UP PAGE */
-// const { Modal } = require('./components/modal');
-// const { Signup } = require('./components/signup');
-// const renderedTemplate = Modal({ modalHeader: 'Зарегистрироваться', modalContent: Signup() });
+if (currentPath === '/signup.html') {
+  const { Modal } = require('./components/modal');
+  const { Signup } = require('./components/signup');
+  renderedTemplate = Modal({ modalHeader: 'Зарегистрироваться', modalContent: Signup() });
+}
 
 /* PROFILE PAGE */
-// const { Profile } = require('./components/profile');
-// const renderedTemplate = Profile();
+if (currentPath === '/profile.html') {
+  const { Profile } = require('./components/profile');
+  renderedTemplate = Profile();
+}
 
 /* PROFILE EDIT PAGE */
-const { ProfileEdit } = require('./components/profile/profileEdit');
-const renderedTemplate = ProfileEdit();
+if (currentPath === '/edit.html') {
+  const { ProfileEdit } = require('./components/profile/profileEdit');
+  renderedTemplate = ProfileEdit();
+}
 
 const root = document.getElementById('root');
 root.innerHTML = renderedTemplate;
