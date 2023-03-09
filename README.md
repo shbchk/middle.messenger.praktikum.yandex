@@ -4,4 +4,6 @@
 
 Нетлифай тут: https://yamessenger.netlify.app/
 
-Запуск "npm run build"
+Запуск Парселя: "npm run build"
+
+Запуск Express.js: "npn run express"

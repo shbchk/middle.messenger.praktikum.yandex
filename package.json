@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "npm run cleanDist && parcel ./src/index.html",
     "build": "npm run cleanDist && parcel build ./src/index.html",
-    "cleanDist": "rimraf dist" 
+    "cleanDist": "rimraf dist",
+    "express": "node .\\server.js"
   },
   "repository": {
     "type": "git",

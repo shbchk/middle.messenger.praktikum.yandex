@@ -5,6 +5,10 @@ const PORT = 3000;
 
 app.use(express.static('./dist/'));
 
+app.get('/*.html', (req, res) => {
+  res.sendFile(__dirname + '/dist/index.html');
+});
+
 app.listen(PORT, function () {
-  console.log(`Listening on port ${PORT}!`);
-}); 
+  console.log(`Привет, Паша! Сервер слушает порт ${PORT}, fyi :)`);
+});
