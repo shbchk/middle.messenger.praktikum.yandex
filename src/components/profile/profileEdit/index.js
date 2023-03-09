@@ -1,10 +1,11 @@
 import Handlebars from 'handlebars';
-import profile from 'bundle-text:./profile.hbs';
+import profileEdit from 'bundle-text:./profileEdit.hbs';
 
-import('./profile.less');
+import('../profile.less');
 
-const { ProfileRow } = require('./profileRow');
-const { BackButton } = require('./backButton');
+const { ProfileRow } = require('../profileRow');
+const { BackButton } = require('../backButton');
+const { ModalButton } = require('../../modalButton');
 
 const profileName = 'Васисуалий Початков';
 
@@ -16,48 +17,49 @@ const profileRows = [
     rowInputName: 'email',
     rowInputPlaceholder: 'Почта',
     rowInputValue: 'pochta@domain.tld',
-    rowInputDisabled: 'disabled',
+    rowInputDisabled: '',
   }),
   ProfileRow({
     rowLabel: 'Логин',
     rowInputName: 'login',
     rowInputPlaceholder: 'Логин',
     rowInputValue: 'myusername',
-    rowInputDisabled: 'disabled',
+    rowInputDisabled: '',
   }),
   ProfileRow({
     rowLabel: 'Имя',
     rowInputName: 'first_name',
     rowInputPlaceholder: 'Имя',
     rowInputValue: 'Васисуалий',
-    rowInputDisabled: 'disabled',
+    rowInputDisabled: '',
   }),
   ProfileRow({
     rowLabel: 'Фамилия',
     rowInputName: 'second_name',
     rowInputPlaceholder: 'Фамилия',
     rowInputValue: 'Початков',
-    rowInputDisabled: 'disabled',
+    rowInputDisabled: '',
   }),
   ProfileRow({
     rowLabel: 'Имя в чате',
     rowInputName: 'display_name',
     rowInputPlaceholder: 'Имя в чате',
     rowInputValue: 'Васисуалий Початков',
-    rowInputDisabled: 'disabled',
+    rowInputDisabled: '',
   }),
   ProfileRow({
     rowLabel: 'Телефон',
     rowInputName: 'phone',
     rowInputPlaceholder: 'Телефон',
     rowInputValue: '+77 (666) 55-44-33',
-    rowInputDisabled: 'disabled',
+    rowInputDisabled: '',
   }),
 ];
 
 const backButton = BackButton();
+const saveButton = ModalButton({ type: 'button', text: 'Сохранить' });
 
-export const Profile = () => {
-  document.title = 'Профиль';
-  return Handlebars.compile(profile)({ profileName, profileAvatar, profileRows, backButton });
+export const ProfileEdit = () => {
+  document.title = 'Редактировать профиль';
+  return Handlebars.compile(profileEdit)({ profileName, profileAvatar, profileRows, backButton, saveButton });
 };
