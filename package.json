@@ -5,7 +5,7 @@
   "private": "true",
   "scripts": {
     "dev": "npm run cleanDist && parcel ./src/index.html",
-    "build": "npm run cleanDist && cp ./src/_redirects ./dist/ && parcel build ./src/index.html",
+    "build": "npm run cleanDist && echo \"/* /index.html 200\" > ./dist/_redirects && parcel build ./src/index.html",
     "cleanDist": "rimraf dist",
     "start": "node ./server.js"
   },
