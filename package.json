@@ -5,9 +5,9 @@
   "private": "true",
   "scripts": {
     "dev": "npm run cleanDist && parcel ./src/index.html",
-    "build": "npm run cleanDist && parcel build ./src/index.html",
+    "build": "npm run cleanDist && cp ./src/_redirects ./dist/_redirects && parcel build ./src/index.html",
     "cleanDist": "rimraf dist",
-    "start": "node .\\server.js"
+    "start": "node ./server.js"
   },
   "repository": {
     "type": "git",

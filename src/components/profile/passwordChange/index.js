@@ -13,7 +13,7 @@ const profileAvatar = 'https://xsgames.co/randomusers/avatar.php?g=male';
 
 const profileRows = [
   ProfileRow({
-    rowLabel: 'Старый пароль',
+    rowLabel: 'Старенький пароль',
     rowInputName: 'oldPassword',
     rowInputPlaceholder: '',
     rowInputValue: '',
