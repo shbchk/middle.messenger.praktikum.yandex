@@ -36,9 +36,9 @@ if (currentPath === '/edit.html') {
   renderedTemplate = ProfileEdit();
 }
 /* PASSWORD EDIT PAGE */
-if (currentPath === '/password.html') {
-  const { PasswordChange } = require('./components/profile/passwordChange');
-  renderedTemplate = PasswordChange();
+if (currentPath === '/chat.html') {
+  const { Chat } = require('./components/chat');
+  renderedTemplate = Chat();
 }
 
 const root = document.getElementById('root');
