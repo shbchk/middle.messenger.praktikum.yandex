@@ -1,7 +1,7 @@
 const express = require('express');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.static('./dist/'));
 
@@ -10,5 +10,5 @@ app.get('/*.html', (req, res) => {
 });
 
 app.listen(PORT, function () {
-  console.log(`Привет, Паша! :) Сервер слушает порт ${PORT}, ткнуть можно сюда: http://localhost:3000/ `);
+  console.log(`Привет, ревьюер! :) Сервер слушает порт ${PORT}, ткнуть можно сюда: http://localhost:${PORT}/ `);
 });
