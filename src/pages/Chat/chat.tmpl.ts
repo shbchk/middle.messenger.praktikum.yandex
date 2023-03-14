@@ -1,4 +1,4 @@
-export const chatTemplate = `
+export const chatTemplate: string = `
 <div class="chat-layout">
   <div class="chatlist">
 

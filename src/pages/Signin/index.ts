@@ -2,7 +2,7 @@ import Handlebars from 'handlebars';
 import { signinTemplate } from './signin.tmpl';
 import { InputGroup } from '../../components/inputGroup';
 import { ModalButton } from '../../components/modalButton';
-import('./signin.less');
+import './signin.less';
 
 const inputgroups = [
   InputGroup({

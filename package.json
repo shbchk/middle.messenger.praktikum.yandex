@@ -23,6 +23,7 @@
     "@anikin/parcel-transformer-handlebars": "1.0.9",
     "@parcel/transformer-inline-string": "2.8.3",
     "@parcel/transformer-less": "2.8.3",
+    "@types/node": "^18.15.3",
     "express": "4.18.2",
     "parcel": "2.8.3",
     "rimraf": "4.3.1"

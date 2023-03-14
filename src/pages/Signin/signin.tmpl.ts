@@ -1,4 +1,4 @@
-export const signinTemplate = `<form>
+export const signinTemplate: string = `<form>
   {{#each inputgroups}}
     {{{this}}}
   {{/each}}

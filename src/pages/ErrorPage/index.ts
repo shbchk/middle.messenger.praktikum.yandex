@@ -1,8 +1,13 @@
 import Handlebars from 'handlebars';
 import { errorPageTemplate } from './errorPage.tmpl';
-import('./errorPage.less');
+import './errorPage.less';
 
-export const ErrorPage = ({ errorCode, errorMessage }) => {
+interface IErrorPage {
+  errorCode: string;
+  errorMessage: string;
+}
+
+export const ErrorPage = ({ errorCode, errorMessage }: IErrorPage) => {
   document.title = `${errorCode}: ${errorMessage}`;
   return Handlebars.compile(errorPageTemplate)({ errorCode, errorMessage });
 };

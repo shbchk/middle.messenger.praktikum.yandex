@@ -1,4 +1,4 @@
-export const signupTemplate = `<form class='form'>
+export const signupTemplate: string = `<form class='form'>
 
   {{#each inputgroups}}
     {{{this}}}

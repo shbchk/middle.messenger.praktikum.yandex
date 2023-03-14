@@ -1,4 +1,4 @@
-export const profileTemplate = `<div class="profile-wrap">
+export const profileTemplate: string = `<div class="profile-wrap">
 
   <div class="profile__avatar-wrap">
     <img src="{{profileAvatar}}" class="profile__avatar" alt="Аватар" />

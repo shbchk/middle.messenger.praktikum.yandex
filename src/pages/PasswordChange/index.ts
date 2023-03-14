@@ -4,7 +4,7 @@ import { ModalButton } from '../../components/modalButton';
 import { BackButton } from '../../components/profile/backButton';
 import { ProfileRow } from '../../components/profile/profileRow';
 
-import('../Profile/profile.less');
+import '../Profile/profile.less';
 
 const profileName = 'Васисуалий Початков';
 

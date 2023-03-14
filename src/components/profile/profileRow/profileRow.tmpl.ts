@@ -1,4 +1,4 @@
-export const profileRowTemplate = `<div class='profile__row'>
+export const profileRowTemplate: string = `<div class='profile__row'>
   <div class='profile__row-label'>{{rowLabel}}</div>
   <div class='profile__row-value'>
     <input name='{{rowInputName}}' placeholder='{{rowInputPlaceholder}}' value='{{rowInputValue}}' type='{{rowInputType}}' class='profile__row-value-input' {{rowInputDisabled}} />

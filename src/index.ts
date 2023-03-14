@@ -8,7 +8,7 @@ import { ProfileEdit } from './pages/ProfileEdit';
 import { Profile } from './pages/Profile';
 import { PasswordChange } from './pages/PasswordChange';
 
-import('normalize.css');
+import 'normalize.css';
 
 const currentPath = window.location.pathname;
 let renderedTemplate;
@@ -48,5 +48,5 @@ if (currentPath === '/chat.html') {
   renderedTemplate = Chat();
 }
 
-const root = document.getElementById('root');
+const root = document.getElementById('root')!;
 root.innerHTML = renderedTemplate;
