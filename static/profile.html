@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SuperYandexChat</title>
+  <script src="index.js" type="module"></script>
+
+  <!-- GOOGLE FONTS  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500&display=swap"
+    rel="stylesheet">
+  <!-- / GOOGLE FONTS  -->
+
+</head>
+
+<body>
+  <div class="profile-wrap">
+
+    <div class="profile__avatar-wrap">
+      <img src="https://api.lorem.space/image/fashion?w=170&h=170" class="profile__avatar" alt="Аватар" />
+      <div class="profile__avatar-change-overlay">Изменить аватар</div>
+    </div>
+    <div class="profile__display-name">Пользователь с длинным именем</div>
+
+    <div class="profile__rows">
+      <div class="profile__row">
+        <div class="profile__row-label">Почта</div>
+        <div class="profile__row-value"><input name="email" placeholder="email" value="user@domain.tld" type="text"
+            class="profile__row-value-input" disabled /></div>
+      </div>
+
+      <div class="profile__row">
+        <div class="profile__row-label">Логин</div>
+        <div class="profile__row-value"><input name="login" placeholder="login" value="Логин" type="text"
+            class="profile__row-value-input" disabled /></div>
+      </div>
+
+      <div class="profile__row">
+        <div class="profile__row-label">Имя</div>
+        <div class="profile__row-value"><input name="first_name" placeholder="first_name" value="first_name" type="text"
+            class="profile__row-value-input" disabled /></div>
+      </div>
+
+      <div class="profile__row">
+        <div class="profile__row-label">Фамилия</div>
+        <div class="profile__row-value"><input name="second_name" placeholder="second_name" value="second_name"
+            type="text" class="profile__row-value-input" disabled /></div>
+      </div>
+
+      <div class="profile__row">
+        <div class="profile__row-label">Отображаемое имя</div>
+        <div class="profile__row-value"><input name="display_name" placeholder="display_name" value="display_name"
+            type="text" class="profile__row-value-input" disabled /></div>
+      </div>
+
+      <div class="profile__row">
+        <div class="profile__row-label">Телефон</div>
+        <div class="profile__row-value"><input name="phone" placeholder="phone" value="phone" type="text"
+            class="profile__row-value-input" disabled /></div>
+      </div>
+    </div>
+
+
+    <div class="profile__rows">
+
+      <div class="profile__row">
+        <div class="profile__row-label"><button class="profile__edit-button" type="button">Изменить данные</button>
+        </div>
+      </div>
+
+      <div class="profile__row">
+        <div class="profile__row-label"><button class="profile__edit-button" type="button">Изменить пароль</button>
+        </div>
+      </div>
+
+      <div class="profile__row">
+        <div class="profile__row-label"><button class="profile__edit-button profile__edit-button--logout"
+            type="button">Выйти</button></div>
+      </div>
+
+    </div>
+  </div>
+
+  <button class="profile_back-button" type="button">🔙</button>
+
+</body>
+
+</html>
