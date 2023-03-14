@@ -1,4 +1,3 @@
-const Handlebars = require('handlebars');
 import { Modal } from './components/modal';
 import { Signup } from './pages/Signup';
 import { Signin } from './pages/Signin';
@@ -25,7 +24,10 @@ if (currentPath === '/signin.html' || currentPath === '/') {
 
 /* SIGN UP PAGE */
 if (currentPath === '/signup.html') {
-  renderedTemplate = Modal({ modalHeader: 'Зарегистрироваться', modalContent: Signup() });
+  renderedTemplate = Modal({
+    modalHeader: 'Зарегистрироваться',
+    modalContent: Signup(),
+  });
 }
 
 /* PROFILE PAGE */
@@ -48,5 +50,14 @@ if (currentPath === '/chat.html') {
   renderedTemplate = Chat();
 }
 
-const root = document.getElementById('root')!;
-root.innerHTML = renderedTemplate;
+type Nullable<T> = T | null;
+
+const root: Nullable<HTMLDivElement> = document.getElementById(
+  'root',
+) as HTMLDivElement;
+
+if (!root) {
+  throw new Error('There is no #root div');
+}
+
+root.innerHTML = renderedTemplate ?? '';

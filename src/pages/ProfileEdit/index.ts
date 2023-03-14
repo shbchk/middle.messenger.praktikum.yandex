@@ -56,9 +56,20 @@ const profileRows = [
 ];
 
 const backButton = BackButton();
-const saveButton = ModalButton({ type: 'button', text: 'Сохранить', link: '/chat.html' });
+const saveButton = ModalButton({
+  type: 'button',
+  text: 'Сохранить',
+  link: '/chat.html',
+});
 
 export const ProfileEdit = () => {
+  // eslint-disable-next-line no-undef
   document.title = 'Редактировать профиль';
-  return Handlebars.compile(profileEditTemplate)({ profileName, profileAvatar, profileRows, backButton, saveButton });
+  return Handlebars.compile(profileEditTemplate)({
+    profileName,
+    profileAvatar,
+    profileRows,
+    backButton,
+    saveButton,
+  });
 };

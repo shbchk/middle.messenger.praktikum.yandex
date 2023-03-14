@@ -38,9 +38,20 @@ const profileRows = [
 ];
 
 const backButton = BackButton();
-const saveButton = ModalButton({ type: 'button', text: 'Изменить', link: '/chat.html' });
+const saveButton = ModalButton({
+  type: 'button',
+  text: 'Изменить',
+  link: '/chat.html',
+});
 
 export const PasswordChange = () => {
+  // eslint-disable-next-line no-undef
   document.title = 'Изменить пароль';
-  return Handlebars.compile(profileEditTemplate)({ profileName, profileAvatar, profileRows, backButton, saveButton });
+  return Handlebars.compile(profileEditTemplate)({
+    profileName,
+    profileAvatar,
+    profileRows,
+    backButton,
+    saveButton,
+  });
 };

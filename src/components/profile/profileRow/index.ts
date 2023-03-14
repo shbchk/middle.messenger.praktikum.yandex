@@ -11,5 +11,19 @@ interface IProfileRow {
   rowInputDisabled?: string;
 }
 
-export const ProfileRow = ({ rowLabel, rowInputName, rowInputPlaceholder, rowInputValue, rowInputType = 'text', rowInputDisabled }: IProfileRow) =>
-  Handlebars.compile(profileRowTemplate)({ rowLabel, rowInputName, rowInputPlaceholder, rowInputValue, rowInputType, rowInputDisabled });
+export const ProfileRow = ({
+  rowLabel,
+  rowInputName,
+  rowInputPlaceholder,
+  rowInputValue,
+  rowInputType = 'text',
+  rowInputDisabled,
+}: IProfileRow) =>
+  Handlebars.compile(profileRowTemplate)({
+    rowLabel,
+    rowInputName,
+    rowInputPlaceholder,
+    rowInputValue,
+    rowInputType,
+    rowInputDisabled,
+  });

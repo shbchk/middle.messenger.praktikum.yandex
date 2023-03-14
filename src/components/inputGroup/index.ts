@@ -11,5 +11,19 @@ interface IInputGroup {
   errorMessage: string;
 }
 
-export const InputGroup = ({ inputType, inputName, inputId, inputRequired, inputLabel, errorMessage }: IInputGroup) =>
-  Handlebars.compile(inputgroupTemplate)({ inputType, inputName, inputId, inputRequired, inputLabel, errorMessage });
+export const InputGroup = ({
+  inputType,
+  inputName,
+  inputId,
+  inputRequired,
+  inputLabel,
+  errorMessage,
+}: IInputGroup) =>
+  Handlebars.compile(inputgroupTemplate)({
+    inputType,
+    inputName,
+    inputId,
+    inputRequired,
+    inputLabel,
+    errorMessage,
+  });

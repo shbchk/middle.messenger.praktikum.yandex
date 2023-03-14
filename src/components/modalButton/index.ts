@@ -8,4 +8,5 @@ interface IModalButton {
   link: string;
 }
 
-export const ModalButton = ({ type, text, link }: IModalButton) => Handlebars.compile(modalButtonTemplate)({ type, text, link });
+export const ModalButton = ({ type, text, link }: IModalButton) =>
+  Handlebars.compile(modalButtonTemplate)({ type, text, link });

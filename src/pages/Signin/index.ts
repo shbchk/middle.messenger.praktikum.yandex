@@ -23,9 +23,14 @@ const inputgroups = [
   }),
 ];
 
-const button = ModalButton({ text: 'Войти', type: 'submit', link: '/chat.html' });
+const button = ModalButton({
+  text: 'Войти',
+  type: 'submit',
+  link: '/chat.html',
+});
 
 export const Signin = () => {
+  // eslint-disable-next-line no-undef
   document.title = 'Авторизация';
   return Handlebars.compile(signinTemplate)({ inputgroups, button });
 };

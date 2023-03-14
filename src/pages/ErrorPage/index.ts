@@ -8,6 +8,7 @@ interface IErrorPage {
 }
 
 export const ErrorPage = ({ errorCode, errorMessage }: IErrorPage) => {
+  // eslint-disable-next-line no-undef
   document.title = `${errorCode}: ${errorMessage}`;
   return Handlebars.compile(errorPageTemplate)({ errorCode, errorMessage });
 };

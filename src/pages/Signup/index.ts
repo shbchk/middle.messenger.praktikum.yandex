@@ -63,9 +63,14 @@ const inputgroups = [
   }),
 ];
 
-const button = ModalButton({ text: 'Создать аккаунт', type: 'submit', link: '/chat.html' });
+const button = ModalButton({
+  text: 'Создать аккаунт',
+  type: 'submit',
+  link: '/chat.html',
+});
 
 export const Signup = () => {
+  // eslint-disable-next-line no-undef
   document.title = 'Регистрация';
   return Handlebars.compile(signupTemplate)({ inputgroups, button });
 };

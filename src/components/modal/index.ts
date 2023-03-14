@@ -8,4 +8,5 @@ interface IModal {
   modalContent: string;
 }
 
-export const Modal = ({ modalHeader, modalContent }: IModal) => Handlebars.compile(modalTemplate)({ modalHeader, modalContent });
+export const Modal = ({ modalHeader, modalContent }: IModal) =>
+  Handlebars.compile(modalTemplate)({ modalHeader, modalContent });

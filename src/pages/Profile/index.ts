@@ -57,6 +57,12 @@ const profileRows = [
 const backButton = BackButton();
 
 export const Profile = () => {
+  // eslint-disable-next-line no-undef
   document.title = 'Профиль';
-  return Handlebars.compile(profileTemplate)({ profileName, profileAvatar, profileRows, backButton });
+  return Handlebars.compile(profileTemplate)({
+    profileName,
+    profileAvatar,
+    profileRows,
+    backButton,
+  });
 };
