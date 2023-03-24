@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 type Callback = (...args: any[]) => void;
 
 export default class EventBus {
