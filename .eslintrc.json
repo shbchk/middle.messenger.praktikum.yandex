@@ -6,6 +6,12 @@
     "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
     "no-console": "off",
     "import/prefer-default-export": "off",
+    "no-underscore-dangle": "off",
+    "default-param-last": "off",
+    "class-methods-use-this": "off",
+    "no-unused-vars": "warn",
+    "arrow-body-style": "off",
+    "no-plusplus": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
