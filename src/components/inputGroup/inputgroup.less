@@ -39,9 +39,14 @@
   margin-top: 0.4rem;
   font-size: 0.7rem;
   color: var(--danger);
+  display: none;
+
+  &.active {
+    display: block;
+  }
 }
 
 .modal__input--error {
-  border-bottom-color: var(--error);
-  color: var(--error);
+  border-bottom-color: var(--danger);
+  color: var(--danger);
 }

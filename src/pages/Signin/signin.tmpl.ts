@@ -1,4 +1,4 @@
-export const signinTemplate: string = `<form>
+export const signinTemplate: string = `
   {{#each inputgroups}}
     {{{this}}}
   {{/each}}
@@ -7,4 +7,4 @@ export const signinTemplate: string = `<form>
     {{{button}}}
     <a href='/signup.html' class='signin__authlink'>Ещё не зарегистрированы?</a>
   </div>
-</form>`;
+`;

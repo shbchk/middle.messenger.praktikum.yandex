@@ -1,36 +1,78 @@
 import Handlebars from 'handlebars';
 import { signinTemplate } from './signin.tmpl';
-import { InputGroup } from '../../components/inputGroup';
-import { ModalButton } from '../../components/modalButton';
+import InputGroup from '../../components/inputGroup';
+import ModalButton from '../../components/modalButton';
 import './signin.less';
+import Block from '../../utils/Block';
+import Input from '../../components/input';
+import { validateField } from '../../utils/validateField';
 
-const inputgroups = [
-  InputGroup({
-    inputType: 'text',
-    inputName: 'login',
-    inputId: 'login',
-    inputRequired: 'required',
-    inputLabel: 'Логин',
-    errorMessage: 'Логин должен быть длиннее трех символов',
-  }),
-  InputGroup({
-    inputType: 'password',
-    inputName: 'password',
-    inputId: 'password',
-    inputRequired: 'required',
-    inputLabel: 'Пароль',
-    errorMessage: 'Кажется, вы ввели неверный пароль 😱',
-  }),
-];
+interface ISignin {
+  events: Record<string, (event: Event) => void>;
+}
 
-const button = ModalButton({
-  text: 'Войти',
-  type: 'submit',
-  link: '/chat.html',
-});
+export default class Signin extends Block {
+  constructor(props: ISignin) {
+    super('form', props);
+  }
 
-export const Signin = () => {
-  // eslint-disable-next-line no-undef
-  document.title = 'Авторизация';
-  return Handlebars.compile(signinTemplate)({ inputgroups, button });
-};
+  init() {
+    document.title = 'Авторизация';
+
+    this.children.inputgroups = [
+      new InputGroup({
+        inputLabel: 'Логин',
+        errorMessage: 'Логин должен быть длиннее трех символов',
+        input: new Input({
+          inputClassList: ['modal__input'],
+          inputId: 'login',
+          inputName: 'login',
+          inputType: 'text',
+          inputRequired: 'required',
+          events: {
+            focus: (event: Event) => validateField(event),
+            blur: (event: Event) => validateField(event),
+          },
+        }),
+        inputId: 'login',
+      }),
+      new InputGroup({
+        inputLabel: 'Пароль',
+        errorMessage: 'Кажется, вы ввели неверный пароль 😱',
+        input: new Input({
+          inputClassList: ['modal__input'],
+          inputId: 'password',
+          inputName: 'password',
+          inputType: 'password',
+          inputRequired: 'required',
+          events: {
+            focus: (event: Event) => validateField(event),
+            blur: (event: Event) => validateField(event),
+          },
+        }),
+        inputId: 'password',
+      }),
+    ];
+
+    this.children.button = new ModalButton({
+      text: 'Войти',
+      type: 'submit',
+      link: '/chat.html',
+      // events: {
+      //   click: (e) => {
+      //     e.preventDefault();
+      //     console.log(e);
+      //   },
+      // },
+    });
+  }
+
+  render() {
+    return this.compile(Handlebars.compile(signinTemplate), {
+      ...this.props,
+      inputgroups: Array.isArray(this.children.inputgroups)
+        ? this.children.inputgroups.map((inputgroup) => inputgroup.getContent())
+        : this.children.inputgroups.getContent(),
+    });
+  }
+}

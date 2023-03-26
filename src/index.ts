@@ -1,53 +1,37 @@
-import { Modal } from './components/modal';
-import { Signup } from './pages/Signup';
-import { Signin } from './pages/Signin';
-import { Chat } from './pages/Chat';
-import { ErrorPage } from './pages/ErrorPage';
-import { ProfileEdit } from './pages/ProfileEdit';
-import { Profile } from './pages/Profile';
-import { PasswordChange } from './pages/PasswordChange';
-
 import 'normalize.css';
+import Modal from './components/modal';
+import Signin from './pages/Signin';
+import { validateField } from './utils/validateField';
 
 const currentPath = window.location.pathname;
-let renderedTemplate;
+let renderedHTML;
 
-/* ERROR PAGE */
-if (currentPath === '/404.html') {
-  renderedTemplate = ErrorPage({ errorCode: '😱', errorMessage: 'Ой!' });
-}
+if (currentPath === '/') {
+  const modal = new Modal({
+    modalHeader: 'Авторизация',
+    modalContent: new Signin({
+      events: {
+        submit: (event) => {
+          event.preventDefault();
+          const isValid = validateField(event);
 
-/* SIGN IN PAGE */
-if (currentPath === '/signin.html' || currentPath === '/') {
-  renderedTemplate = Modal({ modalHeader: 'Войти', modalContent: Signin() });
-}
+          const formData = new FormData(event.target as HTMLFormElement);
+          const data: Record<string, string> = {};
+          formData.forEach((value, key) => {
+            data[key] = value.toString();
+          });
+          console.log(data);
 
-/* SIGN UP PAGE */
-if (currentPath === '/signup.html') {
-  renderedTemplate = Modal({
-    modalHeader: 'Зарегистрироваться',
-    modalContent: Signup(),
+          if (isValid) {
+            // eslint-disable-next-line no-restricted-globals
+            location.href = '/chat.html';
+          }
+        },
+      },
+    }),
   });
-}
 
-/* PROFILE PAGE */
-if (currentPath === '/profile.html') {
-  renderedTemplate = Profile();
-}
-
-/* PROFILE EDIT PAGE */
-if (currentPath === '/edit.html') {
-  renderedTemplate = ProfileEdit();
-}
-
-/* PASSWORD CHANGE PAGE */
-if (currentPath === '/password.html') {
-  renderedTemplate = PasswordChange();
-}
-
-/* CHAT PAGE */
-if (currentPath === '/chat.html') {
-  renderedTemplate = Chat();
+  renderedHTML = modal.getContent();
 }
 
 type Nullable<T> = T | null;
@@ -60,4 +44,4 @@ if (!root) {
   throw new Error('There is no #root div');
 }
 
-root.innerHTML = renderedTemplate ?? '';
+root.append(renderedHTML as HTMLElement);

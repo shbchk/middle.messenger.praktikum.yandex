@@ -1,5 +1,4 @@
-export const signupTemplate: string = `<form class='form'>
-
+export const signupTemplate: string = `
   {{#each inputgroups}}
     {{{this}}}
   {{/each}}
@@ -8,5 +7,4 @@ export const signupTemplate: string = `<form class='form'>
     {{{button}}}
     <a href='/signin.html' class='signup__authlink'>Уже есть аккаунт?</a>
   </div>
-
-</form>`;
+`;
