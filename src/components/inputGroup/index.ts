@@ -20,20 +20,3 @@ export default class inputGroup extends Block<IInputGroup> {
     return this.compile(Handlebars.compile(inputgroupTemplate), this.props);
   }
 }
-
-// export const InputGroup = ({
-//   inputType,
-//   inputName,
-//   inputId,
-//   inputRequired,
-//   inputLabel,
-//   errorMessage,
-// }: IInputGroup) =>
-//   Handlebars.compile(inputgroupTemplate)({
-//     inputType,
-//     inputName,
-//     inputId,
-//     inputRequired,
-//     inputLabel,
-//     errorMessage,
-//   });

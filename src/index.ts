@@ -20,11 +20,12 @@ if (currentPath === '/') {
           formData.forEach((value, key) => {
             data[key] = value.toString();
           });
+
           console.log(data);
 
           if (isValid) {
-            // eslint-disable-next-line no-restricted-globals
-            location.href = '/chat.html';
+            // eslint-disable-next-line no-restricted-globals, no-return-assign
+            setTimeout(() => (location.href = '/chat.html'), 1500);
           }
         },
       },

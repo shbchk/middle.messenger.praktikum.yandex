@@ -8,6 +8,7 @@ import Input from '../../components/input';
 import { validateField } from '../../utils/validateField';
 
 interface ISignin {
+  // eslint-disable-next-line no-unused-vars
   events: Record<string, (event: Event) => void>;
 }
 
@@ -46,8 +47,8 @@ export default class Signin extends Block {
           inputType: 'password',
           inputRequired: 'required',
           events: {
-            focus: (event: Event) => validateField(event),
-            blur: (event: Event) => validateField(event),
+            focus: (event) => validateField(event),
+            blur: (event) => validateField(event),
           },
         }),
         inputId: 'password',
@@ -58,12 +59,6 @@ export default class Signin extends Block {
       text: 'Войти',
       type: 'submit',
       link: '/chat.html',
-      // events: {
-      //   click: (e) => {
-      //     e.preventDefault();
-      //     console.log(e);
-      //   },
-      // },
     });
   }
 
