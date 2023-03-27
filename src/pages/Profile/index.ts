@@ -1,68 +1,119 @@
 import Handlebars from 'handlebars';
-import { BackButton } from '../../components/profile/backButton';
-import { ProfileRow } from '../../components/profile/profileRow';
 import { profileTemplate } from './profile.tmpl';
-
 import './profile.less';
+import Block from '../../utils/Block';
+import ProfileRow from '../../components/profile/profileRow';
+import Input from '../../components/input';
+import BackButton from '../../components/profile/backButton';
 
-const profileName = 'Васисуалий Початков';
+export interface IProfile {
+  login: string;
+  firstName: string;
+  secondName: string;
+  avatar: string;
+  email: string;
+  phone: string;
+  displayName: string;
+}
 
-const profileAvatar = 'https://xsgames.co/randomusers/avatar.php?g=male';
+export default class Profile extends Block<IProfile> {
+  constructor(props: IProfile) {
+    super('div', props);
+  }
 
-const profileRows = [
-  ProfileRow({
-    rowLabel: 'Почта',
-    rowInputName: 'email',
-    rowInputPlaceholder: 'Почта',
-    rowInputValue: 'pochta@domain.tld',
-    rowInputDisabled: 'disabled',
-  }),
-  ProfileRow({
-    rowLabel: 'Логин',
-    rowInputName: 'login',
-    rowInputPlaceholder: 'Логин',
-    rowInputValue: 'myusername',
-    rowInputDisabled: 'disabled',
-  }),
-  ProfileRow({
-    rowLabel: 'Имя',
-    rowInputName: 'first_name',
-    rowInputPlaceholder: 'Имя',
-    rowInputValue: 'Васисуалий',
-    rowInputDisabled: 'disabled',
-  }),
-  ProfileRow({
-    rowLabel: 'Фамилия',
-    rowInputName: 'second_name',
-    rowInputPlaceholder: 'Фамилия',
-    rowInputValue: 'Початков',
-    rowInputDisabled: 'disabled',
-  }),
-  ProfileRow({
-    rowLabel: 'Имя в чате',
-    rowInputName: 'display_name',
-    rowInputPlaceholder: 'Имя в чате',
-    rowInputValue: 'Васисуалий Початков',
-    rowInputDisabled: 'disabled',
-  }),
-  ProfileRow({
-    rowLabel: 'Телефон',
-    rowInputName: 'phone',
-    rowInputPlaceholder: 'Телефон',
-    rowInputValue: '+77 (666) 55-44-33',
-    rowInputDisabled: 'disabled',
-  }),
-];
+  init() {
+    this.children.profileRows = [
+      new ProfileRow({
+        rowLabel: 'Логин',
+        rowInput: new Input({
+          inputType: 'text',
+          inputId: 'login',
+          inputName: 'login',
+          inputPlaceholder: 'Логин',
+          inputRequired: 'required',
+          inputDisabled: 'disabled',
+          inputValue: this.props.login,
+          inputClassList: ['profile__row-value-input'],
+        }),
+      }),
+      new ProfileRow({
+        rowLabel: 'Почта',
+        rowInput: new Input({
+          inputType: 'text',
+          inputId: 'email',
+          inputName: 'email',
+          inputPlaceholder: 'Почта',
+          inputRequired: 'required',
+          inputDisabled: 'disabled',
+          inputValue: this.props.email,
+          inputClassList: ['profile__row-value-input'],
+        }),
+      }),
+      new ProfileRow({
+        rowLabel: 'Имя',
+        rowInput: new Input({
+          inputType: 'text',
+          inputId: 'first_name',
+          inputName: 'first_name',
+          inputPlaceholder: 'Имя',
+          inputRequired: 'required',
+          inputDisabled: 'disabled',
+          inputValue: this.props.firstName,
+          inputClassList: ['profile__row-value-input'],
+        }),
+      }),
+      new ProfileRow({
+        rowLabel: 'Фамилия',
+        rowInput: new Input({
+          inputType: 'text',
+          inputId: 'second_name',
+          inputName: 'second_name',
+          inputPlaceholder: 'Имя',
+          inputRequired: 'required',
+          inputDisabled: 'disabled',
+          inputValue: this.props.secondName,
+          inputClassList: ['profile__row-value-input'],
+        }),
+      }),
+      new ProfileRow({
+        rowLabel: 'Имя в чате',
+        rowInput: new Input({
+          inputType: 'text',
+          inputId: 'display_name',
+          inputName: 'display_name',
+          inputPlaceholder: 'Имя в чате',
+          inputRequired: 'required',
+          inputDisabled: 'disabled',
+          inputValue: this.props.displayName,
+          inputClassList: ['profile__row-value-input'],
+        }),
+      }),
+      new ProfileRow({
+        rowLabel: 'Телефон',
+        rowInput: new Input({
+          inputType: 'text',
+          inputId: 'phone',
+          inputName: 'phone',
+          inputPlaceholder: 'Телефон',
+          inputRequired: 'required',
+          inputDisabled: 'disabled',
+          inputValue: this.props.phone,
+          inputClassList: ['profile__row-value-input'],
+        }),
+      }),
+    ];
 
-const backButton = BackButton();
+    this.children.backButton = new BackButton({
+      link: '/chat.html',
+    });
+  }
 
-export const Profile = () => {
-  // eslint-disable-next-line no-undef
-  document.title = 'Профиль';
-  return Handlebars.compile(profileTemplate)({
-    profileName,
-    profileAvatar,
-    profileRows,
-    backButton,
-  });
-};
+  render() {
+    return this.compile(Handlebars.compile(profileTemplate), {
+      ...this.props,
+      profileRows: Array.isArray(this.children.profileRows)
+        ? this.children.profileRows.map((profileRow) => profileRow.getContent())
+        : this.children.profileRows.getContent(),
+    });
+  }
+}

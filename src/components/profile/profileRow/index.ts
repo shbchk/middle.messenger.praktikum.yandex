@@ -1,29 +1,21 @@
 import Handlebars from 'handlebars';
 import { profileRowTemplate } from './profileRow.tmpl';
 import './profileRow.less';
+import Block from '../../../utils/Block';
 
 interface IProfileRow {
   rowLabel: string;
-  rowInputName: string;
-  rowInputPlaceholder: string;
-  rowInputValue: string;
-  rowInputType?: string;
-  rowInputDisabled?: string;
+  rowInput: Block;
 }
 
-export const ProfileRow = ({
-  rowLabel,
-  rowInputName,
-  rowInputPlaceholder,
-  rowInputValue,
-  rowInputType = 'text',
-  rowInputDisabled,
-}: IProfileRow) =>
-  Handlebars.compile(profileRowTemplate)({
-    rowLabel,
-    rowInputName,
-    rowInputPlaceholder,
-    rowInputValue,
-    rowInputType,
-    rowInputDisabled,
-  });
+export default class ProfileRow extends Block<IProfileRow> {
+  constructor(props: IProfileRow) {
+    super('div', props);
+  }
+
+  render() {
+    this.element!.classList.add('profile__row');
+
+    return this.compile(Handlebars.compile(profileRowTemplate), this.props);
+  }
+}

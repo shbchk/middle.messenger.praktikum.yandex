@@ -1,5 +1,19 @@
 import Handlebars from 'handlebars';
-import { backButtonTemplate } from './backButton.tmpl';
 import './backButton.less';
+import Block from '../../../utils/Block';
 
-export const BackButton = () => Handlebars.compile(backButtonTemplate)(null);
+interface IBackButton {
+  link: string;
+}
+export default class BackButton extends Block<IBackButton> {
+  constructor(props: IBackButton) {
+    super('a', props);
+  }
+
+  render() {
+    this.element!.classList.add('profile_back-button');
+    (this.element! as HTMLAnchorElement).href = this.props.link;
+    this.element!.textContent = '🔙';
+    return this.compile(Handlebars.compile(''), this.props);
+  }
+}

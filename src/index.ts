@@ -1,5 +1,8 @@
 import 'normalize.css';
 import Modal from './components/modal';
+import ErrorPage from './pages/ErrorPage';
+import Profile from './pages/Profile';
+import ProfileEdit from './pages/ProfileEdit';
 import Signin from './pages/Signin';
 import Signup from './pages/Signup';
 import { validateField } from './utils/validateField';
@@ -7,7 +10,7 @@ import { validateField } from './utils/validateField';
 const currentPath = window.location.pathname;
 let renderedHTML;
 
-if (currentPath === '/') {
+if (currentPath === '/' || currentPath === '/signin.html') {
   const modal = new Modal({
     modalHeader: 'Авторизация',
     modalContent: new Signin({
@@ -69,6 +72,49 @@ if (currentPath === '/signup.html') {
   });
 
   renderedHTML = modal.getContent();
+}
+
+if (currentPath === '/404.html') {
+  const errorPage = new ErrorPage({
+    errorCode: '😱',
+    errorMessage: 'Ой!',
+  });
+
+  renderedHTML = errorPage.getContent();
+}
+
+if (currentPath === '/profile.html') {
+  const profile = new Profile({
+    avatar: 'https://xsgames.co/randomusers/avatar.php?g=male',
+    displayName: 'Васисуалий Лоханкин',
+    email: 'vasisualy@lohankin.com',
+    firstName: 'Васисуалий',
+    secondName: 'Лоханкин',
+    login: 'vasisu',
+    phone: '+7965986565626',
+  });
+
+  renderedHTML = profile.getContent();
+}
+
+if (currentPath === '/edit.html') {
+  const profile = new ProfileEdit({
+    avatar: 'https://xsgames.co/randomusers/avatar.php?g=male',
+    displayName: 'Васисуалий Лоханкин',
+    email: 'vasisualy@lohankin.com',
+    firstName: 'Васисуалий',
+    secondName: 'Лоханкин',
+    login: 'vasisu',
+    phone: '+7965986565626',
+    events: {
+      submit: (event) => {
+        event.preventDefault();
+        validateField(event, 'profileEdit');
+      },
+    },
+  });
+
+  renderedHTML = profile.getContent();
 }
 
 type Nullable<T> = T | null;

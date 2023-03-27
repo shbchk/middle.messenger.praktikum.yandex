@@ -6,6 +6,10 @@ const validateFieldContent = (
     case 'first_name':
     case 'second_name':
       return /^[А-ЯЁA-Z][а-яёa-z]+(-[А-ЯЁA-Z][а-яёa-z]+)?$/.test(fieldValue);
+    case 'display_name':
+      return /^[a-zA-Zа-яА-ЯёЁ]+([-][a-zA-Zа-яА-ЯёЁ]+)*(\s+[a-zA-Zа-яА-ЯёЁ]+([-][a-zA-Zа-яА-ЯёЁ]+)*)*$/.test(
+        fieldValue,
+      );
     case 'login':
       return (
         !/^\d+$/.test(fieldValue) &&
@@ -16,7 +20,6 @@ const validateFieldContent = (
         fieldValue,
       );
     case 'password':
-      return /^(?=.*\d)(?=.*[A-Z])[^\s]{8,40}$/.test(fieldValue);
     case 'password_confirm':
       return /^(?=.*\d)(?=.*[A-Z])[^\s]{8,40}$/.test(fieldValue);
     case 'phone':
@@ -29,6 +32,29 @@ const validateFieldContent = (
 };
 
 export const validateField = (event: Event, formId: string): boolean => {
+  if (event.type === 'submit') {
+    const formData = new FormData(event.target as HTMLFormElement);
+    let result = true;
+    const data: any = {};
+    formData.forEach((val, key) => {
+      data[key] = val;
+
+      if (!validateFieldContent(key, val.toString())) {
+        result = false;
+        document
+          .querySelector(`[name="${key}"] ~ .validation-error-message`)
+          ?.classList.add('active');
+        document
+          .querySelector(`[name="${key}"]`)
+          ?.classList.add('input--error');
+      }
+    });
+
+    console.log(data);
+
+    return result;
+  }
+
   const { name, value, id } = event.target as HTMLInputElement;
   const targetInput = document.querySelector(`#${id}`);
   const errorMessageDiv = document.querySelector(
@@ -38,35 +64,18 @@ export const validateField = (event: Event, formId: string): boolean => {
     `#${formId} button[type="submit"]`,
   );
 
-  if (event.type === 'submit') {
-    const formData = new FormData(event.target as HTMLFormElement);
-    let result = true;
-    formData.forEach((val, key) => {
-      if (!validateFieldContent(key, val.toString())) {
-        result = false;
-        document
-          .querySelector(`[name="${key}"] ~ .modal__validation-error-message`)
-          ?.classList.add('active');
-        document
-          .querySelector(`[name="${key}"]`)
-          ?.classList.add('modal__input--error');
-      }
-    });
-    return result;
-  }
-
   if (id === 'password_confirm') {
     const pass = (document.querySelector('#password') as HTMLInputElement)
       .value;
     if (pass !== value) {
       errorMessageDiv?.classList.add('active');
-      targetInput?.classList.add('modal__input--error');
+      targetInput?.classList.add('input--error');
       submitButton?.setAttribute('disabled', '');
       return false;
       // eslint-disable-next-line no-else-return
     } else {
       errorMessageDiv?.classList.remove('active');
-      targetInput?.classList.remove('modal__input--error');
+      targetInput?.classList.remove('input--error');
       submitButton?.removeAttribute('disabled');
       return true;
     }

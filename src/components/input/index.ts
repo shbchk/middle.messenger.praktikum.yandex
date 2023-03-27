@@ -6,7 +6,10 @@ interface IInput {
   inputName: string;
   inputId: string;
   inputClassList: string[];
-  inputRequired?: string;
+  inputRequired?: 'required';
+  inputDisabled?: 'disabled';
+  inputPlaceholder?: string;
+  inputValue?: string;
   // eslint-disable-next-line no-unused-vars
   events?: Record<string, (event: Event) => void>;
 }
@@ -25,6 +28,12 @@ export default class Input extends Block<IInput> {
     );
     if (this.props.inputRequired) {
       this.element!.setAttribute('required', '');
+    }
+    if (this.props.inputDisabled) {
+      this.element!.setAttribute('disabled', '');
+    }
+    if (this.props.inputValue) {
+      (this.element! as HTMLInputElement).value = this.props.inputValue;
     }
     return this.compile(Handlebars.compile(''), this.props);
   }
