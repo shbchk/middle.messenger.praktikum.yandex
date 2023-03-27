@@ -23,7 +23,8 @@ export default class Signin extends Block {
     this.children.inputgroups = [
       new InputGroup({
         inputLabel: 'Логин',
-        errorMessage: 'Логин должен быть длиннее трех символов',
+        errorMessage:
+          'Требования к логину: от 3 до 20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, без спецсимволов (допустимы дефис и нижнее подчёркивание)',
         input: new Input({
           inputClassList: ['modal__input'],
           inputId: 'login',
@@ -31,15 +32,16 @@ export default class Signin extends Block {
           inputType: 'text',
           inputRequired: 'required',
           events: {
-            focus: (event: Event) => validateField(event),
-            blur: (event: Event) => validateField(event),
+            focus: (event: Event) => validateField(event, 'signin-form'),
+            blur: (event: Event) => validateField(event, 'signin-form'),
           },
         }),
         inputId: 'login',
       }),
       new InputGroup({
         inputLabel: 'Пароль',
-        errorMessage: 'Кажется, вы ввели неверный пароль 😱',
+        errorMessage:
+          'Требования к паролю: от 8 до 40 символов, обязательно хотя бы одна заглавная буква и цифра',
         input: new Input({
           inputClassList: ['modal__input'],
           inputId: 'password',
@@ -47,8 +49,8 @@ export default class Signin extends Block {
           inputType: 'password',
           inputRequired: 'required',
           events: {
-            focus: (event) => validateField(event),
-            blur: (event) => validateField(event),
+            focus: (event) => validateField(event, 'signin-form'),
+            blur: (event) => validateField(event, 'signin-form'),
           },
         }),
         inputId: 'password',
@@ -59,10 +61,13 @@ export default class Signin extends Block {
       text: 'Войти',
       type: 'submit',
       link: '/chat.html',
+      disabled: true,
+      id: 'submit-button',
     });
   }
 
   render() {
+    this.element!.id = 'signin-form';
     return this.compile(Handlebars.compile(signinTemplate), {
       ...this.props,
       inputgroups: Array.isArray(this.children.inputgroups)

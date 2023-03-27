@@ -26,7 +26,7 @@ const validateFieldContent = (
   }
 };
 
-export const validateField = (event: Event): boolean => {
+export const validateField = (event: Event, formId: string): boolean => {
   if (event.type === 'submit') {
     const formData = new FormData(event.target as HTMLFormElement);
     let result = true;
@@ -50,13 +50,18 @@ export const validateField = (event: Event): boolean => {
   const errorMessageDiv = document.querySelector(
     `[for="${id}"] ~ .modal__validation-error-message`,
   );
+  const submitButton = document.querySelector(
+    `#${formId} button[type="submit"]`,
+  );
 
   if (!isValid) {
     errorMessageDiv?.classList.add('active');
     targetInput?.classList.add('modal__input--error');
+    submitButton?.setAttribute('disabled', '');
   } else {
     errorMessageDiv?.classList.remove('active');
     targetInput?.classList.remove('modal__input--error');
+    submitButton?.removeAttribute('disabled');
   }
 
   return isValid;

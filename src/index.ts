@@ -13,7 +13,7 @@ if (currentPath === '/') {
       events: {
         submit: (event) => {
           event.preventDefault();
-          const isValid = validateField(event);
+          const isValid = validateField(event, 'signin-form');
 
           const formData = new FormData(event.target as HTMLFormElement);
           const data: Record<string, string> = {};
@@ -22,10 +22,13 @@ if (currentPath === '/') {
           });
 
           console.log(data);
+          console.log(
+            'Пароль верный! Переход на /chat.html через 3 секунды...',
+          );
 
           if (isValid) {
             // eslint-disable-next-line no-restricted-globals, no-return-assign
-            setTimeout(() => (location.href = '/chat.html'), 1500);
+            setTimeout(() => (location.href = '/chat.html'), 3000);
           }
         },
       },

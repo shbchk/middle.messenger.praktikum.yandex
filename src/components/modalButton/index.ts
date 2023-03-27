@@ -8,6 +8,8 @@ interface IModalButton {
   link?: string;
   // eslint-disable-next-line no-unused-vars
   events?: Record<string, (event: Event) => void>;
+  disabled?: boolean;
+  id: string;
 }
 
 export default class ModalButton extends Block<IModalButton> {
@@ -19,6 +21,10 @@ export default class ModalButton extends Block<IModalButton> {
 
   render() {
     this.element!.setAttribute('type', this.props.type);
+    if (this.props.disabled) {
+      this.element!.setAttribute('disabled', '');
+    }
+    this.element!.id = this.props.id;
     this.element!.classList.add('modal__button');
     (this.element! as HTMLAnchorElement).textContent = this.props.text;
 
