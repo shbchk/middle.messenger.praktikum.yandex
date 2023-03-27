@@ -10,6 +10,7 @@ import ModalButton from '../../components/modalButton';
 import { validateField } from '../../utils/validateField';
 
 interface IProfileEdit extends IProfile {
+  // eslint-disable-next-line no-unused-vars
   events: Record<string, (event: Event) => void>;
 }
 
