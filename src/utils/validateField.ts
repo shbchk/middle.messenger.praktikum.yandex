@@ -21,6 +21,7 @@ const validateFieldContent = (
       );
     case 'password':
     case 'password_confirm':
+    case 'oldPassword':
       return /^(?=.*\d)(?=.*[A-Z])[^\s]{8,40}$/.test(fieldValue);
     case 'phone':
       return /^\+?\d{10,15}$/.test(fieldValue);
@@ -35,14 +36,15 @@ export const validateField = (event: Event, formId: string): boolean => {
   if (event.type === 'submit') {
     const formData = new FormData(event.target as HTMLFormElement);
     let result = true;
-    const data: any = {};
+    // eslint-disable-next-line no-undef
+    const data: Record<string, FormDataEntryValue> = {};
     formData.forEach((val, key) => {
       data[key] = val;
 
       if (!validateFieldContent(key, val.toString())) {
         result = false;
         document
-          .querySelector(`[name="${key}"] ~ .validation-error-message`)
+          .querySelector(`[name="${key}"] ~ .modal__validation-error-message`)
           ?.classList.add('active');
         document
           .querySelector(`[name="${key}"]`)
@@ -69,13 +71,13 @@ export const validateField = (event: Event, formId: string): boolean => {
       .value;
     if (pass !== value) {
       errorMessageDiv?.classList.add('active');
-      targetInput?.classList.add('input--error');
+      targetInput?.classList.add('modal__input--error');
       submitButton?.setAttribute('disabled', '');
       return false;
       // eslint-disable-next-line no-else-return
     } else {
       errorMessageDiv?.classList.remove('active');
-      targetInput?.classList.remove('input--error');
+      targetInput?.classList.remove('modal__input--error');
       submitButton?.removeAttribute('disabled');
       return true;
     }

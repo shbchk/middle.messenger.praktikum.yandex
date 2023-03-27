@@ -1,57 +1,94 @@
 import Handlebars from 'handlebars';
 import { profileEditTemplate } from '../ProfileEdit/profileEdit.tmpl';
-import { ModalButton } from '../../components/modalButton';
-import { BackButton } from '../../components/profile/backButton';
-import { ProfileRow } from '../../components/profile/profileRow';
+import '../ProfileEdit/profileEdit.less';
+import Block from '../../utils/Block';
+import ProfileRow from '../../components/profile/profileRow';
+import Input from '../../components/input';
+import BackButton from '../../components/profile/backButton';
+import { IProfile } from '../Profile';
+import ModalButton from '../../components/modalButton';
+import { validateField } from '../../utils/validateField';
 
-import '../Profile/profile.less';
+interface IPasswordChange extends IProfile {
+  // eslint-disable-next-line no-unused-vars
+  events: Record<string, (event: Event) => void>;
+}
 
-const profileName = 'Васисуалий Початков';
+export default class PasswordChange extends Block<IPasswordChange> {
+  constructor(props: IPasswordChange) {
+    super('form', props);
+  }
 
-const profileAvatar = 'https://xsgames.co/randomusers/avatar.php?g=male';
+  init() {
+    this.children.profileRows = [
+      new ProfileRow({
+        rowLabel: 'Старенький пароль',
+        rowInput: new Input({
+          inputType: 'password',
+          inputId: 'oldPassword',
+          inputName: 'oldPassword',
+          inputPlaceholder: 'Старый пароль',
+          inputRequired: 'required',
+          inputClassList: ['profile__row-value-input'],
+          events: {
+            blur: (event) => validateField(event, 'passwordChange'),
+            focus: (event) => validateField(event, 'passwordChange'),
+          },
+        }),
+      }),
+      new ProfileRow({
+        rowLabel: 'Новый пароль',
+        rowInput: new Input({
+          inputType: 'password',
+          inputId: 'password',
+          inputName: 'password',
+          inputPlaceholder: 'Новый пароль',
+          inputRequired: 'required',
+          inputClassList: ['profile__row-value-input'],
+          events: {
+            blur: (event) => validateField(event, 'passwordChange'),
+            focus: (event) => validateField(event, 'passwordChange'),
+          },
+        }),
+      }),
+      new ProfileRow({
+        rowLabel: 'Еще раз новый пароль',
+        rowInput: new Input({
+          inputType: 'password',
+          inputId: 'password_confirm',
+          inputName: 'password_confirm',
+          inputPlaceholder: 'Еще раз новый пароль',
+          inputRequired: 'required',
+          inputClassList: ['profile__row-value-input'],
+          events: {
+            blur: (event) => validateField(event, 'passwordChange'),
+            focus: (event) => validateField(event, 'passwordChange'),
+          },
+        }),
+      }),
+    ];
 
-const profileRows = [
-  ProfileRow({
-    rowLabel: 'Старенький пароль',
-    rowInputName: 'oldPassword',
-    rowInputPlaceholder: '',
-    rowInputValue: '',
-    rowInputDisabled: '',
-    rowInputType: 'password',
-  }),
-  ProfileRow({
-    rowLabel: 'Новый пароль',
-    rowInputName: 'newPassword',
-    rowInputPlaceholder: '',
-    rowInputValue: '',
-    rowInputDisabled: '',
-    rowInputType: 'password',
-  }),
-  ProfileRow({
-    rowLabel: 'Еще раз новый пароль',
-    rowInputName: 'newPasswordConfirm',
-    rowInputPlaceholder: '',
-    rowInputValue: '',
-    rowInputDisabled: '',
-    rowInputType: 'password',
-  }),
-];
+    this.children.backButton = new BackButton({
+      link: '/profile.html',
+    });
 
-const backButton = BackButton();
-const saveButton = ModalButton({
-  type: 'button',
-  text: 'Изменить',
-  link: '/chat.html',
-});
+    this.children.saveButton = new ModalButton({
+      id: 'submit-button',
+      type: 'submit',
+      text: 'Изменить пароль',
+      link: '/profile.html',
+    });
+  }
 
-export const PasswordChange = () => {
-  // eslint-disable-next-line no-undef
-  document.title = 'Изменить пароль';
-  return Handlebars.compile(profileEditTemplate)({
-    profileName,
-    profileAvatar,
-    profileRows,
-    backButton,
-    saveButton,
-  });
-};
+  render() {
+    this.element!.id = 'passwordChange';
+
+    return this.compile(Handlebars.compile(profileEditTemplate), {
+      ...this.props,
+      profileRows: Array.isArray(this.children.profileRows)
+        ? this.children.profileRows.map((profileRow) => profileRow.getContent())
+        : this.children.profileRows.getContent(),
+      saveButton: this.children.saveButton,
+    });
+  }
+}

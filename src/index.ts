@@ -1,6 +1,7 @@
 import 'normalize.css';
 import Modal from './components/modal';
 import ErrorPage from './pages/ErrorPage';
+import PasswordChange from './pages/PasswordChange';
 import Profile from './pages/Profile';
 import ProfileEdit from './pages/ProfileEdit';
 import Signin from './pages/Signin';
@@ -115,6 +116,26 @@ if (currentPath === '/edit.html') {
   });
 
   renderedHTML = profile.getContent();
+}
+
+if (currentPath === '/password.html') {
+  const passwordChange = new PasswordChange({
+    avatar: 'https://xsgames.co/randomusers/avatar.php?g=male',
+    displayName: 'Васисуалий Лоханкин',
+    email: 'vasisualy@lohankin.com',
+    firstName: 'Васисуалий',
+    secondName: 'Лоханкин',
+    login: 'vasisu',
+    phone: '+7965986565626',
+    events: {
+      submit: (event) => {
+        event.preventDefault();
+        validateField(event, 'profileEdit');
+      },
+    },
+  });
+
+  renderedHTML = passwordChange.getContent();
 }
 
 type Nullable<T> = T | null;
