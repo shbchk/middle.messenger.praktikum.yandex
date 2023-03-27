@@ -1,6 +1,7 @@
 import 'normalize.css';
 import Modal from './components/modal';
 import Signin from './pages/Signin';
+import Signup from './pages/Signup';
 import { validateField } from './utils/validateField';
 
 const currentPath = window.location.pathname;
@@ -24,6 +25,38 @@ if (currentPath === '/') {
           console.log(data);
           console.log(
             'Пароль верный! Переход на /chat.html через 3 секунды...',
+          );
+
+          if (isValid) {
+            // eslint-disable-next-line no-restricted-globals, no-return-assign
+            setTimeout(() => (location.href = '/chat.html'), 3000);
+          }
+        },
+      },
+    }),
+  });
+
+  renderedHTML = modal.getContent();
+}
+
+if (currentPath === '/signup.html') {
+  const modal = new Modal({
+    modalHeader: 'Регистрация',
+    modalContent: new Signup({
+      events: {
+        submit: (event) => {
+          event.preventDefault();
+          const isValid = validateField(event, 'signup-form');
+
+          const formData = new FormData(event.target as HTMLFormElement);
+          const data: Record<string, string> = {};
+          formData.forEach((value, key) => {
+            data[key] = value.toString();
+          });
+
+          console.log(data);
+          console.log(
+            'Все поля заполнены верно! Переход на /chat.html через 3 секунды...',
           );
 
           if (isValid) {

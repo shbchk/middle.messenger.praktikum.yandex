@@ -17,6 +17,8 @@ const validateFieldContent = (
       );
     case 'password':
       return /^(?=.*\d)(?=.*[A-Z])[^\s]{8,40}$/.test(fieldValue);
+    case 'password_confirm':
+      return /^(?=.*\d)(?=.*[A-Z])[^\s]{8,40}$/.test(fieldValue);
     case 'phone':
       return /^\+?\d{10,15}$/.test(fieldValue);
     case 'message':
@@ -27,6 +29,15 @@ const validateFieldContent = (
 };
 
 export const validateField = (event: Event, formId: string): boolean => {
+  const { name, value, id } = event.target as HTMLInputElement;
+  const targetInput = document.querySelector(`#${id}`);
+  const errorMessageDiv = document.querySelector(
+    `[for="${id}"] ~ .modal__validation-error-message`,
+  );
+  const submitButton = document.querySelector(
+    `#${formId} button[type="submit"]`,
+  );
+
   if (event.type === 'submit') {
     const formData = new FormData(event.target as HTMLFormElement);
     let result = true;
@@ -44,15 +55,24 @@ export const validateField = (event: Event, formId: string): boolean => {
     return result;
   }
 
-  const { name, value, id } = event.target as HTMLInputElement;
+  if (id === 'password_confirm') {
+    const pass = (document.querySelector('#password') as HTMLInputElement)
+      .value;
+    if (pass !== value) {
+      errorMessageDiv?.classList.add('active');
+      targetInput?.classList.add('modal__input--error');
+      submitButton?.setAttribute('disabled', '');
+      return false;
+      // eslint-disable-next-line no-else-return
+    } else {
+      errorMessageDiv?.classList.remove('active');
+      targetInput?.classList.remove('modal__input--error');
+      submitButton?.removeAttribute('disabled');
+      return true;
+    }
+  }
+
   const isValid = validateFieldContent(name, value);
-  const targetInput = document.querySelector(`#${id}`);
-  const errorMessageDiv = document.querySelector(
-    `[for="${id}"] ~ .modal__validation-error-message`,
-  );
-  const submitButton = document.querySelector(
-    `#${formId} button[type="submit"]`,
-  );
 
   if (!isValid) {
     errorMessageDiv?.classList.add('active');

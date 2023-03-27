@@ -1,76 +1,162 @@
 import Handlebars from 'handlebars';
 import { signupTemplate } from './signup.tmpl';
-import { InputGroup } from '../../components/inputGroup';
-import { ModalButton } from '../../components/modalButton';
+import InputGroup from '../../components/inputGroup';
+import ModalButton from '../../components/modalButton';
 import './signup.less';
+import Block from '../../utils/Block';
+import Input from '../../components/input';
+import { validateField } from '../../utils/validateField';
 
-const inputgroups = [
-  InputGroup({
-    inputType: 'text',
-    inputName: 'email',
-    inputId: 'email',
-    inputRequired: 'required',
-    inputLabel: 'Почта',
-    errorMessage: 'Неверный формат почтового адреса',
-  }),
-  InputGroup({
-    inputType: 'text',
-    inputName: 'login',
-    inputId: 'login',
-    inputRequired: 'required',
-    inputLabel: 'Логин',
-    errorMessage: 'Логин должен быть длиннее трех символов',
-  }),
-  InputGroup({
-    inputType: 'text',
-    inputName: 'first_name',
-    inputId: 'first_name',
-    inputRequired: 'required',
-    inputLabel: 'Имя',
-    errorMessage: 'Пожалуйста, введите имя',
-  }),
-  InputGroup({
-    inputType: 'text',
-    inputName: 'second_name',
-    inputId: 'second_name',
-    inputRequired: 'required',
-    inputLabel: 'Фамилия',
-    errorMessage: 'Пожалуйста, введите фамилию',
-  }),
-  InputGroup({
-    inputType: 'text',
-    inputName: 'phone',
-    inputId: 'phone',
-    inputRequired: 'required',
-    inputLabel: 'Телефон',
-    errorMessage: 'Пожалуйста, введите правильный телефон',
-  }),
-  InputGroup({
-    inputType: 'password',
-    inputName: 'password',
-    inputId: 'password',
-    inputRequired: 'required',
-    inputLabel: 'Пароль',
-    errorMessage: 'Пароль должен состоять минимум из 5 символов',
-  }),
-  InputGroup({
-    inputType: 'password',
-    inputName: 'password_confirm',
-    inputId: 'password_confirm',
-    inputRequired: 'required',
-    inputLabel: 'Пароль (еще раз, на всякий случай)',
-    errorMessage: 'Пароли не совпадают :(',
-  }),
-];
+interface ISignup {
+  // eslint-disable-next-line no-unused-vars
+  events: Record<string, (event: Event) => void>;
+}
 
-const button = ModalButton({
-  text: 'Создать аккаунт',
-  type: 'submit',
-  link: '/chat.html',
-});
+export default class Signup extends Block {
+  constructor(props: ISignup) {
+    super('form', props);
+  }
 
-export const Signup = () => {
-  // eslint-disable-next-line no-undef
-  document.title = 'Регистрация';
-  return Handlebars.compile(signupTemplate)({ inputgroups, button });
-};
+  init() {
+    document.title = 'Регистрация';
+
+    this.children.inputgroups = [
+      new InputGroup({
+        inputLabel: 'Почта',
+        inputId: 'email',
+        errorMessage:
+          'Требования к адресу почты: латиница, может включать цифры и спецсимволы вроде дефиса, обязательно должна быть «собака» (@) и точка после неё, но перед точкой обязательно должны быть буквы',
+        input: new Input({
+          inputClassList: ['modal__input'],
+          inputId: 'email',
+          inputName: 'email',
+          inputType: 'text',
+          inputRequired: 'required',
+          events: {
+            focus: (event: Event) => validateField(event, 'signup-form'),
+            blur: (event: Event) => validateField(event, 'signup-form'),
+          },
+        }),
+      }),
+      new InputGroup({
+        inputLabel: 'Логин',
+        inputId: 'login',
+        errorMessage:
+          'Требования к логину: от 3 до 20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, без спецсимволов (допустимы дефис и нижнее подчёркивание)',
+        input: new Input({
+          inputClassList: ['modal__input'],
+          inputId: 'login',
+          inputName: 'login',
+          inputType: 'text',
+          inputRequired: 'required',
+          events: {
+            focus: (event: Event) => validateField(event, 'signup-form'),
+            blur: (event: Event) => validateField(event, 'signup-form'),
+          },
+        }),
+      }),
+      new InputGroup({
+        inputLabel: 'Имя',
+        inputId: 'first_name',
+        errorMessage:
+          'Требования: латиница или кириллица, первая буква должна быть заглавной, без пробелов и без цифр, нет спецсимволов (допустим только дефис)',
+        input: new Input({
+          inputClassList: ['modal__input'],
+          inputId: 'first_name',
+          inputName: 'first_name',
+          inputType: 'text',
+          inputRequired: 'required',
+          events: {
+            focus: (event: Event) => validateField(event, 'signup-form'),
+            blur: (event: Event) => validateField(event, 'signup-form'),
+          },
+        }),
+      }),
+      new InputGroup({
+        inputLabel: 'Фамилия',
+        inputId: 'second_name',
+        errorMessage:
+          'Требования: латиница или кириллица, первая буква должна быть заглавной, без пробелов и без цифр, нет спецсимволов (допустим только дефис)',
+        input: new Input({
+          inputClassList: ['modal__input'],
+          inputId: 'second_name',
+          inputName: 'second_name',
+          inputType: 'text',
+          inputRequired: 'required',
+          events: {
+            focus: (event: Event) => validateField(event, 'signup-form'),
+            blur: (event: Event) => validateField(event, 'signup-form'),
+          },
+        }),
+      }),
+      new InputGroup({
+        inputLabel: 'Телефон',
+        inputId: 'phone',
+        errorMessage:
+          'Требования: от 10 до 15 символов, состоит из цифр, может начинается с плюса',
+        input: new Input({
+          inputClassList: ['modal__input'],
+          inputId: 'phone',
+          inputName: 'phone',
+          inputType: 'text',
+          inputRequired: 'required',
+          events: {
+            focus: (event: Event) => validateField(event, 'signup-form'),
+            blur: (event: Event) => validateField(event, 'signup-form'),
+          },
+        }),
+      }),
+      new InputGroup({
+        inputLabel: 'Пароль',
+        inputId: 'password',
+        errorMessage:
+          'Требования: от 8 до 40 символов, обязательно хотя бы одна заглавная буква и цифра',
+        input: new Input({
+          inputClassList: ['modal__input'],
+          inputId: 'password',
+          inputName: 'password',
+          inputType: 'password',
+          inputRequired: 'required',
+          events: {
+            focus: (event: Event) => validateField(event, 'signup-form'),
+            blur: (event: Event) => validateField(event, 'signup-form'),
+          },
+        }),
+      }),
+      new InputGroup({
+        inputLabel: 'Пароль еще раз',
+        inputId: 'password_confirm',
+        errorMessage: 'Пароли не совпадают :(',
+        input: new Input({
+          inputClassList: ['modal__input'],
+          inputId: 'password_confirm',
+          inputName: 'password_confirm',
+          inputType: 'password',
+          inputRequired: 'required',
+          events: {
+            focus: (event: Event) => validateField(event, 'signup-form'),
+            blur: (event: Event) => validateField(event, 'signup-form'),
+          },
+        }),
+      }),
+    ];
+
+    this.children.button = new ModalButton({
+      text: 'Создать аккаунт',
+      type: 'submit',
+      link: '/chat.html',
+      disabled: true,
+      id: 'submit-button',
+    });
+  }
+
+  render() {
+    this.element!.id = 'signup-form';
+    return this.compile(Handlebars.compile(signupTemplate), {
+      ...this.props,
+      inputgroups: Array.isArray(this.children.inputgroups)
+        ? this.children.inputgroups.map((inputgroup) => inputgroup.getContent())
+        : this.children.inputgroups.getContent(),
+    });
+  }
+}
