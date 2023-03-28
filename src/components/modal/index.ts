@@ -9,7 +9,7 @@ interface IModal {
   modalContent: Block;
 }
 
-export default class Modal extends Block {
+export default class Modal extends Block<IModal> {
   render() {
     this.element!.classList.add('modal__backdrop');
     return this.compile(Handlebars.compile(modalTemplate), this.props);

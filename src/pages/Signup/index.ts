@@ -12,7 +12,7 @@ interface ISignup {
   events: Record<string, (event: Event) => void>;
 }
 
-export default class Signup extends Block {
+export default class Signup extends Block<ISignup> {
   constructor(props: ISignup) {
     super(props, 'form');
   }
