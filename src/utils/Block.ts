@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import Handlebars, { TemplateDelegate } from 'handlebars';
+import { TemplateDelegate } from 'handlebars';
 import EventBus from './EventBus';
 
 class Block<P extends Record<string, any> = any> {
