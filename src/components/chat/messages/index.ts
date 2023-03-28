@@ -5,6 +5,7 @@ import { messagesTemplate } from './messages.tmpl';
 
 interface IMessages {
   messagesArray: IMessage[];
+  messagesInput: Block;
 }
 
 export default class Messages extends Block<IMessages> {

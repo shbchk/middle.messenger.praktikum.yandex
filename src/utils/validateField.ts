@@ -28,6 +28,8 @@ const validateFieldContent = (
       return /^\+?\d{10,15}$/.test(fieldValue);
     case 'message':
       return fieldValue.trim().length > 0;
+    case 'search-input':
+      return fieldValue.trim().length > 2;
     default:
       throw new Error(`Unknown field name: ${fieldName}`);
   }
@@ -49,7 +51,7 @@ export const validateField = (event: Event, formId: string): boolean => {
           ?.classList.add('active');
         document
           .querySelector(`[name="${key}"]`)
-          ?.classList.add('input--error');
+          ?.classList.add('modal__input--error');
       }
     });
 

@@ -1,9 +1,13 @@
 import 'normalize.css';
 import Chatlist from './components/chat/chatlist';
 import ChatPreview, { IChat } from './components/chat/chatPreview';
+import ChatSearch from './components/chat/chatSearch';
 import Message, { IMessage } from './components/chat/message';
+import MessageInput from './components/chat/messageInput';
 import Messages from './components/chat/messages';
+import Input from './components/input';
 import Modal from './components/modal';
+import Textarea from './components/textarea';
 import Chat from './pages/Chat';
 import ErrorPage from './pages/ErrorPage';
 import PasswordChange from './pages/PasswordChange';
@@ -73,12 +77,10 @@ if (currentPath === '/signup.html') {
             data[key] = value.toString();
           });
 
-          console.log(data);
-          console.log(
-            'Все поля заполнены верно! Переход на /chat.html через 3 секунды...',
-          );
-
           if (isValid) {
+            console.log(
+              'Все поля заполнены верно! Переход на /chat.html через 3 секунды...',
+            );
             // eslint-disable-next-line no-restricted-globals, no-return-assign
             setTimeout(() => (location.href = '/chat.html'), 3000);
           }
@@ -234,16 +236,56 @@ if (currentPath === '/chat.html') {
       chatPreviews: chats.map(
         (chatPreview: IChat) => new ChatPreview(chatPreview),
       ),
-      chatSearch: `
-      <form class="chatlist__header-search">
-        <input type="text" name="search" class="chatlist__search-input" placeholder="🔎 search" />
-      </form>
-      `,
+      chatSearch: new ChatSearch({
+        chatSearchInput: new Input({
+          inputClassList: ['chatlist__search-input'],
+          inputId: 'search-input',
+          inputName: 'search-input',
+          inputType: 'text',
+          inputPlaceholder: '🔎 search',
+          events: {
+            focus: (event) => validateField(event, 'search'),
+            blur: (event) => validateField(event, 'search'),
+          },
+        }),
+        events: {
+          submit: (event) => {
+            event.preventDefault();
+            validateField(event, 'search');
+          },
+        },
+      }),
     }),
     messages: new Messages({
       messagesArray: messages
         .reverse()
         .map((msg: IMessage) => new Message(msg)),
+      messagesInput: new MessageInput({
+        textarea: new Textarea({
+          id: 'message',
+          rows: 1,
+          name: 'message',
+          placeholder: 'Сообщение',
+          classList: ['messages__message-textarea'],
+          events: {
+            input: (event) => {
+              const el = document.getElementById(
+                'message',
+              ) as HTMLTextAreaElement;
+              if (!el) {
+                return;
+              }
+              (el.parentNode! as HTMLLabelElement).dataset.value = el!.value;
+            },
+          },
+        }),
+        events: {
+          submit: (event) => {
+            event.preventDefault();
+            validateField(event, 'message-input-form');
+          },
+        },
+      }),
     }),
   });
 
