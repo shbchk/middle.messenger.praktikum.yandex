@@ -16,7 +16,7 @@ interface IInput {
 
 export default class Input extends Block<IInput> {
   constructor(props: IInput) {
-    super('input', props);
+    super(props, 'input');
   }
 
   render() {
@@ -34,6 +34,10 @@ export default class Input extends Block<IInput> {
     }
     if (this.props.inputValue) {
       (this.element! as HTMLInputElement).value = this.props.inputValue;
+    }
+    if (this.props.inputPlaceholder) {
+      (this.element! as HTMLInputElement).placeholder =
+        this.props.inputPlaceholder;
     }
     return this.compile(Handlebars.compile(''), this.props);
   }

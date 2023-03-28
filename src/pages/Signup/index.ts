@@ -14,7 +14,7 @@ interface ISignup {
 
 export default class Signup extends Block {
   constructor(props: ISignup) {
-    super('form', props);
+    super(props, 'form');
   }
 
   init() {

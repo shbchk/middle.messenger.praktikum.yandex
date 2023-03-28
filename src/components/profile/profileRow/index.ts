@@ -9,10 +9,6 @@ interface IProfileRow {
 }
 
 export default class ProfileRow extends Block<IProfileRow> {
-  constructor(props: IProfileRow) {
-    super('div', props);
-  }
-
   render() {
     this.element!.classList.add('profile__row');
 

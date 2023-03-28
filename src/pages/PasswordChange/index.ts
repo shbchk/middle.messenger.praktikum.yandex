@@ -16,7 +16,7 @@ interface IPasswordChange extends IProfile {
 
 export default class PasswordChange extends Block<IPasswordChange> {
   constructor(props: IPasswordChange) {
-    super('form', props);
+    super(props, 'form');
   }
 
   init() {

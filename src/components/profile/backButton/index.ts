@@ -7,7 +7,7 @@ interface IBackButton {
 }
 export default class BackButton extends Block<IBackButton> {
   constructor(props: IBackButton) {
-    super('a', props);
+    super(props, 'a');
   }
 
   render() {

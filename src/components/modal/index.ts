@@ -10,10 +10,6 @@ interface IModal {
 }
 
 export default class Modal extends Block {
-  constructor(props: IModal) {
-    super('div', props);
-  }
-
   render() {
     this.element!.classList.add('modal__backdrop');
     return this.compile(Handlebars.compile(modalTemplate), this.props);

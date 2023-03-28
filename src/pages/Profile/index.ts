@@ -17,10 +17,6 @@ export interface IProfile {
 }
 
 export default class Profile extends Block<IProfile> {
-  constructor(props: IProfile) {
-    super('div', props);
-  }
-
   init() {
     this.children.profileRows = [
       new ProfileRow({
@@ -68,7 +64,7 @@ export default class Profile extends Block<IProfile> {
           inputType: 'text',
           inputId: 'second_name',
           inputName: 'second_name',
-          inputPlaceholder: 'Имя',
+          inputPlaceholder: 'Фамилия',
           inputRequired: 'required',
           inputDisabled: 'disabled',
           inputValue: this.props.secondName,

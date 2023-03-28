@@ -11,10 +11,6 @@ interface IInputGroup {
 }
 
 export default class inputGroup extends Block<IInputGroup> {
-  constructor(props: IInputGroup) {
-    super('div', props);
-  }
-
   render() {
     this.element?.classList.add('modal__inputgroup');
     return this.compile(Handlebars.compile(inputgroupTemplate), this.props);

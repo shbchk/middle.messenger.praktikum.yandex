@@ -23,7 +23,7 @@ class Block<P extends Record<string, any> = any> {
   // eslint-disable-next-line no-use-before-define
   protected children: Record<string, Block | Block[]>;
 
-  constructor(tagName: string = 'div', propsAndChildren: P) {
+  constructor(propsAndChildren: P, tagName: string = 'div') {
     const eventBus = new EventBus();
     const { children, props } = this._getChildren(propsAndChildren);
 

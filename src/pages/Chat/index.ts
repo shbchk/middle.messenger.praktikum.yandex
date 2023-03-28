@@ -1,9 +1,14 @@
 import Handlebars from 'handlebars';
 import { chatTemplate } from './chat.tmpl';
 import './chat.less';
+import Block from '../../utils/Block';
 
-export const Chat = () => {
-  // eslint-disable-next-line no-undef
-  document.title = 'Yandex.Messenger';
-  return Handlebars.compile(chatTemplate)(null);
-};
+interface IChat {}
+
+export default class Chat extends Block<IChat> {
+  render() {
+    document.title = 'Yandex.Messenger';
+    this.element!.classList.add('chat-layout');
+    return this.compile(Handlebars.compile(chatTemplate), this.props);
+  }
+}

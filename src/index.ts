@@ -1,5 +1,6 @@
 import 'normalize.css';
 import Modal from './components/modal';
+import Chat from './pages/Chat';
 import ErrorPage from './pages/ErrorPage';
 import PasswordChange from './pages/PasswordChange';
 import Profile from './pages/Profile';
@@ -136,6 +137,12 @@ if (currentPath === '/password.html') {
   });
 
   renderedHTML = passwordChange.getContent();
+}
+
+if (currentPath === '/chat.html') {
+  const chat = new Chat({});
+
+  renderedHTML = chat.getContent();
 }
 
 type Nullable<T> = T | null;

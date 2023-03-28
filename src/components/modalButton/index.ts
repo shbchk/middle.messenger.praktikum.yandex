@@ -14,7 +14,7 @@ interface IModalButton {
 
 export default class ModalButton extends Block<IModalButton> {
   constructor(props: IModalButton) {
-    super('button', props);
+    super(props, 'button');
   }
 
   init() {}

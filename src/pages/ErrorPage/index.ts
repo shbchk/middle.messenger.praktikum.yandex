@@ -8,11 +8,7 @@ interface IErrorPage {
   errorMessage: string;
 }
 
-export default class ErrorPage extends Block {
-  constructor(props: IErrorPage) {
-    super('div', props);
-  }
-
+export default class ErrorPage extends Block<IErrorPage> {
   render() {
     document.title = `${this.props.errorCode}: ${this.props.errorMessage}`;
     return this.compile(Handlebars.compile(errorPageTemplate), this.props);

@@ -16,7 +16,7 @@ interface IProfileEdit extends IProfile {
 
 export default class ProfileEdit extends Block<IProfileEdit> {
   constructor(props: IProfileEdit) {
-    super('form', props);
+    super(props, 'form');
   }
 
   init() {
@@ -75,7 +75,7 @@ export default class ProfileEdit extends Block<IProfileEdit> {
           inputType: 'text',
           inputId: 'second_name',
           inputName: 'second_name',
-          inputPlaceholder: 'Имя',
+          inputPlaceholder: 'Фамилия',
           inputRequired: 'required',
           inputValue: this.props.secondName,
           inputClassList: ['profile__row-value-input'],

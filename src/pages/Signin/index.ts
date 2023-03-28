@@ -14,7 +14,7 @@ interface ISignin {
 
 export default class Signin extends Block {
   constructor(props: ISignin) {
-    super('form', props);
+    super(props, 'form');
   }
 
   init() {
