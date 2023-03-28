@@ -41,7 +41,7 @@ export default class PasswordChange extends Block<IPasswordChange> {
         rowInput: new Input({
           inputType: 'password',
           inputId: 'password',
-          inputName: 'password',
+          inputName: 'newPassword',
           inputPlaceholder: 'Новый пароль',
           inputRequired: 'required',
           inputClassList: ['profile__row-value-input'],
