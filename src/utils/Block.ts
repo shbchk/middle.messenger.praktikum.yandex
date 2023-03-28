@@ -101,6 +101,8 @@ class Block<P extends Record<string, any> = any> {
   }
 
   private _render(): void {
+    this._removeEvents();
+
     this._element!.innerHTML = '';
     const block = this.render();
     this._element!.append(block);

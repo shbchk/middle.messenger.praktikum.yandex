@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "npm run cleanDist && parcel ./src/index.html --open",
     "build": "npm run cleanDist && parcel build ./src/index.html && echo \"/* /index.html 200\" > ./dist/_redirects",
-    "cleanDist": "rimraf dist",
+    "cleanDist": "rimraf dist && rimraf .parcel-cache",
     "start": "node ./server.js"
   },
   "repository": {

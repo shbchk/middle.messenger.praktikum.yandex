@@ -1,13 +1,28 @@
 import 'normalize.css';
+import Chatlist from './components/chat/chatlist';
+import ChatPreview, { IChat } from './components/chat/chatPreview';
+import Message, { IMessage } from './components/chat/message';
+import Messages from './components/chat/messages';
 import Modal from './components/modal';
 import Chat from './pages/Chat';
 import ErrorPage from './pages/ErrorPage';
 import PasswordChange from './pages/PasswordChange';
-import Profile from './pages/Profile';
+import Profile, { IUser } from './pages/Profile';
 import ProfileEdit from './pages/ProfileEdit';
 import Signin from './pages/Signin';
 import Signup from './pages/Signup';
 import { validateField } from './utils/validateField';
+
+export const currentUser: IUser = {
+  id: 1,
+  first_name: 'Дмитрий',
+  second_name: 'Кучев',
+  display_name: 'Дмитрий Кучев',
+  avatar: 'https://kuchev.com/avatar.jpg',
+  email: 'dmitry@kuchev.com',
+  login: 'kuchev',
+  phone: '+79629420678',
+};
 
 const currentPath = window.location.pathname;
 let renderedHTML;
@@ -27,12 +42,11 @@ if (currentPath === '/' || currentPath === '/signin.html') {
             data[key] = value.toString();
           });
 
-          console.log(data);
-          console.log(
-            'Пароль верный! Переход на /chat.html через 3 секунды...',
-          );
-
           if (isValid) {
+            console.log(
+              'Пароль верный! Переход на /chat.html через 3 секунды...',
+            );
+
             // eslint-disable-next-line no-restricted-globals, no-return-assign
             setTimeout(() => (location.href = '/chat.html'), 3000);
           }
@@ -86,28 +100,14 @@ if (currentPath === '/404.html') {
 }
 
 if (currentPath === '/profile.html') {
-  const profile = new Profile({
-    avatar: 'https://xsgames.co/randomusers/avatar.php?g=male',
-    displayName: 'Васисуалий Лоханкин',
-    email: 'vasisualy@lohankin.com',
-    firstName: 'Васисуалий',
-    secondName: 'Лоханкин',
-    login: 'vasisu',
-    phone: '+7965986565626',
-  });
+  const profile = new Profile(currentUser);
 
   renderedHTML = profile.getContent();
 }
 
 if (currentPath === '/edit.html') {
   const profile = new ProfileEdit({
-    avatar: 'https://xsgames.co/randomusers/avatar.php?g=male',
-    displayName: 'Васисуалий Лоханкин',
-    email: 'vasisualy@lohankin.com',
-    firstName: 'Васисуалий',
-    secondName: 'Лоханкин',
-    login: 'vasisu',
-    phone: '+7965986565626',
+    user: currentUser,
     events: {
       submit: (event) => {
         event.preventDefault();
@@ -121,13 +121,7 @@ if (currentPath === '/edit.html') {
 
 if (currentPath === '/password.html') {
   const passwordChange = new PasswordChange({
-    avatar: 'https://xsgames.co/randomusers/avatar.php?g=male',
-    displayName: 'Васисуалий Лоханкин',
-    email: 'vasisualy@lohankin.com',
-    firstName: 'Васисуалий',
-    secondName: 'Лоханкин',
-    login: 'vasisu',
-    phone: '+7965986565626',
+    user: currentUser,
     events: {
       submit: (event) => {
         event.preventDefault();
@@ -140,7 +134,118 @@ if (currentPath === '/password.html') {
 }
 
 if (currentPath === '/chat.html') {
-  const chat = new Chat({});
+  // const http = new HTTPTransport();
+  // какбе получаем JSON чатов: const chatsJSON = http.get('https://chats.api/chats')
+  const chatsJSON = `[
+    {
+      "id": 123,
+      "title": "Ревьюер Практикума",
+      "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel",
+      "unread_count": 3,
+      "last_message": {
+        "user": {
+          "id": "12354",
+          "first_name": "Ревьюер",
+          "second_name": "Практикума",
+          "display_name": "Ревьюер Практикума",
+          "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel",
+          "email": "my@email.com",
+          "login": "userLogin",
+          "phone": "8(911)-222-33-22"
+        },
+        "time": "2023-03-27T14:22:22.000Z",
+        "content": "Отличная работа, молодец!"
+      }
+    }
+  ]`;
+  const chats = JSON.parse(chatsJSON);
+
+  const messagesJSON = `[
+    {
+      "id": 123,
+      "user": {
+          "id": 12354,
+          "first_name": "Ревьюер",
+          "second_name": "Практикума",
+          "display_name": "Ревьюер Практикума",
+          "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel",
+          "email": "my@email.com",
+          "login": "userLogin",
+          "phone": "8(911)-222-33-22"
+        },
+      "time": "2023-03-27T14:22:22.000Z",
+      "content_type": "text",
+      "content": "Отличная работа, молодец!"
+    },
+    {
+      "id": 124,
+      "user": {
+        "id": 12354,
+        "first_name": "Ревьюер",
+        "second_name": "Практикума",
+        "display_name": "Ревьюер Практикума",
+        "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel",
+        "email": "my@email.com",
+        "login": "userLogin",
+        "phone": "8(911)-222-33-22"
+      },
+      "time": "2023-03-27T14:22:22.000Z",
+      "content_type": "image",
+      "content": "https://source.unsplash.com/random/1600x900/?img=1"
+    },
+    {
+      "id": 125,
+      "user": {
+          "id": 1,
+          "first_name": "Дмитрий",
+          "second_name": "Кучев",
+          "display_name": "Дмитрий Кучев",
+          "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel",
+          "email": "my@email.com",
+          "login": "userLogin",
+          "phone": "8(911)-222-33-22"
+        },
+      "time": "2023-03-27T14:22:22.000Z",
+      "content_type": "text",
+      "content": "Thanks dude! 👍"
+    },
+    {
+      "id": 126,
+      "user": {
+        "id": 1,
+        "first_name": "Ревьюер",
+        "second_name": "Практикума",
+        "display_name": "Ревьюер Практикума",
+        "avatar": "https://xsgames.co/randomusers/avatar.php?g=pixel",
+        "email": "my@email.com",
+        "login": "userLogin",
+        "phone": "8(911)-222-33-22"
+      },
+      "time": "2023-03-27T14:22:22.000Z",
+      "content_type": "image",
+      "content": "https://source.unsplash.com/random/1600x900/?img=1"
+    }
+  ]`;
+  const messages = JSON.parse(messagesJSON);
+
+  const chat = new Chat({
+    chatList: new Chatlist({
+      user: currentUser,
+      chatPreviews: chats.map(
+        (chatPreview: IChat) => new ChatPreview(chatPreview),
+      ),
+      chatSearch: `
+      <form class="chatlist__header-search">
+        <input type="text" name="search" class="chatlist__search-input" placeholder="🔎 search" />
+      </form>
+      `,
+    }),
+    messages: new Messages({
+      messagesArray: messages
+        .reverse()
+        .map((msg: IMessage) => new Message(msg)),
+    }),
+  });
 
   renderedHTML = chat.getContent();
 }

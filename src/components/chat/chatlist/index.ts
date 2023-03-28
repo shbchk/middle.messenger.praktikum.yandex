@@ -1,12 +1,12 @@
 import Handlebars from 'handlebars';
+import { IUser } from '../../../pages/Profile';
 import Block from '../../../utils/Block';
 import { chatlistTemplate } from './chatlist.tmpl';
 
 interface IChatlist {
-  chatSearch: Block;
+  chatSearch: Block | string;
   chatPreviews: Block[];
-  avatar: string;
-  displayName: string;
+  user: IUser;
 }
 
 export default class Chatlist extends Block<IChatlist> {

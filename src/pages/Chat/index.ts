@@ -3,7 +3,10 @@ import { chatTemplate } from './chat.tmpl';
 import './chat.less';
 import Block from '../../utils/Block';
 
-interface IChat {}
+interface IChat {
+  chatList: Block;
+  messages: Block;
+}
 
 export default class Chat extends Block<IChat> {
   render() {

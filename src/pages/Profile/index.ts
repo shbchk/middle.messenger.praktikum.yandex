@@ -6,17 +6,18 @@ import ProfileRow from '../../components/profile/profileRow';
 import Input from '../../components/input';
 import BackButton from '../../components/profile/backButton';
 
-export interface IProfile {
-  login: string;
-  firstName: string;
-  secondName: string;
+export interface IUser {
+  id?: number;
+  first_name: string;
+  second_name: string;
+  display_name: string;
   avatar: string;
   email: string;
+  login: string;
   phone: string;
-  displayName: string;
 }
 
-export default class Profile extends Block<IProfile> {
+export default class Profile extends Block<IUser> {
   init() {
     this.children.profileRows = [
       new ProfileRow({
@@ -54,7 +55,7 @@ export default class Profile extends Block<IProfile> {
           inputPlaceholder: 'Имя',
           inputRequired: 'required',
           inputDisabled: 'disabled',
-          inputValue: this.props.firstName,
+          inputValue: this.props.first_name,
           inputClassList: ['profile__row-value-input'],
         }),
       }),
@@ -67,7 +68,7 @@ export default class Profile extends Block<IProfile> {
           inputPlaceholder: 'Фамилия',
           inputRequired: 'required',
           inputDisabled: 'disabled',
-          inputValue: this.props.secondName,
+          inputValue: this.props.second_name,
           inputClassList: ['profile__row-value-input'],
         }),
       }),
@@ -80,7 +81,7 @@ export default class Profile extends Block<IProfile> {
           inputPlaceholder: 'Имя в чате',
           inputRequired: 'required',
           inputDisabled: 'disabled',
-          inputValue: this.props.displayName,
+          inputValue: this.props.display_name,
           inputClassList: ['profile__row-value-input'],
         }),
       }),

@@ -1,15 +1,15 @@
 import Handlebars from 'handlebars';
 import { profileEditTemplate } from './profileEdit.tmpl';
-import './profileEdit.less';
 import Block from '../../utils/Block';
 import ProfileRow from '../../components/profile/profileRow';
 import Input from '../../components/input';
 import BackButton from '../../components/profile/backButton';
-import { IProfile } from '../Profile';
+import { IUser } from '../Profile';
 import ModalButton from '../../components/modalButton';
 import { validateField } from '../../utils/validateField';
 
-interface IProfileEdit extends IProfile {
+interface IProfileEdit {
+  user: IUser;
   // eslint-disable-next-line no-unused-vars
   events: Record<string, (event: Event) => void>;
 }
@@ -29,7 +29,7 @@ export default class ProfileEdit extends Block<IProfileEdit> {
           inputName: 'login',
           inputPlaceholder: 'Логин',
           inputRequired: 'required',
-          inputValue: this.props.login,
+          inputValue: this.props.user.login,
           inputClassList: ['profile__row-value-input'],
           events: {
             blur: (event) => validateField(event, 'profileEdit'),
@@ -45,7 +45,7 @@ export default class ProfileEdit extends Block<IProfileEdit> {
           inputName: 'email',
           inputPlaceholder: 'Почта',
           inputRequired: 'required',
-          inputValue: this.props.email,
+          inputValue: this.props.user.email,
           inputClassList: ['profile__row-value-input'],
           events: {
             blur: (event) => validateField(event, 'profileEdit'),
@@ -61,7 +61,7 @@ export default class ProfileEdit extends Block<IProfileEdit> {
           inputName: 'first_name',
           inputPlaceholder: 'Имя',
           inputRequired: 'required',
-          inputValue: this.props.firstName,
+          inputValue: this.props.user.first_name,
           inputClassList: ['profile__row-value-input'],
           events: {
             blur: (event) => validateField(event, 'profileEdit'),
@@ -77,7 +77,7 @@ export default class ProfileEdit extends Block<IProfileEdit> {
           inputName: 'second_name',
           inputPlaceholder: 'Фамилия',
           inputRequired: 'required',
-          inputValue: this.props.secondName,
+          inputValue: this.props.user.second_name,
           inputClassList: ['profile__row-value-input'],
           events: {
             blur: (event) => validateField(event, 'profileEdit'),
@@ -93,7 +93,7 @@ export default class ProfileEdit extends Block<IProfileEdit> {
           inputName: 'display_name',
           inputPlaceholder: 'Имя в чате',
           inputRequired: 'required',
-          inputValue: this.props.displayName,
+          inputValue: this.props.user.display_name,
           inputClassList: ['profile__row-value-input'],
           events: {
             blur: (event) => validateField(event, 'profileEdit'),
@@ -109,7 +109,7 @@ export default class ProfileEdit extends Block<IProfileEdit> {
           inputName: 'phone',
           inputPlaceholder: 'Телефон',
           inputRequired: 'required',
-          inputValue: this.props.phone,
+          inputValue: this.props.user.phone,
           inputClassList: ['profile__row-value-input'],
           events: {
             blur: (event) => validateField(event, 'profileEdit'),
