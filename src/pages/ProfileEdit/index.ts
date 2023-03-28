@@ -34,6 +34,7 @@ export default class ProfileEdit extends Block<IProfileEdit> {
           events: {
             blur: (event) => validateField(event, 'profileEdit'),
             focus: (event) => validateField(event, 'profileEdit'),
+            input: (event) => validateField(event, 'profileEdit'),
           },
         }),
       }),
@@ -50,6 +51,7 @@ export default class ProfileEdit extends Block<IProfileEdit> {
           events: {
             blur: (event) => validateField(event, 'profileEdit'),
             focus: (event) => validateField(event, 'profileEdit'),
+            input: (event) => validateField(event, 'profileEdit'),
           },
         }),
       }),
@@ -66,6 +68,7 @@ export default class ProfileEdit extends Block<IProfileEdit> {
           events: {
             blur: (event) => validateField(event, 'profileEdit'),
             focus: (event) => validateField(event, 'profileEdit'),
+            input: (event) => validateField(event, 'profileEdit'),
           },
         }),
       }),
@@ -82,6 +85,7 @@ export default class ProfileEdit extends Block<IProfileEdit> {
           events: {
             blur: (event) => validateField(event, 'profileEdit'),
             focus: (event) => validateField(event, 'profileEdit'),
+            input: (event) => validateField(event, 'profileEdit'),
           },
         }),
       }),
@@ -98,6 +102,7 @@ export default class ProfileEdit extends Block<IProfileEdit> {
           events: {
             blur: (event) => validateField(event, 'profileEdit'),
             focus: (event) => validateField(event, 'profileEdit'),
+            input: (event) => validateField(event, 'profileEdit'),
           },
         }),
       }),
@@ -114,6 +119,7 @@ export default class ProfileEdit extends Block<IProfileEdit> {
           events: {
             blur: (event) => validateField(event, 'profileEdit'),
             focus: (event) => validateField(event, 'profileEdit'),
+            input: (event) => validateField(event, 'profileEdit'),
           },
         }),
       }),

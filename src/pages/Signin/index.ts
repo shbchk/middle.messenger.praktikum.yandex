@@ -34,6 +34,7 @@ export default class Signin extends Block<ISignin> {
           events: {
             focus: (event: Event) => validateField(event, 'signin-form'),
             blur: (event: Event) => validateField(event, 'signin-form'),
+            input: (event: Event) => validateField(event, 'signin-form'),
           },
         }),
         inputId: 'login',
@@ -51,6 +52,7 @@ export default class Signin extends Block<ISignin> {
           events: {
             focus: (event) => validateField(event, 'signin-form'),
             blur: (event) => validateField(event, 'signin-form'),
+            input: (event) => validateField(event, 'signin-form'),
           },
         }),
         inputId: 'password',

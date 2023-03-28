@@ -35,6 +35,7 @@ export default class Signup extends Block<ISignup> {
           events: {
             focus: (event: Event) => validateField(event, 'signup-form'),
             blur: (event: Event) => validateField(event, 'signup-form'),
+            input: (event: Event) => validateField(event, 'signup-form'),
           },
         }),
       }),
@@ -52,6 +53,7 @@ export default class Signup extends Block<ISignup> {
           events: {
             focus: (event: Event) => validateField(event, 'signup-form'),
             blur: (event: Event) => validateField(event, 'signup-form'),
+            input: (event: Event) => validateField(event, 'signup-form'),
           },
         }),
       }),
@@ -69,6 +71,7 @@ export default class Signup extends Block<ISignup> {
           events: {
             focus: (event: Event) => validateField(event, 'signup-form'),
             blur: (event: Event) => validateField(event, 'signup-form'),
+            input: (event: Event) => validateField(event, 'signup-form'),
           },
         }),
       }),
@@ -86,6 +89,7 @@ export default class Signup extends Block<ISignup> {
           events: {
             focus: (event: Event) => validateField(event, 'signup-form'),
             blur: (event: Event) => validateField(event, 'signup-form'),
+            input: (event: Event) => validateField(event, 'signup-form'),
           },
         }),
       }),
@@ -103,6 +107,7 @@ export default class Signup extends Block<ISignup> {
           events: {
             focus: (event: Event) => validateField(event, 'signup-form'),
             blur: (event: Event) => validateField(event, 'signup-form'),
+            input: (event: Event) => validateField(event, 'signup-form'),
           },
         }),
       }),
@@ -120,6 +125,7 @@ export default class Signup extends Block<ISignup> {
           events: {
             focus: (event: Event) => validateField(event, 'signup-form'),
             blur: (event: Event) => validateField(event, 'signup-form'),
+            input: (event: Event) => validateField(event, 'signup-form'),
           },
         }),
       }),
@@ -136,6 +142,7 @@ export default class Signup extends Block<ISignup> {
           events: {
             focus: (event: Event) => validateField(event, 'signup-form'),
             blur: (event: Event) => validateField(event, 'signup-form'),
+            input: (event: Event) => validateField(event, 'signup-form'),
           },
         }),
       }),

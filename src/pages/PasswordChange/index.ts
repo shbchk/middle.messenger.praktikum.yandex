@@ -33,6 +33,7 @@ export default class PasswordChange extends Block<IPasswordChange> {
           events: {
             blur: (event) => validateField(event, 'passwordChange'),
             focus: (event) => validateField(event, 'passwordChange'),
+            input: (event) => validateField(event, 'passwordChange'),
           },
         }),
       }),
@@ -48,6 +49,7 @@ export default class PasswordChange extends Block<IPasswordChange> {
           events: {
             blur: (event) => validateField(event, 'passwordChange'),
             focus: (event) => validateField(event, 'passwordChange'),
+            input: (event) => validateField(event, 'passwordChange'),
           },
         }),
       }),
@@ -63,6 +65,7 @@ export default class PasswordChange extends Block<IPasswordChange> {
           events: {
             blur: (event) => validateField(event, 'passwordChange'),
             focus: (event) => validateField(event, 'passwordChange'),
+            input: (event) => validateField(event, 'passwordChange'),
           },
         }),
       }),

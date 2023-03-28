@@ -246,6 +246,7 @@ if (currentPath === '/chat.html') {
           events: {
             focus: (event) => validateField(event, 'search'),
             blur: (event) => validateField(event, 'search'),
+            input: (event) => validateField(event, 'search'),
           },
         }),
         events: {
@@ -268,7 +269,7 @@ if (currentPath === '/chat.html') {
           placeholder: 'Сообщение',
           classList: ['messages__message-textarea'],
           events: {
-            input: (event) => {
+            input: () => {
               const el = document.getElementById(
                 'message',
               ) as HTMLTextAreaElement;
