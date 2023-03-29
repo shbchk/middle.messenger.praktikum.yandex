@@ -9,6 +9,7 @@ body {
   grid-template-columns: minmax(15rem, 0.25fr) 1fr;
   gap: 0;
   position: fixed;
+
   @include common.fullscreen;
 }
 
@@ -18,14 +19,17 @@ body {
 }
 
 .messages {
-  background-color: hsl(0, 0%, 100%);
   position: relative;
+  background-color: hsl(0deg, 0%, 100%);
 }
 
 .messages__empty-message {
   @include common.flex-centered;
+
   position: absolute;
+
   @include common.fullscreen;
+
   color: var(--neutral-300);
   pointer-events: none;
 }
@@ -49,9 +53,13 @@ body {
 
 .chatlist__avatar {
   background-color: var(--neutral-200);
+
   @include common.flex-centered;
+
   border-radius: 100%;
+
   @include common.square($value: 2.3rem);
+
   object-fit: cover;
 }
 
@@ -65,7 +73,6 @@ body {
 .chatlist__chatheading {
   white-space: nowrap;
   overflow: hidden;
-  padding-right: 1rem;
   font-weight: 500;
   font-size: 0.8rem;
   text-overflow: ellipsis;
@@ -73,7 +80,7 @@ body {
 }
 
 .chatlist__chattext {
-  padding-right: 1rem;
+  color: var(--neutral-600);
   font-size: 0.8rem;
   white-space: nowrap;
   overflow: hidden;
@@ -83,12 +90,9 @@ body {
 
 .chatlist__hr {
   width: 95%;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0.4rem auto;
   height: 1px;
   background-color: var(--neutral-100);
-  margin-top: 0.4rem;
-  margin-bottom: 0.4rem;
 }
 
 .chatlist__time {
@@ -103,7 +107,7 @@ body {
 .chatlist__newcount {
   padding: 0.1rem;
   background-color: var(--accent);
-  color: hsl(0, 0%, 100%);
+  color: hsl(0deg, 0%, 100%);
   border-radius: 100%;
   position: absolute;
   bottom: 0.6rem;
@@ -112,7 +116,9 @@ body {
   width: 1.2rem;
   height: 1.2rem;
   line-height: 1;
+
   @include common.flex-centered;
+
   margin-right: 1rem;
 }
 
@@ -147,17 +153,11 @@ body {
   @include common.square($value: 2.5rem);
 }
 
-.chatlist__chattext {
-  color: var(--neutral-600);
-}
-
-.messages {
-  position: relative;
-}
-
 .messages__messages-wrap {
   position: absolute;
+
   @include common.fullscreen;
+
   display: flex;
   flex-direction: column-reverse;
   padding-bottom: 2rem;

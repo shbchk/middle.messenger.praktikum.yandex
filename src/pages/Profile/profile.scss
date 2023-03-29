@@ -13,9 +13,13 @@
 
 .profile__avatar {
   background-color: var(--neutral-200);
+
   @include common.flex-centered;
+
   border-radius: 100%;
+
   @include common.square($value: 7rem);
+
   object-fit: cover;
   cursor: pointer;
 }
@@ -30,8 +34,10 @@
 
 .profile__avatar-change-overlay {
   position: absolute;
+
   @include common.fullscreen;
   @include common.flex-centered;
+
   font-size: 0.7rem;
   color: white;
   text-align: center;

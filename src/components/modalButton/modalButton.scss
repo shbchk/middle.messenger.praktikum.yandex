@@ -2,6 +2,7 @@
 
 .modal__button {
   @include common.action-button;
+
   margin-top: 2rem;
   width: 100%;
   text-decoration: none;

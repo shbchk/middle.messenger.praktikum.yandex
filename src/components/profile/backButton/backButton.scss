@@ -2,7 +2,9 @@
 
 .profile_back-button {
   background-color: var(--neutral-20);
+
   @include common.flex-centered;
+
   position: fixed;
   top: 0;
   bottom: 0;

@@ -2,15 +2,14 @@
 
 .modal__backdrop {
   @include common.flex-centered;
+
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: 0;
 }
 
 .modal__box {
   @include common.rounded;
+
   padding: 4rem 2rem 3rem;
   width: 23rem;
   height: max-content;
