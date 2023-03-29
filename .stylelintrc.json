@@ -9,5 +9,11 @@
     "at-rule-no-unknown": null,
     "no-descending-specificity": null,
     "color-function-notation": null
-  }
+  },
+  "ignoreFiles": [
+    "build/*",
+    "dist/*",
+    "node_modules/*",
+    ".parcel-cache/*"
+  ]
 }
