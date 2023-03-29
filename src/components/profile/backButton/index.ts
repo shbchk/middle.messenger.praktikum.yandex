@@ -1,5 +1,5 @@
 import Handlebars from 'handlebars';
-import './backButton.less';
+import './backButton.scss';
 import Block from '../../../utils/Block';
 
 interface IBackButton {

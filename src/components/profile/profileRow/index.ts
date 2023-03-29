@@ -1,6 +1,6 @@
 import Handlebars from 'handlebars';
 import { profileRowTemplate } from './profileRow.tmpl';
-import './profileRow.less';
+import './profileRow.scss';
 import Block from '../../../utils/Block';
 
 interface IProfileRow {

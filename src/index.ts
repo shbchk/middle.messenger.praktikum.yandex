@@ -16,6 +16,7 @@ import ProfileEdit from './pages/ProfileEdit';
 import Signin from './pages/Signin';
 import Signup from './pages/Signup';
 import { validateField } from './utils/validateField';
+import './styles/_common.scss';
 
 export const currentUser: IUser = {
   id: 1,

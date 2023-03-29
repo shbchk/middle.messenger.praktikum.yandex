@@ -1,4 +1,4 @@
-@import '../../styles/common.less';
+@use '../../styles/common';
 
 .profile-wrap {
   width: 50rem;
@@ -13,9 +13,9 @@
 
 .profile__avatar {
   background-color: var(--neutral-200);
-  .flex-centered();
+  @include common.flex-centered;
   border-radius: 100%;
-  .square(7rem);
+  @include common.square($value: 7rem);
   object-fit: cover;
   cursor: pointer;
 }
@@ -24,14 +24,14 @@
   filter: brightness(0.5);
 }
 
-.profile__avatar:hover~.profile__avatar-change-overlay {
+.profile__avatar:hover ~ .profile__avatar-change-overlay {
   visibility: visible;
 }
 
 .profile__avatar-change-overlay {
   position: absolute;
-  .fullscreen();
-  .flex-centered();
+  @include common.fullscreen;
+  @include common.flex-centered;
   font-size: 0.7rem;
   color: white;
   text-align: center;
@@ -62,9 +62,9 @@
 
 .profile__buttons-group {
   width: 100%;
-  text-align: center
+  text-align: center;
 }
 
 .profile__save-button {
-  .action-button();
+  @include common.action-button;
 }

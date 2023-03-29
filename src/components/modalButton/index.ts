@@ -1,5 +1,5 @@
 import Handlebars from 'handlebars';
-import './modalButton.less';
+import './modalButton.scss';
 import Block from '../../utils/Block';
 
 interface IModalButton {

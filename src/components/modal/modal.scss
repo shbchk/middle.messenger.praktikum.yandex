@@ -1,7 +1,7 @@
-@import '../../styles/common.less';
+@use '../../styles/common';
 
 .modal__backdrop {
-  .flex-centered();
+  @include common.flex-centered;
   position: absolute;
   top: 0;
   right: 0;
@@ -10,7 +10,7 @@
 }
 
 .modal__box {
-  .rounded();
+  @include common.rounded;
   padding: 4rem 2rem 3rem;
   width: 23rem;
   height: max-content;

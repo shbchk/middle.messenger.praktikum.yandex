@@ -1,6 +1,6 @@
 import Handlebars from 'handlebars';
 import { chatTemplate } from './chat.tmpl';
-import './chat.less';
+import './chat.scss';
 import Block from '../../utils/Block';
 
 interface IChat {

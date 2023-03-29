@@ -1,1 +1,14 @@
-{ "extends": ["stylelint-config-standard"] }
+{
+  "extends": [
+    "stylelint-config-recommended-less"
+  ],
+  "plugins": [
+    "stylelint-less"
+  ],
+  "rules": {
+    "selector-class-pattern": null,
+    "selector-id-pattern": null,
+    "custom-property-pattern": null,
+    "at-rule-no-unknown": null
+  }
+}

@@ -1,4 +1,4 @@
-@import '../../styles/common.less';
+@use '../../styles/common';
 
 body {
   overflow: hidden;
@@ -9,7 +9,7 @@ body {
   grid-template-columns: minmax(15rem, 0.25fr) 1fr;
   gap: 0;
   position: fixed;
-  .fullscreen();
+  @include common.fullscreen;
 }
 
 .chatlist {
@@ -23,9 +23,9 @@ body {
 }
 
 .messages__empty-message {
-  .flex-centered();
+  @include common.flex-centered;
   position: absolute;
-  .fullscreen();
+  @include common.fullscreen;
   color: var(--neutral-300);
   pointer-events: none;
 }
@@ -49,9 +49,9 @@ body {
 
 .chatlist__avatar {
   background-color: var(--neutral-200);
-  .flex-centered();
+  @include common.flex-centered;
   border-radius: 100%;
-  .square(2.3rem);
+  @include common.square($value: 2.3rem);
   object-fit: cover;
 }
 
@@ -112,7 +112,7 @@ body {
   width: 1.2rem;
   height: 1.2rem;
   line-height: 1;
-  .flex-centered();
+  @include common.flex-centered;
   margin-right: 1rem;
 }
 
@@ -144,7 +144,7 @@ body {
 }
 
 .chatlist__avatar--profile {
-  .square(2.5rem);
+  @include common.square($value: 2.5rem);
 }
 
 .chatlist__chattext {
@@ -157,10 +157,9 @@ body {
 
 .messages__messages-wrap {
   position: absolute;
-  .fullscreen();
+  @include common.fullscreen;
   display: flex;
   flex-direction: column-reverse;
-  // justify-content: end;
   padding-bottom: 2rem;
   overflow-y: auto;
   margin-bottom: 3rem;
@@ -254,7 +253,6 @@ body {
   }
 
   &:focus-within {
-
     textarea:focus,
     input:focus {
       outline: none;

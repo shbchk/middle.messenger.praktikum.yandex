@@ -1,6 +1,6 @@
 import Handlebars from 'handlebars';
 import { inputgroupTemplate } from './inputgroup.tmpl';
-import './inputgroup.less';
+import './inputgroup.scss';
 import Block from '../../utils/Block';
 
 interface IInputGroup {

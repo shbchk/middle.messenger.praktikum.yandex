@@ -1,6 +1,6 @@
 import Handlebars from 'handlebars';
 import { errorPageTemplate } from './errorPage.tmpl';
-import './errorPage.less';
+import './errorPage.scss';
 import Block from '../../utils/Block';
 
 interface IErrorPage {

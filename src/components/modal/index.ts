@@ -1,7 +1,7 @@
 import Handlebars from 'handlebars';
 import Block from '../../utils/Block';
 
-import './modal.less';
+import './modal.scss';
 import { modalTemplate } from './modal.tmpl';
 
 interface IModal {

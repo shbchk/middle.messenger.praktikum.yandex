@@ -1,6 +1,6 @@
 import Handlebars from 'handlebars';
 import { profileTemplate } from './profile.tmpl';
-import './profile.less';
+import './profile.scss';
 import Block from '../../utils/Block';
 import ProfileRow from '../../components/profile/profileRow';
 import Input from '../../components/input';

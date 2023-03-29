@@ -1,4 +1,4 @@
-@import '../../styles/common.less';
+@use '../../styles/common';
 
 .modal__inputgroup {
   position: relative;
@@ -9,9 +9,7 @@
 .modal__input {
   width: 100%;
   border: none;
-  border-bottom-color: var(--accent);
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
+  border-bottom: 1px solid var(--accent);
   padding: 0.3rem 0;
 }
 
@@ -29,8 +27,8 @@
   transition: top 0.3s ease, font-size 0.3s ease;
 }
 
-.modal__input:focus~.modal__float-placeholder,
-.modal__input:not(:focus):valid~.modal__float-placeholder {
+.modal__input:focus ~ .modal__float-placeholder,
+.modal__input:not(:focus):valid ~ .modal__float-placeholder {
   top: -1rem;
   font-size: 0.7rem;
 }

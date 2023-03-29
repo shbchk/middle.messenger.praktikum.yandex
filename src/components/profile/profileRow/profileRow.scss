@@ -1,4 +1,4 @@
-@import '../../../styles/common.less';
+@use '../../../styles/common';
 
 .profile__row {
   padding: 0.8rem 0;
@@ -34,6 +34,6 @@
 }
 
 .profile__row-value-input:disabled {
-  background-color: #ffffff;
+  background-color: #fff;
   border: none;
 }

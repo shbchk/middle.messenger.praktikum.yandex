@@ -1,8 +1,8 @@
-@import '../../../styles/common.less';
+@use '../../../styles/common';
 
 .profile_back-button {
   background-color: var(--neutral-20);
-  .flex-centered();
+  @include common.flex-centered;
   position: fixed;
   top: 0;
   bottom: 0;

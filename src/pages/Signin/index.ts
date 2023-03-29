@@ -2,7 +2,7 @@ import Handlebars from 'handlebars';
 import { signinTemplate } from './signin.tmpl';
 import InputGroup from '../../components/inputGroup';
 import ModalButton from '../../components/modalButton';
-import './signin.less';
+import './signin.scss';
 import Block from '../../utils/Block';
 import Input from '../../components/input';
 import { validateField } from '../../utils/validateField';
