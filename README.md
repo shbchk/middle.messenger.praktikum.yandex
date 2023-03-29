@@ -6,4 +6,4 @@
 
 Запуск Парселя: "npm run build"
 
-Запуск Express.js: "npm run express"
+Запуск Express.js: "npm run start"
