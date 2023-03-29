@@ -37,6 +37,8 @@ export default class ProfileEdit extends Block<IProfileEdit> {
             input: (event) => validateField(event, 'profileEdit'),
           },
         }),
+        errorMessage:
+          'Требования: от 3 до 20 символов, латиница, может содержать цифры, но не состоять из них, без пробелов, без спецсимволов (допустимы дефис и нижнее подчёркивание)',
       }),
       new ProfileRow({
         rowLabel: 'Почта',
@@ -54,6 +56,8 @@ export default class ProfileEdit extends Block<IProfileEdit> {
             input: (event) => validateField(event, 'profileEdit'),
           },
         }),
+        errorMessage:
+          'Требования: латиница, может включать цифры и спецсимволы вроде дефиса, обязательно должна быть «собака» (@) и точка после неё, но перед точкой обязательно должны быть буквы',
       }),
       new ProfileRow({
         rowLabel: 'Имя',
@@ -71,6 +75,8 @@ export default class ProfileEdit extends Block<IProfileEdit> {
             input: (event) => validateField(event, 'profileEdit'),
           },
         }),
+        errorMessage:
+          'Требования: латиница или кириллица, первая буква должна быть заглавной, без пробелов и без цифр, нет спецсимволов (допустим только дефис)',
       }),
       new ProfileRow({
         rowLabel: 'Фамилия',
@@ -88,6 +94,8 @@ export default class ProfileEdit extends Block<IProfileEdit> {
             input: (event) => validateField(event, 'profileEdit'),
           },
         }),
+        errorMessage:
+          'Требования: латиница или кириллица, первая буква должна быть заглавной, без пробелов и без цифр, нет спецсимволов (допустим только дефис)',
       }),
       new ProfileRow({
         rowLabel: 'Имя в чате',
@@ -105,6 +113,7 @@ export default class ProfileEdit extends Block<IProfileEdit> {
             input: (event) => validateField(event, 'profileEdit'),
           },
         }),
+        errorMessage: 'Требования: больше одного символа',
       }),
       new ProfileRow({
         rowLabel: 'Телефон',
@@ -122,6 +131,8 @@ export default class ProfileEdit extends Block<IProfileEdit> {
             input: (event) => validateField(event, 'profileEdit'),
           },
         }),
+        errorMessage:
+          'Требования: от 10 до 15 символов, состоит из цифр, может начинается с плюса',
       }),
     ];
 

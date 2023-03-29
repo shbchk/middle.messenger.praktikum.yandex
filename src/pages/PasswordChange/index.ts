@@ -36,6 +36,8 @@ export default class PasswordChange extends Block<IPasswordChange> {
             input: (event) => validateField(event, 'passwordChange'),
           },
         }),
+        errorMessage:
+          'Требования: от 8 до 40 символов, обязательно хотя бы одна заглавная буква и цифра',
       }),
       new ProfileRow({
         rowLabel: 'Новый пароль',
@@ -52,6 +54,8 @@ export default class PasswordChange extends Block<IPasswordChange> {
             input: (event) => validateField(event, 'passwordChange'),
           },
         }),
+        errorMessage:
+          'Требования: от 8 до 40 символов, обязательно хотя бы одна заглавная буква и цифра',
       }),
       new ProfileRow({
         rowLabel: 'Еще раз новый пароль',
@@ -68,6 +72,7 @@ export default class PasswordChange extends Block<IPasswordChange> {
             input: (event) => validateField(event, 'passwordChange'),
           },
         }),
+        errorMessage: 'Пароли не совпадают :(',
       }),
     ];
 

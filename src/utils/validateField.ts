@@ -63,7 +63,7 @@ export const validateField = (event: Event, formId: string): boolean => {
   const { name, value, id } = event.target as HTMLInputElement;
   const targetInput = document.querySelector(`#${id}`);
   const errorMessageDiv = document.querySelector(
-    `[for="${id}"] ~ .modal__validation-error-message`,
+    `[name="${name}"] ~ .modal__validation-error-message`,
   );
   const submitButton = document.querySelector(
     `#${formId} button[type="submit"]`,

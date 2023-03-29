@@ -6,6 +6,7 @@ import Block from '../../../utils/Block';
 interface IProfileRow {
   rowLabel: string;
   rowInput: Block;
+  errorMessage: string;
 }
 
 export default class ProfileRow extends Block<IProfileRow> {
