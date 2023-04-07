@@ -5,6 +5,6 @@ export const signupTemplate: string = `
 
   <div class='signup__buttonsgroup'>
     {{{button}}}
-    <a href='/signin.html' class='signup__authlink'>Уже есть аккаунт?</a>
+    {{{link}}}
   </div>
 `;

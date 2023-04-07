@@ -7,6 +7,7 @@ import BackButton from '../../components/profile/backButton';
 import { IUser } from '../Profile';
 import ModalButton from '../../components/modalButton';
 import { validateField } from '../../utils/validateField';
+import '../Profile/profile.scss';
 
 interface IProfileEdit {
   user: IUser;
@@ -150,6 +151,7 @@ export default class ProfileEdit extends Block<IProfileEdit> {
 
   render() {
     this.element!.id = 'profileEdit';
+    this.element!.classList.add('profile-wrap');
 
     return this.compile(Handlebars.compile(profileEditTemplate), {
       ...this.props,

@@ -6,6 +6,11 @@ import './signin.scss';
 import Block from '../../utils/Block';
 import Input from '../../components/input';
 import { validateField } from '../../utils/validateField';
+import Link from '../../components/link/link';
+import Router from '../../utils/Router';
+import { ROUTES } from '../../ROUTES';
+
+const router = new Router();
 
 interface ISignin {
   // eslint-disable-next-line no-unused-vars
@@ -65,6 +70,18 @@ export default class Signin extends Block<ISignin> {
       link: '/chat.html',
       disabled: true,
       id: 'submit-button',
+    });
+
+    this.children.link = new Link({
+      href: '/sign-up',
+      text: 'Ещё не зарегистрированы?',
+      classList: ['signin__authlink'],
+      events: {
+        click: (event) => {
+          event.preventDefault();
+          router.go(ROUTES.signup);
+        },
+      },
     });
   }
 

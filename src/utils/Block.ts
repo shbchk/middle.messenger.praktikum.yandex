@@ -259,12 +259,16 @@ class Block<P extends Record<string, any> = any> {
     return element;
   }
 
-  protected show() {
+  public show() {
     this.getContent()!.style.display = 'block';
   }
 
-  protected hide() {
+  public hide() {
     this.getContent()!.style.display = 'none';
+  }
+
+  public remove() {
+    this.getContent()!.remove();
   }
 }
 

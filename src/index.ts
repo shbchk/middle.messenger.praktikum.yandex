@@ -17,6 +17,10 @@ import Signin from './pages/Signin';
 import Signup from './pages/Signup';
 import { validateField } from './utils/validateField';
 import './styles/_common.scss';
+import Block from './utils/Block';
+import Router from './utils/Router';
+// import HTTPTransport from './utils/http';
+import { ROUTES } from './ROUTES';
 
 export const currentUser: IUser = {
   id: 1,
@@ -29,117 +33,61 @@ export const currentUser: IUser = {
   phone: '+79629420678',
 };
 
-const currentPath = window.location.pathname;
-let renderedHTML;
+const router = new Router();
 
-if (currentPath === '/' || currentPath === '/signin.html') {
-  const modal = new Modal({
-    modalHeader: 'Авторизация',
-    modalContent: new Signin({
-      events: {
-        submit: (event) => {
-          event.preventDefault();
-          const isValid = validateField(event, 'signin-form');
-
-          const formData = new FormData(event.target as HTMLFormElement);
-          const data: Record<string, string> = {};
-          formData.forEach((value, key) => {
-            data[key] = value.toString();
-          });
-
-          if (isValid) {
-            console.log(
-              'Пароль верный! Переход на /chat.html через 3 секунды...',
-            );
-
-            // eslint-disable-next-line no-restricted-globals, no-return-assign
-            setTimeout(() => (location.href = '/chat.html'), 3000);
-          }
-        },
-      },
-    }),
-  });
-
-  renderedHTML = modal.getContent();
-}
-
-if (currentPath === '/signup.html') {
-  const modal = new Modal({
-    modalHeader: 'Регистрация',
-    modalContent: new Signup({
-      events: {
-        submit: (event) => {
-          event.preventDefault();
-          const isValid = validateField(event, 'signup-form');
-
-          const formData = new FormData(event.target as HTMLFormElement);
-          const data: Record<string, string> = {};
-          formData.forEach((value, key) => {
-            data[key] = value.toString();
-          });
-
-          if (isValid) {
-            console.log(
-              'Все поля заполнены верно! Переход на /chat.html через 3 секунды...',
-            );
-            // eslint-disable-next-line no-restricted-globals, no-return-assign
-            setTimeout(() => (location.href = '/chat.html'), 3000);
-          }
-        },
-      },
-    }),
-  });
-
-  renderedHTML = modal.getContent();
-}
-
-if (currentPath === '/404.html') {
-  const errorPage = new ErrorPage({
-    errorCode: '😱',
-    errorMessage: 'Ой!',
-  });
-
-  renderedHTML = errorPage.getContent();
-}
-
-if (currentPath === '/profile.html') {
-  const profile = new Profile(currentUser);
-
-  renderedHTML = profile.getContent();
-}
-
-if (currentPath === '/edit.html') {
-  const profile = new ProfileEdit({
-    user: currentUser,
+const signInProps = {
+  modalHeader: 'Авторизация',
+  modalContent: new Signin({
     events: {
       submit: (event) => {
         event.preventDefault();
-        validateField(event, 'profileEdit');
+        const isValid = validateField(event, 'signin-form');
+
+        const formData = new FormData(event.target as HTMLFormElement);
+        const data: Record<string, string> = {};
+        formData.forEach((value, key) => {
+          data[key] = value.toString();
+        });
+
+        if (isValid) {
+          console.log(
+            `Пароль верный! Переход на ${ROUTES.chat} через 3 секунды...`,
+          );
+          setTimeout(() => router.go(ROUTES.chat), 3000);
+        }
       },
     },
-  });
+  }),
+};
 
-  renderedHTML = profile.getContent();
-}
-
-if (currentPath === '/password.html') {
-  const passwordChange = new PasswordChange({
-    user: currentUser,
+const signUpProps = {
+  modalHeader: 'Регистрация',
+  modalContent: new Signup({
     events: {
       submit: (event) => {
         event.preventDefault();
-        validateField(event, 'profileEdit');
+        const isValid = validateField(event, 'signup-form');
+
+        const formData = new FormData(event.target as HTMLFormElement);
+        const data: Record<string, string> = {};
+        formData.forEach((value, key) => {
+          data[key] = value.toString();
+        });
+
+        if (isValid) {
+          console.log(
+            `Все поля заполнены верно! Переход на ${ROUTES.chat} через 3 секунды...`,
+          );
+          setTimeout(() => router.go(ROUTES.chat), 2000);
+        }
       },
     },
-  });
+  }),
+};
 
-  renderedHTML = passwordChange.getContent();
-}
-
-if (currentPath === '/chat.html') {
-  // const http = new HTTPTransport();
-  // какбе получаем JSON чатов: const chatsJSON = http.get('https://chats.api/chats')
-  const chatsJSON = `[
+// const http = new HTTPTransport();
+// какбе получаем JSON чатов: const chatsJSON = http.get('https://chats.api/chats')
+const chatsJSON = `[
     {
       "id": 123,
       "title": "Ревьюер Практикума",
@@ -161,9 +109,9 @@ if (currentPath === '/chat.html') {
       }
     }
   ]`;
-  const chats = JSON.parse(chatsJSON);
+const chats = JSON.parse(chatsJSON);
 
-  const messagesJSON = `[
+const messagesJSON = `[
     {
       "id": 123,
       "user": {
@@ -229,79 +177,96 @@ if (currentPath === '/chat.html') {
       "content": "https://source.unsplash.com/random/1600x900/?img=1"
     }
   ]`;
-  const messages = JSON.parse(messagesJSON);
+const messages = JSON.parse(messagesJSON);
 
-  const chat = new Chat({
-    chatList: new Chatlist({
-      user: currentUser,
-      chatPreviews: chats.map(
-        (chatPreview: IChat) => new ChatPreview(chatPreview),
-      ),
-      chatSearch: new ChatSearch({
-        chatSearchInput: new Input({
-          inputClassList: ['chatlist__search-input'],
-          inputId: 'search-input',
-          inputName: 'search-input',
-          inputType: 'text',
-          inputPlaceholder: '🔎 search',
-          events: {
-            focus: (event) => validateField(event, 'search'),
-            blur: (event) => validateField(event, 'search'),
-            input: (event) => validateField(event, 'search'),
-          },
-        }),
+const chatProps = {
+  chatList: new Chatlist({
+    user: currentUser,
+    chatPreviews: chats.map(
+      (chatPreview: IChat) => new ChatPreview(chatPreview),
+    ),
+    chatSearch: new ChatSearch({
+      chatSearchInput: new Input({
+        inputClassList: ['chatlist__search-input'],
+        inputId: 'search-input',
+        inputName: 'search-input',
+        inputType: 'text',
+        inputPlaceholder: '🔎 search',
         events: {
-          submit: (event) => {
-            event.preventDefault();
-            validateField(event, 'search');
+          focus: (event) => validateField(event, 'search'),
+          blur: (event) => validateField(event, 'search'),
+          input: (event) => validateField(event, 'search'),
+        },
+      }),
+      events: {
+        submit: (event) => {
+          event.preventDefault();
+          validateField(event, 'search');
+        },
+      },
+    }),
+  }),
+  messages: new Messages({
+    messagesArray: messages.reverse().map((msg: IMessage) => new Message(msg)),
+    messagesInput: new MessageInput({
+      textarea: new Textarea({
+        id: 'message',
+        rows: 1,
+        name: 'message',
+        placeholder: 'Сообщение',
+        classList: ['messages__message-textarea'],
+        events: {
+          input: () => {
+            const el = document.getElementById(
+              'message',
+            ) as HTMLTextAreaElement;
+            if (!el) {
+              return;
+            }
+            (el.parentNode! as HTMLLabelElement).dataset.value = el!.value;
           },
         },
       }),
-    }),
-    messages: new Messages({
-      messagesArray: messages
-        .reverse()
-        .map((msg: IMessage) => new Message(msg)),
-      messagesInput: new MessageInput({
-        textarea: new Textarea({
-          id: 'message',
-          rows: 1,
-          name: 'message',
-          placeholder: 'Сообщение',
-          classList: ['messages__message-textarea'],
-          events: {
-            input: () => {
-              const el = document.getElementById(
-                'message',
-              ) as HTMLTextAreaElement;
-              if (!el) {
-                return;
-              }
-              (el.parentNode! as HTMLLabelElement).dataset.value = el!.value;
-            },
-          },
-        }),
-        events: {
-          submit: (event) => {
-            event.preventDefault();
-            validateField(event, 'message-input-form');
-          },
+      events: {
+        submit: (event) => {
+          event.preventDefault();
+          validateField(event, 'message-input-form');
         },
-      }),
+      },
     }),
-  });
+  }),
+};
 
-  renderedHTML = chat.getContent();
-}
-
-type Nullable<T> = T | null;
-
-const root: Nullable<HTMLDivElement> = document.getElementById(
-  'root',
-) as HTMLDivElement;
-
-if (!root) {
-  throw new Error('There is no #root div');
-}
-
-root.append(renderedHTML as HTMLElement);
+router
+  .use(ROUTES.index, Modal as typeof Block, signInProps)
+  .use(ROUTES.signin, Modal as typeof Block, signInProps)
+  .use(ROUTES.signup, Modal as typeof Block, signUpProps)
+  .use(ROUTES.profile, Profile as typeof Block, currentUser)
+  .use(ROUTES.profileEdit, ProfileEdit as typeof Block, {
+    user: currentUser,
+    events: {
+      submit: (event: Event) => {
+        event.preventDefault();
+        validateField(event, 'profileEdit');
+      },
+    },
+  })
+  .use(ROUTES.password, PasswordChange as typeof Block, {
+    user: currentUser,
+    events: {
+      submit: (event: Event) => {
+        event.preventDefault();
+        validateField(event, 'profileEdit');
+      },
+    },
+  })
+  .use(ROUTES.chat, Chat as typeof Block, chatProps)
+  .use(ROUTES.err404, ErrorPage as typeof Block, {
+    errorCode: '😱',
+    errorMessage: 'Ой!',
+  })
+  .use(ROUTES.err, ErrorPage as typeof Block, {
+    errorCode: '😱',
+    errorMessage: 'Ой!',
+  })
+  .start();

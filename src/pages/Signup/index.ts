@@ -6,11 +6,16 @@ import './signup.scss';
 import Block from '../../utils/Block';
 import Input from '../../components/input';
 import { validateField } from '../../utils/validateField';
+import Link from '../../components/link/link';
+import Router from '../../utils/Router';
+import { ROUTES } from '../../ROUTES';
 
 interface ISignup {
   // eslint-disable-next-line no-unused-vars
   events: Record<string, (event: Event) => void>;
 }
+
+const router = new Router();
 
 export default class Signup extends Block<ISignup> {
   constructor(props: ISignup) {
@@ -154,6 +159,18 @@ export default class Signup extends Block<ISignup> {
       link: '/chat.html',
       disabled: true,
       id: 'submit-button',
+    });
+
+    this.children.link = new Link({
+      href: '/sign-in',
+      text: 'Уже есть аккаунт?',
+      classList: ['signup__authlink'],
+      events: {
+        click: (event) => {
+          event.preventDefault();
+          router.go(ROUTES.signin);
+        },
+      },
     });
   }
 
