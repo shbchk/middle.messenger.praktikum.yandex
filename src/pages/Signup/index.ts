@@ -9,6 +9,7 @@ import { validateField } from '../../utils/validateField';
 import Link from '../../components/link/link';
 import Router from '../../utils/Router';
 import { ROUTES } from '../../ROUTES';
+import { withStore } from '../../utils/Store';
 
 interface ISignup {
   // eslint-disable-next-line no-unused-vars
@@ -17,7 +18,7 @@ interface ISignup {
 
 const router = new Router();
 
-export default class Signup extends Block<ISignup> {
+class SignupBase extends Block<ISignup> {
   constructor(props: ISignup) {
     super(props, 'form');
   }
@@ -120,7 +121,7 @@ export default class Signup extends Block<ISignup> {
         inputLabel: 'Пароль',
         inputId: 'password',
         errorMessage:
-          'Требования: от 8 до 40 символов, обязательно хотя бы одна заглавная буква и цифра',
+          'Требования: от 7 до 40 символов, обязательно хотя бы одна заглавная буква и цифра',
         input: new Input({
           inputClassList: ['modal__input'],
           inputId: 'password',
@@ -184,3 +185,9 @@ export default class Signup extends Block<ISignup> {
     });
   }
 }
+
+const withUser = withStore((state) => ({ ...state.user }));
+
+const Signup = withUser(SignupBase as typeof Block);
+
+export default Signup;

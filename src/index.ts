@@ -11,7 +11,7 @@ import Textarea from './components/textarea';
 import Chat from './pages/Chat';
 import ErrorPage from './pages/ErrorPage';
 import PasswordChange from './pages/PasswordChange';
-import Profile, { IUser } from './pages/Profile';
+import Profile from './pages/Profile';
 import ProfileEdit from './pages/ProfileEdit';
 import Signin from './pages/Signin';
 import Signup from './pages/Signup';
@@ -19,19 +19,21 @@ import { validateField } from './utils/validateField';
 import './styles/_common.scss';
 import Block from './utils/Block';
 import Router from './utils/Router';
-// import HTTPTransport from './utils/http';
 import { ROUTES } from './ROUTES';
+import { ISigninData, IUser } from './api/AuthAPI';
+import store from './utils/Store';
+import authController from './controllers/AuthController';
 
-export const currentUser: IUser = {
-  id: 1,
-  first_name: 'Дмитрий',
-  second_name: 'Кучев',
-  display_name: 'Дмитрий Кучев',
-  avatar: 'https://kuchev.com/avatar.jpg',
-  email: 'dmitry@kuchev.com',
-  login: 'kuchev',
-  phone: '+79629420678',
-};
+// export const currentUser: IUser = {
+//   id: 1,
+//   first_name: 'Дмитрий',
+//   second_name: 'Кучев',
+//   display_name: 'Дмитрий Кучев',
+//   avatar: 'https://kuchev.com/avatar.jpg',
+//   email: 'dmitry@kuchev.com',
+//   login: 'kuchev',
+//   phone: '+79629420678',
+// };
 
 const router = new Router();
 
@@ -39,21 +41,25 @@ const signInProps = {
   modalHeader: 'Авторизация',
   modalContent: new Signin({
     events: {
-      submit: (event) => {
+      submit: (event: Event) => {
         event.preventDefault();
         const isValid = validateField(event, 'signin-form');
 
         const formData = new FormData(event.target as HTMLFormElement);
-        const data: Record<string, string> = {};
+
+        const data = {
+          login: '',
+          password: '',
+        };
+
         formData.forEach((value, key) => {
-          data[key] = value.toString();
+          if (key === 'login' || key === 'password') {
+            data[key] = value.toString();
+          }
         });
 
         if (isValid) {
-          console.log(
-            `Пароль верный! Переход на ${ROUTES.chat} через 3 секунды...`,
-          );
-          setTimeout(() => router.go(ROUTES.chat), 3000);
+          authController.signin(data);
         }
       },
     },
@@ -64,7 +70,7 @@ const signUpProps = {
   modalHeader: 'Регистрация',
   modalContent: new Signup({
     events: {
-      submit: (event) => {
+      submit: (event: Event) => {
         event.preventDefault();
         const isValid = validateField(event, 'signup-form');
 
@@ -75,10 +81,7 @@ const signUpProps = {
         });
 
         if (isValid) {
-          console.log(
-            `Все поля заполнены верно! Переход на ${ROUTES.chat} через 3 секунды...`,
-          );
-          setTimeout(() => router.go(ROUTES.chat), 2000);
+          authController.signup(data as any);
         }
       },
     },
@@ -181,7 +184,7 @@ const messages = JSON.parse(messagesJSON);
 
 const chatProps = {
   chatList: new Chatlist({
-    user: currentUser,
+    // user: store.getState().user.data as IUser,
     chatPreviews: chats.map(
       (chatPreview: IChat) => new ChatPreview(chatPreview),
     ),
@@ -241,9 +244,13 @@ router
   .use(ROUTES.index, Modal as typeof Block, signInProps)
   .use(ROUTES.signin, Modal as typeof Block, signInProps)
   .use(ROUTES.signup, Modal as typeof Block, signUpProps)
-  .use(ROUTES.profile, Profile as typeof Block, currentUser)
+  .use(
+    ROUTES.profile,
+    Profile as typeof Block,
+    // store.getState().user.data as IUser,
+  )
   .use(ROUTES.profileEdit, ProfileEdit as typeof Block, {
-    user: currentUser,
+    // user: store.getState().user.data as IUser,
     events: {
       submit: (event: Event) => {
         event.preventDefault();
@@ -252,7 +259,7 @@ router
     },
   })
   .use(ROUTES.password, PasswordChange as typeof Block, {
-    user: currentUser,
+    // user: store.getState().user.data as IUser,
     events: {
       submit: (event: Event) => {
         event.preventDefault();

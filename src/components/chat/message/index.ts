@@ -1,8 +1,9 @@
 import Handlebars from 'handlebars';
-import { IUser } from '../../../pages/Profile';
+
 import Block from '../../../utils/Block';
 import timeSince from '../../../utils/timeSince';
 import { messageTemplate } from './message.tmpl';
+import { IUser } from '../../../api/AuthAPI';
 
 Handlebars.registerHelper('if_equal', (val1: any, val2: any) => val1 === val2);
 

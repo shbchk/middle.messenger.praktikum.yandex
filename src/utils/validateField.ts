@@ -23,7 +23,7 @@ const validateFieldContent = (
     case 'password_confirm':
     case 'oldPassword':
     case 'newPassword':
-      return /^(?=.*\d)(?=.*[A-Z])[^\s]{8,40}$/.test(fieldValue);
+      return /^(?=.*\d)(?=.*[A-Z])[^\s]{7,40}$/.test(fieldValue);
     case 'phone':
       return /^\+?\d{10,15}$/.test(fieldValue);
     case 'message':

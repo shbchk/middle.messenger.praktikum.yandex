@@ -9,6 +9,7 @@ import { validateField } from '../../utils/validateField';
 import Link from '../../components/link/link';
 import Router from '../../utils/Router';
 import { ROUTES } from '../../ROUTES';
+import { withStore } from '../../utils/Store';
 
 const router = new Router();
 
@@ -17,7 +18,7 @@ interface ISignin {
   events: Record<string, (event: Event) => void>;
 }
 
-export default class Signin extends Block<ISignin> {
+class SigninBase extends Block<ISignin> {
   constructor(props: ISignin) {
     super(props, 'form');
   }
@@ -70,6 +71,12 @@ export default class Signin extends Block<ISignin> {
       link: '/chat.html',
       disabled: true,
       id: 'submit-button',
+      // events: {
+      //   click: (event) => {
+      //     event.preventDefault();
+      //     console.log('jgjjg');
+      //   },
+      // },
     });
 
     this.children.link = new Link({
@@ -95,3 +102,9 @@ export default class Signin extends Block<ISignin> {
     });
   }
 }
+
+const withUser = withStore((state) => ({ ...state.user }));
+
+const Signin = withUser(SigninBase as typeof Block);
+
+export default Signin;

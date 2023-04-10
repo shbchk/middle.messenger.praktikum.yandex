@@ -16,9 +16,18 @@ type Options = {
   timeout?: number;
 };
 
+// eslint-disable-next-line no-unused-vars
 type HTTPMethod = (url: string, options?: Options) => Promise<unknown>;
 
 export default class HTTPTransport {
+  static API_URL = 'https://ya-praktikum.tech/api/v2';
+
+  protected endpoint: string;
+
+  constructor(endpoint: string) {
+    this.endpoint = HTTPTransport.API_URL + endpoint;
+  }
+
   get: HTTPMethod = (url, options = { data: {} }) => {
     const newdata = queryStringify(options?.data);
     return this.request(url + newdata, {
@@ -46,24 +55,38 @@ export default class HTTPTransport {
   ) => {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.open(method, url);
+      xhr.open(method, this.endpoint + url);
       xhr.timeout = timeout;
-      xhr.onload = () => resolve(xhr);
+      // xhr.onload = () => resolve(xhr.response);
 
       if (headers) {
         const { key, value } = headers;
         xhr.setRequestHeader(key, value);
       }
 
-      const errorHandler = () => reject(xhr);
+      const errorHandler = () => reject(xhr.response);
+
+      xhr.onreadystatechange = (e) => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status < 400) {
+            resolve(xhr.response);
+          } else {
+            reject(xhr.response);
+          }
+        }
+      };
 
       xhr.onerror = errorHandler;
       xhr.onabort = errorHandler;
       xhr.ontimeout = errorHandler;
 
+      xhr.responseType = 'json';
+      xhr.withCredentials = true;
+
       if (method === METHODS.GET || !data) {
         xhr.send();
       } else {
+        xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(JSON.stringify(data));
       }
     });

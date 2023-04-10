@@ -5,20 +5,16 @@ import Block from '../../utils/Block';
 import ProfileRow from '../../components/profile/profileRow';
 import Input from '../../components/input';
 import BackButton from '../../components/profile/backButton';
+import { IUser } from '../../api/AuthAPI';
+import { withStore } from '../../utils/Store';
+import authController from '../../controllers/AuthController';
 
-export interface IUser {
-  id?: number;
-  first_name: string;
-  second_name: string;
-  display_name: string;
-  avatar: string;
-  email: string;
-  login: string;
-  phone: string;
-}
-
-export default class Profile extends Block<IUser> {
+class ProfileBase extends Block<IUser> {
   init() {
+    authController.fetchUser();
+  }
+
+  render() {
     this.children.profileRows = [
       new ProfileRow({
         rowLabel: 'Логин',
@@ -81,7 +77,9 @@ export default class Profile extends Block<IUser> {
           inputPlaceholder: 'Имя в чате',
           inputRequired: 'required',
           inputDisabled: 'disabled',
-          inputValue: this.props.display_name,
+          inputValue: this.props.display_name
+            ? this.props.display_name
+            : `${this.props.first_name} ${this.props.second_name}`,
           inputClassList: ['profile__row-value-input'],
         }),
       }),
@@ -103,14 +101,18 @@ export default class Profile extends Block<IUser> {
     this.children.backButton = new BackButton({
       link: '/chat.html',
     });
-  }
 
-  render() {
     return this.compile(Handlebars.compile(profileTemplate), {
       ...this.props,
-      profileRows: Array.isArray(this.children.profileRows)
-        ? this.children.profileRows.map((profileRow) => profileRow.getContent())
-        : this.children.profileRows.getContent(),
+      profileRows: this.children.profileRows.map((profileRow) =>
+        profileRow.getContent(),
+      ),
     });
   }
 }
+
+const withUser = withStore((state) => ({ ...state.user }));
+
+const Profile = withUser(ProfileBase as typeof Block);
+
+export default Profile;

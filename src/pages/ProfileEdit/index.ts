@@ -4,13 +4,14 @@ import Block from '../../utils/Block';
 import ProfileRow from '../../components/profile/profileRow';
 import Input from '../../components/input';
 import BackButton from '../../components/profile/backButton';
-import { IUser } from '../Profile';
+
 import ModalButton from '../../components/modalButton';
 import { validateField } from '../../utils/validateField';
 import '../Profile/profile.scss';
+import { IUser } from '../../api/AuthAPI';
 
 interface IProfileEdit {
-  user: IUser;
+  // user: IUser;
   // eslint-disable-next-line no-unused-vars
   events: Record<string, (event: Event) => void>;
 }

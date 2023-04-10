@@ -1,7 +1,7 @@
 export const profileTemplate: string = `<div class="profile-wrap">
 
   <div class="profile__avatar-wrap">
-    <img src="{{avatar}}" class="profile__avatar" alt="Аватар" />
+    <img src="{{#if avatar}}{{avatar}}{{else}}https://xsgames.co/randomusers/avatar.php?g=pixel{{/if}}" class="profile__avatar" alt="Аватар" />
     <div class="profile__avatar-change-overlay">Изменить аватар</div>
   </div>
   <div class="profile__display-name">{{display_name}}</div>

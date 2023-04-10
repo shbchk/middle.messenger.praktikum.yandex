@@ -1,8 +1,9 @@
 import Handlebars from 'handlebars';
-import { IUser } from '../../../pages/Profile';
+
 import Block from '../../../utils/Block';
 import timeSince from '../../../utils/timeSince';
 import { chatPreviewTemplate } from './chatPreview.tmpl';
+import { IUser } from '../../../api/AuthAPI';
 
 export interface ILastMessage {
   user: IUser;

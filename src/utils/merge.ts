@@ -1,9 +1,6 @@
-export type Indexed<T = unknown> = {
-  // eslint-disable-next-line no-unused-vars
-  [key in string]: T;
-};
+export type Indexed = Record<string, unknown>;
 
-export default function merge<T, P>(lhs: Indexed<T>, rhs: Indexed<P>) {
+export default function merge(lhs: Indexed, rhs: Indexed) {
   const result: any = {};
 
   Object.keys(lhs).forEach((key) => {
