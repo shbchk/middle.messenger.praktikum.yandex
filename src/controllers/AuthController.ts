@@ -37,18 +37,35 @@ class AuthController {
     this.api.logout().catch((err) => {
       console.log('logout err', err);
     });
+
+    router.go('/');
   }
 
-  fetchUser() {
-    return this.api
+  async fetchUser() {
+    await this.api
       .getUser()
       .then((user) => {
-        store.set('user', user);
+        store.set('user.data', user);
       })
       .catch((err) => {
-        console.log('user is not fetched');
-        console.log('fetchUser err', err);
+        console.log('fetchUser error', err);
       });
+  }
+
+  async checkAuth() {
+    let isLoggedIn: boolean = false;
+
+    await this.api
+      .getUser()
+      .then((user) => {
+        const { login } = user as IUser;
+        isLoggedIn = !!login;
+      })
+      .catch((err) => {
+        console.log('checkAuth error:', err.reason);
+      });
+
+    return isLoggedIn;
   }
 }
 

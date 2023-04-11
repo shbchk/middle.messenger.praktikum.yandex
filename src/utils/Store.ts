@@ -2,7 +2,6 @@
 import { IUser } from '../api/AuthAPI';
 import Block from './Block';
 import EventBus from './EventBus';
-import { Indexed } from './merge';
 import set from './set';
 
 // eslint-disable-next-line no-shadow
@@ -30,8 +29,6 @@ class Store extends EventBus {
     set(this._state, path, value);
 
     this.emit(StoreEvents.Updated, this._state);
-
-    console.log('this._state', this._state);
   }
 }
 
@@ -46,7 +43,7 @@ export const withStore = (mapStateToProps: (state: IState) => any) => {
 
         store.on(StoreEvents.Updated, (newState) => {
           const newMappedState = mapStateToProps(newState);
-          console.log('newMappedState', newMappedState);
+
           this.setProps(newMappedState);
         });
       }

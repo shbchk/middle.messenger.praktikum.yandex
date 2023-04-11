@@ -6,7 +6,7 @@ import './signup.scss';
 import Block from '../../utils/Block';
 import Input from '../../components/input';
 import { validateField } from '../../utils/validateField';
-import Link from '../../components/link/link';
+import Link from '../../components/link';
 import Router from '../../utils/Router';
 import { ROUTES } from '../../ROUTES';
 import { withStore } from '../../utils/Store';
@@ -24,8 +24,6 @@ class SignupBase extends Block<ISignup> {
   }
 
   init() {
-    document.title = 'Регистрация';
-
     this.children.inputgroups = [
       new InputGroup({
         inputLabel: 'Почта',
@@ -163,7 +161,7 @@ class SignupBase extends Block<ISignup> {
     });
 
     this.children.link = new Link({
-      href: '/sign-in',
+      href: ROUTES.signin,
       text: 'Уже есть аккаунт?',
       classList: ['signup__authlink'],
       events: {

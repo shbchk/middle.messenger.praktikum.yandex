@@ -11,7 +11,7 @@ import '../Profile/profile.scss';
 import { IUser } from '../../api/AuthAPI';
 
 interface IProfileEdit {
-  // user: IUser;
+  user: IUser;
   // eslint-disable-next-line no-unused-vars
   events: Record<string, (event: Event) => void>;
 }
@@ -22,6 +22,22 @@ export default class ProfileEdit extends Block<IProfileEdit> {
   }
 
   init() {
+    this.children.backButton = new BackButton({
+      link: '/profile.html',
+    });
+
+    this.children.saveButton = new ModalButton({
+      id: 'submit-button',
+      type: 'submit',
+      text: 'Сохранить',
+      link: '/profile.html',
+    });
+  }
+
+  render() {
+    this.element!.id = 'profileEdit';
+    this.element!.classList.add('profile-wrap');
+
     this.children.profileRows = [
       new ProfileRow({
         rowLabel: 'Логин',
@@ -138,27 +154,11 @@ export default class ProfileEdit extends Block<IProfileEdit> {
       }),
     ];
 
-    this.children.backButton = new BackButton({
-      link: '/profile.html',
-    });
-
-    this.children.saveButton = new ModalButton({
-      id: 'submit-button',
-      type: 'submit',
-      text: 'Сохранить',
-      link: '/profile.html',
-    });
-  }
-
-  render() {
-    this.element!.id = 'profileEdit';
-    this.element!.classList.add('profile-wrap');
-
     return this.compile(Handlebars.compile(profileEditTemplate), {
       ...this.props,
-      profileRows: Array.isArray(this.children.profileRows)
-        ? this.children.profileRows.map((profileRow) => profileRow.getContent())
-        : this.children.profileRows.getContent(),
+      profileRows: this.children.profileRows.map((profileRow) =>
+        profileRow.getContent(),
+      ),
       saveButton: this.children.saveButton,
     });
   }

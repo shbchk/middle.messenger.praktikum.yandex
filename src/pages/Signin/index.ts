@@ -6,10 +6,11 @@ import './signin.scss';
 import Block from '../../utils/Block';
 import Input from '../../components/input';
 import { validateField } from '../../utils/validateField';
-import Link from '../../components/link/link';
+import Link from '../../components/link';
 import Router from '../../utils/Router';
 import { ROUTES } from '../../ROUTES';
-import { withStore } from '../../utils/Store';
+import store, { withStore } from '../../utils/Store';
+import authController from '../../controllers/AuthController';
 
 const router = new Router();
 
@@ -24,7 +25,12 @@ class SigninBase extends Block<ISignin> {
   }
 
   init() {
-    document.title = 'Авторизация';
+    authController.checkAuth().then(async (loggedIn) => {
+      if (loggedIn) {
+        await authController.fetchUser();
+        router.go(ROUTES.profile);
+      }
+    });
 
     this.children.inputgroups = [
       new InputGroup({
@@ -71,12 +77,6 @@ class SigninBase extends Block<ISignin> {
       link: '/chat.html',
       disabled: true,
       id: 'submit-button',
-      // events: {
-      //   click: (event) => {
-      //     event.preventDefault();
-      //     console.log('jgjjg');
-      //   },
-      // },
     });
 
     this.children.link = new Link({

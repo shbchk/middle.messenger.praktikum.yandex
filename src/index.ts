@@ -21,19 +21,8 @@ import Block from './utils/Block';
 import Router from './utils/Router';
 import { ROUTES } from './ROUTES';
 import { ISigninData, IUser } from './api/AuthAPI';
-import store from './utils/Store';
 import authController from './controllers/AuthController';
-
-// export const currentUser: IUser = {
-//   id: 1,
-//   first_name: 'Дмитрий',
-//   second_name: 'Кучев',
-//   display_name: 'Дмитрий Кучев',
-//   avatar: 'https://kuchev.com/avatar.jpg',
-//   email: 'dmitry@kuchev.com',
-//   login: 'kuchev',
-//   phone: '+79629420678',
-// };
+import store from './utils/Store';
 
 const router = new Router();
 
@@ -88,8 +77,6 @@ const signUpProps = {
   }),
 };
 
-// const http = new HTTPTransport();
-// какбе получаем JSON чатов: const chatsJSON = http.get('https://chats.api/chats')
 const chatsJSON = `[
     {
       "id": 123,
@@ -184,7 +171,6 @@ const messages = JSON.parse(messagesJSON);
 
 const chatProps = {
   chatList: new Chatlist({
-    // user: store.getState().user.data as IUser,
     chatPreviews: chats.map(
       (chatPreview: IChat) => new ChatPreview(chatPreview),
     ),
@@ -240,40 +226,41 @@ const chatProps = {
   }),
 };
 
-router
-  .use(ROUTES.index, Modal as typeof Block, signInProps)
-  .use(ROUTES.signin, Modal as typeof Block, signInProps)
-  .use(ROUTES.signup, Modal as typeof Block, signUpProps)
-  .use(
-    ROUTES.profile,
-    Profile as typeof Block,
-    // store.getState().user.data as IUser,
-  )
-  .use(ROUTES.profileEdit, ProfileEdit as typeof Block, {
-    // user: store.getState().user.data as IUser,
-    events: {
-      submit: (event: Event) => {
-        event.preventDefault();
-        validateField(event, 'profileEdit');
+window.addEventListener('DOMContentLoaded', async () => {
+  await authController.fetchUser();
+
+  console.log('state', store.getState());
+
+  router
+    .use(ROUTES.index, Modal as typeof Block, signInProps)
+    .use(ROUTES.signin, Modal as typeof Block, signInProps)
+    .use(ROUTES.signup, Modal as typeof Block, signUpProps)
+    .use(ROUTES.profile, Profile as typeof Block)
+    .use(ROUTES.profileEdit, ProfileEdit as typeof Block, {
+      events: {
+        submit: (event: Event) => {
+          event.preventDefault();
+          validateField(event, 'profileEdit');
+        },
       },
-    },
-  })
-  .use(ROUTES.password, PasswordChange as typeof Block, {
-    // user: store.getState().user.data as IUser,
-    events: {
-      submit: (event: Event) => {
-        event.preventDefault();
-        validateField(event, 'profileEdit');
+    })
+    .use(ROUTES.password, PasswordChange as typeof Block, {
+      events: {
+        submit: (event: Event) => {
+          event.preventDefault();
+          validateField(event, 'profileEdit');
+        },
       },
-    },
-  })
-  .use(ROUTES.chat, Chat as typeof Block, chatProps)
-  .use(ROUTES.err404, ErrorPage as typeof Block, {
-    errorCode: '😱',
-    errorMessage: 'Ой!',
-  })
-  .use(ROUTES.err, ErrorPage as typeof Block, {
-    errorCode: '😱',
-    errorMessage: 'Ой!',
-  })
-  .start();
+    })
+    .use(ROUTES.chat, Chat as typeof Block, chatProps)
+    .use(ROUTES.err404, ErrorPage as typeof Block, {
+      errorCode: '😱',
+      errorMessage: 'Ой!',
+    })
+    .use(ROUTES.err, ErrorPage as typeof Block, {
+      errorCode: '😱',
+      errorMessage: 'Ой!',
+    });
+
+  router.start();
+});

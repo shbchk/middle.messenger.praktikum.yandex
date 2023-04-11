@@ -7,7 +7,7 @@ interface IInput {
   inputId: string;
   inputClassList: string[];
   inputRequired?: 'required';
-  inputDisabled?: 'disabled';
+  inputDisabled?: true;
   inputPlaceholder?: string;
   inputValue?: string;
   // eslint-disable-next-line no-unused-vars
