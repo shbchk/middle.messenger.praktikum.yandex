@@ -34,10 +34,10 @@ class Store extends EventBus {
 
 const store = new Store();
 
-export const withStore = (mapStateToProps: (state: IState) => any) => {
+export const withStore = <T>(mapStateToProps: (state: IState) => any) => {
   return (Component: typeof Block) => {
     return class extends Component {
-      constructor(props: any) {
+      constructor(props: T) {
         const mappedState = mapStateToProps(store.getState());
         super({ ...props, ...mappedState });
 

@@ -7,7 +7,7 @@ interface IButtonProps {
   name?: string;
   type?: string;
   id?: string;
-  disabled?: 'disabled';
+  disabled?: true;
   // eslint-disable-next-line no-unused-vars
   events?: Record<string, (event: Event) => void>;
 }

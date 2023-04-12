@@ -26,56 +26,56 @@ import store from './utils/Store';
 
 const router = new Router();
 
-const signInProps = {
-  modalHeader: 'Авторизация',
-  modalContent: new Signin({
-    events: {
-      submit: (event: Event) => {
-        event.preventDefault();
-        const isValid = validateField(event, 'signin-form');
+// const signInProps = {
+//   modalHeader: 'Авторизация',
+//   modalContent: new Signin({
+//     events: {
+//       submit: (event: Event) => {
+//         event.preventDefault();
+//         const isValid = validateField(event, 'signin-form');
 
-        const formData = new FormData(event.target as HTMLFormElement);
+//         const formData = new FormData(event.target as HTMLFormElement);
 
-        const data = {
-          login: '',
-          password: '',
-        };
+//         const data = {
+//           login: '',
+//           password: '',
+//         };
 
-        formData.forEach((value, key) => {
-          if (key === 'login' || key === 'password') {
-            data[key] = value.toString();
-          }
-        });
+//         formData.forEach((value, key) => {
+//           if (key === 'login' || key === 'password') {
+//             data[key] = value.toString();
+//           }
+//         });
 
-        if (isValid) {
-          authController.signin(data);
-        }
-      },
-    },
-  }),
-};
+//         if (isValid) {
+//           authController.signin(data);
+//         }
+//       },
+//     },
+//   }),
+// };
 
-const signUpProps = {
-  modalHeader: 'Регистрация',
-  modalContent: new Signup({
-    events: {
-      submit: (event: Event) => {
-        event.preventDefault();
-        const isValid = validateField(event, 'signup-form');
+// const signUpProps = {
+//   modalHeader: 'Регистрация',
+//   modalContent: new Signup({
+//     events: {
+//       submit: (event: Event) => {
+//         event.preventDefault();
+//         const isValid = validateField(event, 'signup-form');
 
-        const formData = new FormData(event.target as HTMLFormElement);
-        const data: Record<string, string> = {};
-        formData.forEach((value, key) => {
-          data[key] = value.toString();
-        });
+//         const formData = new FormData(event.target as HTMLFormElement);
+//         const data: Record<string, string> = {};
+//         formData.forEach((value, key) => {
+//           data[key] = value.toString();
+//         });
 
-        if (isValid) {
-          authController.signup(data as any);
-        }
-      },
-    },
-  }),
-};
+//         if (isValid) {
+//           authController.signup(data as any);
+//         }
+//       },
+//     },
+//   }),
+// };
 
 const chatsJSON = `[
     {
@@ -232,9 +232,9 @@ window.addEventListener('DOMContentLoaded', async () => {
   console.log('state', store.getState());
 
   router
-    .use(ROUTES.index, Modal as typeof Block, signInProps)
-    .use(ROUTES.signin, Modal as typeof Block, signInProps)
-    .use(ROUTES.signup, Modal as typeof Block, signUpProps)
+    .use(ROUTES.index, Signin as typeof Block)
+    .use(ROUTES.signin, Signin as typeof Block)
+    .use(ROUTES.signup, Signup as typeof Block)
     .use(ROUTES.profile, Profile as typeof Block)
     .use(ROUTES.profileEdit, ProfileEdit as typeof Block, {
       events: {

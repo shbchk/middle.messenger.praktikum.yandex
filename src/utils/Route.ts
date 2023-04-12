@@ -15,7 +15,7 @@ export default class Route {
   constructor(
     pathname: string,
     view: typeof Block,
-    props: Record<string, any>,
+    props: Record<string, any> = {},
   ) {
     this._pathname = pathname;
     this._blockClass = view;

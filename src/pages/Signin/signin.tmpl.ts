@@ -1,10 +1,6 @@
 export const signinTemplate: string = `
-  {{#each inputgroups}}
-    {{{this}}}
-  {{/each}}
-
-  <div class='signin__buttonsgroup'>
-    {{{button}}}
-    {{{link}}}
-  </div>
+<div class='modal__box'>
+  <div class='modal__header'>{{header}}</div>
+  {{{ authForm }}}
+</div>
 `;

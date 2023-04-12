@@ -203,6 +203,8 @@ class Block<P extends Record<string, any> = any> {
   }
 
   public getContent() {
+    this._render();
+
     return this.element;
   }
 
