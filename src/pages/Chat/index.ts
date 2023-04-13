@@ -14,13 +14,12 @@ import ChatsController from '../../controllers/ChatsController';
 
 export default class Chat extends Block {
   init() {
+    // ПЕРВЫЙ ВЫЗОВ ChatsController.getChats(), еще раз я дергаю этот же контроллер в components/chat/chatlist/index.ts
     ChatsController.getChats();
 
+    console.log('дернулся init() в Chat');
+
     this.children.chatList = new Chatlist({
-      // chatPreviews: chats.map(
-      //   (chatPreview: IChat) => new ChatPreview(chatPreview),
-      // ),
-      // chatPreviews: [],
       chatSearch: new ChatSearch({
         chatSearchInput: new Input({
           inputClassList: ['chatlist__search-input'],

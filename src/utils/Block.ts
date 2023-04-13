@@ -87,6 +87,8 @@ class Block<P extends Record<string, any> = any> {
         isEqual(oldProps, newProps),
       );
 
+      console.log('oldProps', oldProps, 'newProps', newProps);
+
       this._removeEvents();
       this.componentDidUpdate();
       this._eventBus().emit(Block.EVENTS.FLOW_RENDER);

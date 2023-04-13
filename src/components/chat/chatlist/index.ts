@@ -14,6 +14,9 @@ interface IChatlist {
 
 class ChatlistBase extends Block<IChatlist> {
   init() {
+    console.log('дернулся init() в ChatlistBase');
+
+    // ВТОРОЙ ВЫЗОВ ChatsController.getChats(), первый был в pages/Chat/index.ts
     ChatsController.getChats();
 
     console.log('Chatlist.props in init after getChats', this.props);

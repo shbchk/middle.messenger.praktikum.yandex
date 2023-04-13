@@ -12,7 +12,7 @@ class AuthController {
     this.api
       .getChats({})
       .then((data) => {
-        console.log('getChats data', data);
+        console.log('getChats received data after API call', data);
         store.set('chats.data', data);
       })
       .catch((err) => {

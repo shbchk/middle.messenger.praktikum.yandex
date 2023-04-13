@@ -31,6 +31,8 @@ class Store extends EventBus {
   public set(path: string, value: unknown) {
     set(this._state, path, value);
 
+    console.log('дернулся store.set, записал в стор вот что:', this.getState());
+
     this.emit(StoreEvents.Updated, this._state);
   }
 }
@@ -45,8 +47,12 @@ export const withStore = <T>(mapStateToProps: (state: IState) => any) => {
         const mappedState = mapStateToProps(store.getState());
         super({ ...props, ...mappedState });
 
+        console.log('withStore called');
+
         store.on(StoreEvents.Updated, (newState) => {
           const newMappedState = mapStateToProps(newState);
+
+          console.log('newMappedState from withStore store.on', newMappedState);
 
           this.setProps(newMappedState);
         });

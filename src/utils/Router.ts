@@ -27,7 +27,7 @@ class Router {
   public use(pathname: string, block: typeof Block, props: any = {}) {
     const route = new Route(pathname, block, props);
 
-    this.routes!.push(route);
+    this.routes.push(route);
 
     return this;
   }
@@ -57,7 +57,7 @@ class Router {
   }
 
   protected getRoute(pathname: string) {
-    return this.routes!.find((route) => route.match(pathname));
+    return this.routes.find((route) => route.match(pathname));
   }
 
   public go(pathname: string) {
