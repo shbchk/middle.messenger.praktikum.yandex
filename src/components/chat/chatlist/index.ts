@@ -1,17 +1,39 @@
 import Handlebars from 'handlebars';
-import { IUser } from '../../../api/AuthAPI';
 import Block from '../../../utils/Block';
 import { chatlistTemplate } from './chatlist.tmpl';
+import { withStore } from '../../../utils/Store';
+import ChatsController from '../../../controllers/ChatsController';
+import ChatPreview, { IChat } from '../chatPreview';
 
 interface IChatlist {
   chatSearch: Block | string;
-  chatPreviews: Block[];
-  // user: IUser;
+  chats?: {
+    data: IChat[];
+  };
 }
 
-export default class Chatlist extends Block<IChatlist> {
+class ChatlistBase extends Block<IChatlist> {
+  init() {
+    ChatsController.getChats();
+
+    console.log('Chatlist.props in init after getChats', this.props);
+  }
+
   render() {
+    this.children.chatPreviews = this.props.chats!.data.map(
+      (chatPreview: IChat) => new ChatPreview(chatPreview),
+    );
+
     this.element!.classList.add('chatlist');
     return this.compile(Handlebars.compile(chatlistTemplate), this.props);
   }
 }
+
+const withChatsAndUser = withStore<IChatlist>((state) => ({
+  chats: { ...state.chats },
+  user: { ...state.user },
+}));
+
+const Chatlist = withChatsAndUser(ChatlistBase as typeof Block);
+
+export default Chatlist;

@@ -1,6 +1,7 @@
 import AuthAPI, { ISigninData, ISignupData, IUser } from '../api/AuthAPI';
 import store from '../utils/Store';
 import Router from '../utils/Router';
+import { ROUTES } from '../ROUTES';
 
 const router = new Router();
 
@@ -25,8 +26,11 @@ class AuthController {
   signin(data: ISigninData) {
     this.api
       .signin(data)
-      .then((response) => {
-        router.go('/profile');
+      .then(async () => {
+        await this.fetchUser();
+      })
+      .then(() => {
+        router.go(ROUTES.chat);
       })
       .catch((err) => {
         console.log('signin err', err);
@@ -38,7 +42,7 @@ class AuthController {
       console.log('logout err', err);
     });
 
-    router.go('/');
+    router.go(ROUTES.index);
   }
 
   async fetchUser() {

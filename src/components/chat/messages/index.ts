@@ -2,15 +2,22 @@ import Handlebars from 'handlebars';
 import Block from '../../../utils/Block';
 import { IMessage } from '../message';
 import { messagesTemplate } from './messages.tmpl';
+import { withStore } from '../../../utils/Store';
 
 interface IMessages {
   messagesArray: IMessage[];
   messagesInput: Block;
 }
 
-export default class Messages extends Block<IMessages> {
+class MessagesBase extends Block<IMessages> {
   render() {
     this.element!.classList.add('messages');
     return this.compile(Handlebars.compile(messagesTemplate), this.props);
   }
 }
+
+const withMessages = withStore((state) => ({ ...state.messages }));
+
+const Chatlist = withMessages(MessagesBase as typeof Block);
+
+export default Chatlist;

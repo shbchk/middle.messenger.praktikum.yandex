@@ -1,7 +1,6 @@
 import Handlebars from 'handlebars';
 import { signupTemplate } from './signup.tmpl';
 import InputGroup from '../../components/inputGroup';
-import ModalButton from '../../components/modalButton';
 import './signup.scss';
 import '../../components/modal/modal.scss';
 import Block from '../../utils/Block';
@@ -10,7 +9,6 @@ import { validateField } from '../../utils/validateField';
 import Link from '../../components/link';
 import Router from '../../utils/Router';
 import { ROUTES } from '../../ROUTES';
-import store, { withStore } from '../../utils/Store';
 import authController from '../../controllers/AuthController';
 import AuthForm from '../../components/AuthForm';
 import Button from '../../components/button';
@@ -22,11 +20,11 @@ class Signup extends Block {
     authController.checkAuth().then(async (loggedIn) => {
       if (loggedIn) {
         await authController.fetchUser();
-        router.go(ROUTES.profile);
+        router.go(ROUTES.chat);
       }
     });
 
-    this.props.header = 'Реестрацыя';
+    this.props.header = 'Регистрация';
 
     this.children.authForm = new AuthForm({
       formID: 'signup-form',
@@ -197,16 +195,12 @@ class Signup extends Block {
   }
 
   render() {
-    document.title = 'Иыиыиыи';
+    document.title = 'Регистрация';
 
     this.element!.classList.add('modal__backdrop');
 
     return this.compile(Handlebars.compile(signupTemplate), this.props);
   }
 }
-
-// const withUser = withStore((state) => ({ ...state.user }));
-
-// const Signin = withUser(SigninBase as typeof Block);
 
 export default Signup;

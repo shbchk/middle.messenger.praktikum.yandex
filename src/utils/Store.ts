@@ -1,5 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import { IUser } from '../api/AuthAPI';
+import { IChat } from '../components/chat/chatPreview';
 import Block from './Block';
 import EventBus from './EventBus';
 import set from './set';
@@ -11,15 +12,17 @@ export enum StoreEvents {
 }
 
 interface IState {
-  user: {
+  user?: {
     data?: IUser;
     isLoading?: boolean;
     hasError?: boolean;
   };
+  messages?: any[];
+  chats?: IChat[];
 }
 
 class Store extends EventBus {
-  private _state: IState = { user: { isLoading: true } };
+  private _state: IState = {};
 
   public getState() {
     return this._state;
@@ -34,6 +37,7 @@ class Store extends EventBus {
 
 const store = new Store();
 
+// eslint-disable-next-line no-unused-vars
 export const withStore = <T>(mapStateToProps: (state: IState) => any) => {
   return (Component: typeof Block) => {
     return class extends Component {

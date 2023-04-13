@@ -3,25 +3,33 @@ import Handlebars from 'handlebars';
 import Block from '../../../utils/Block';
 import timeSince from '../../../utils/timeSince';
 import { chatPreviewTemplate } from './chatPreview.tmpl';
-import { IUser } from '../../../api/AuthAPI';
-
-export interface ILastMessage {
-  user: IUser;
-  time: string;
-  content: string;
-}
+import { AVATARSTUB } from '../../../AVATARSTUB';
 
 export interface IChat {
   id: number;
   title: string;
   avatar: string;
   unread_count: number;
-  last_message: ILastMessage;
+  last_message: {
+    user: {
+      first_name: string;
+      second_name: string;
+      avatar: string;
+      email: string;
+      login: string;
+      phone: string;
+    };
+    time: string;
+    content: string;
+  };
+}
+
+interface IChatPreview extends IChat {
   // eslint-disable-next-line no-unused-vars
   events?: Record<string, (event: Event) => void>;
 }
 
-export default class ChatPreview extends Block<IChat> {
+export default class ChatPreview extends Block<IChatPreview> {
   init() {
     this.props.events = {
       click: () => {
@@ -42,8 +50,8 @@ export default class ChatPreview extends Block<IChat> {
     const time = timeSince(new Date(this.props.last_message.time).getTime());
 
     return this.compile(Handlebars.compile(chatPreviewTemplate), {
-      display_name: this.props.last_message.user.display_name,
-      avatar: this.props.avatar,
+      display_name: `${this.props.last_message.user.first_name} ${this.props.last_message.user.second_name}`,
+      avatar: this.props.avatar ? AVATARSTUB : this.props.avatar,
       content: this.props.last_message.content,
       time,
       unread_count: this.props.unread_count > 0 ? this.props.unread_count : '',

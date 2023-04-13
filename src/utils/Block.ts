@@ -1,6 +1,7 @@
 import { nanoid } from 'nanoid';
 import { TemplateDelegate } from 'handlebars';
 import EventBus from './EventBus';
+import isEqual from './isEqual';
 
 class Block<P extends Record<string, any> = any> {
   private static EVENTS: Record<string, string> = {
@@ -61,7 +62,9 @@ class Block<P extends Record<string, any> = any> {
 
   private _init() {
     this._createResources();
+
     this.init();
+
     this._eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
@@ -78,15 +81,19 @@ class Block<P extends Record<string, any> = any> {
   }
 
   private _componentDidUpdate(oldProps: P, newProps: P) {
-    if (this.componentDidUpdate(oldProps, newProps)) {
+    if (!isEqual(oldProps, newProps)) {
+      console.log(
+        'Block _CDU: isEqual(oldProps, newProps)',
+        isEqual(oldProps, newProps),
+      );
+
       this._removeEvents();
+      this.componentDidUpdate();
       this._eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }
 
-  protected componentDidUpdate(oldProps: P, newProps: P) {
-    return true;
-  }
+  protected componentDidUpdate() {}
 
   public setProps = (nextProps: Partial<P>): void => {
     if (!nextProps) {
@@ -113,29 +120,6 @@ class Block<P extends Record<string, any> = any> {
   protected render(): DocumentFragment {
     return new DocumentFragment();
   }
-
-  // protected compile(template: TemplateDelegate, context: any) {
-  //   const contextAndStubs = { ...context };
-  //   Object.entries(this.children).forEach(([name, component]) => {
-  //     contextAndStubs[name] = `<div data-id="${component.id}"></div>`;
-  //   });
-
-  //   const html = template(contextAndStubs);
-
-  //   const temp = document.createElement('template');
-
-  //   temp.innerHTML = html;
-
-  //   Object.entries(this.children).forEach(([_, component]) => {
-  //     const stub = temp.content.querySelector(`[data-id="${component.id}"]`);
-  //     if (!stub) {
-  //       return;
-  //     }
-  //     stub.replaceWith(component.getContent()!);
-  //   });
-
-  //   return temp.content;
-  // }
 
   protected compile(template: TemplateDelegate, context: any) {
     const contextAndStubs = { ...context };

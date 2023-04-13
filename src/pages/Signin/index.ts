@@ -10,7 +10,6 @@ import { validateField } from '../../utils/validateField';
 import Link from '../../components/link';
 import Router from '../../utils/Router';
 import { ROUTES } from '../../ROUTES';
-import store, { withStore } from '../../utils/Store';
 import authController from '../../controllers/AuthController';
 import AuthForm from '../../components/AuthForm';
 
@@ -21,7 +20,7 @@ class Signin extends Block {
     authController.checkAuth().then(async (loggedIn) => {
       if (loggedIn) {
         await authController.fetchUser();
-        router.go(ROUTES.profile);
+        router.go(ROUTES.chat);
       }
     });
 
@@ -112,16 +111,12 @@ class Signin extends Block {
   }
 
   render() {
-    document.title = 'ААААА';
+    document.title = 'Авторизация';
 
     this.element!.classList.add('modal__backdrop');
 
     return this.compile(Handlebars.compile(signinTemplate), this.props);
   }
 }
-
-// const withUser = withStore((state) => ({ ...state.user }));
-
-// const Signin = withUser(SigninBase as typeof Block);
 
 export default Signin;

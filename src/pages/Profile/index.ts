@@ -15,7 +15,11 @@ const router = new Router();
 
 class ProfileBase extends Block {
   init() {
-    authController.fetchUser();
+    authController.checkAuth().then(async (loggedIn) => {
+      if (!loggedIn) {
+        router.go(ROUTES.index);
+      }
+    });
   }
 
   render() {
@@ -102,9 +106,7 @@ class ProfileBase extends Block {
       }),
     ];
 
-    this.children.backButton = new BackButton({
-      link: '/chat.html',
-    });
+    this.children.backButton = new BackButton();
 
     this.children.logoutLink = new Link({
       href: ROUTES.index,

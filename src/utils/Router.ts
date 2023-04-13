@@ -65,6 +65,10 @@ class Router {
 
     this._onRoute(pathname);
   }
+
+  public back() {
+    window.history.back();
+  }
 }
 
 export default Router;
