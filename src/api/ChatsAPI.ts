@@ -25,6 +25,14 @@ export default class ChatsAPI extends BaseAPI {
     return this.http.put('/chats/users', { data });
   }
 
+  getChatToken(chatId: number) {
+    return this.http.post(`/chats/token/${chatId}`);
+  }
+
+  getChatUsers(chatId: number) {
+    return this.http.get(`/chats/${chatId}/users`);
+  }
+
   create = undefined;
 
   read = undefined;

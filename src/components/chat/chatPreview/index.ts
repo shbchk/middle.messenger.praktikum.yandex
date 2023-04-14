@@ -4,6 +4,8 @@ import Block from '../../../utils/Block';
 import timeSince from '../../../utils/timeSince';
 import { chatPreviewTemplate } from './chatPreview.tmpl';
 import { AVATARSTUB } from '../../../AVATARSTUB';
+import ChatsController from '../../../controllers/ChatsController';
+import store from '../../../utils/Store';
 
 export interface IChat {
   id: number;
@@ -41,6 +43,11 @@ export default class ChatPreview extends Block<IChatPreview> {
         document
           .querySelector(`[data-id="${this.id}"]`)
           ?.classList.add('chatlist__chat--active');
+
+        ChatsController.fetchChatToken(this.props.id).then(async () => {
+          await ChatsController.fetchChatUsers(this.props.id);
+          console.log(store.getState().messages);
+        });
       },
     };
   }

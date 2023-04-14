@@ -10,7 +10,7 @@ export enum StoreEvents {
   Updated = 'Updated',
 }
 
-interface IState {
+export interface IState {
   user?: {
     data?: IUser;
     hasError?: boolean;
@@ -18,6 +18,9 @@ interface IState {
   };
   messages?: {
     data: any[];
+    currentChatToken: string;
+    currentChatId: number;
+    users: IUser[];
   };
   chats?: {
     data: any;

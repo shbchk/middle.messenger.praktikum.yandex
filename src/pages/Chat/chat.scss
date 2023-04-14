@@ -267,3 +267,22 @@ body {
   border: none;
   font-size: 1.5rem;
 }
+
+.messages__infobar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: auto;
+  left: 0;
+  background-color: var(--accent--light);
+  padding: 0.5rem;
+}
+
+.messages__add-user-button {
+  border: 0;
+  background: var(--accent);
+  color: #fff;
+  position: absolute;
+  right: 1rem;
+  cursor: pointer;
+}
