@@ -25,16 +25,23 @@ class AuthController {
   }
 
   signin(data: ISigninData) {
+    store.set('user.hasError', false);
+    store.set('user.errorReason', '');
+
     this.api
       .signin(escapeObjectValues<ISigninData>(data))
       .then(async () => {
         await this.fetchUser();
+        store.set('user.hasError', false);
+        store.set('user.errorReason', '');
       })
       .then(() => {
         router.go(ROUTES.chat);
       })
       .catch((err) => {
         console.log('signin err', err);
+        store.set('user.hasError', true);
+        store.set('user.errorReason', err.reason);
       });
   }
 

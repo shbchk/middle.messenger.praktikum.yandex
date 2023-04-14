@@ -13,7 +13,6 @@ class AuthController {
     this.api
       .getChats({})
       .then((data) => {
-        console.log('getChats received data after API call', data);
         store.set('chats.data', data);
       })
       .catch((err) => {
@@ -26,6 +25,7 @@ class AuthController {
       .createChat(escapeObjectValues<{ title: string }>(data))
       .then((result) => {
         console.log(result);
+        this.getChats();
       })
       .catch((err) => {
         console.log('createChat err', err);

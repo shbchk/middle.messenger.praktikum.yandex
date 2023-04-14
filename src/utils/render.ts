@@ -2,7 +2,10 @@ import Block from './Block';
 
 type Nullable<T> = T | null;
 
-const render = (querySelector: string, block: Block): void => {
+const render = (
+  querySelector: string,
+  block: Block,
+): Nullable<HTMLDivElement> => {
   const root: Nullable<HTMLDivElement> = document.querySelector(
     querySelector,
   ) as HTMLDivElement;
@@ -12,6 +15,10 @@ const render = (querySelector: string, block: Block): void => {
   }
 
   root.append(block.getContent() as HTMLElement);
+
+  block.dispatchComponentDidMount();
+
+  return root;
 };
 
 export default render;

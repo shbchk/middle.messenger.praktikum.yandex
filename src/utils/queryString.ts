@@ -18,8 +18,6 @@ function queryStringify(data: StringIndexed): string | never {
   }
 
   function subObj(objct: Record<string, any>): string {
-    console.log('objct', objct);
-
     let result: string = '';
 
     Object.entries(objct).forEach(([key, value]) => {

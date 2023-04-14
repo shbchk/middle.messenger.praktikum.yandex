@@ -1,7 +1,6 @@
 import Handlebars from 'handlebars';
 import { signinTemplate } from './signin.tmpl';
 import InputGroup from '../../components/inputGroup';
-import ModalButton from '../../components/modalButton';
 import './signin.scss';
 import '../../components/modal/modal.scss';
 import Block from '../../utils/Block';
@@ -11,7 +10,8 @@ import Link from '../../components/link';
 import Router from '../../utils/Router';
 import { ROUTES } from '../../ROUTES';
 import authController from '../../controllers/AuthController';
-import AuthForm from '../../components/AuthForm';
+import AuthForm from '../../components/authForm';
+import Button from '../../components/button';
 
 const router = new Router();
 
@@ -66,12 +66,12 @@ class Signin extends Block {
           inputId: 'password',
         }),
       ],
-      button: new ModalButton({
+      button: new Button({
         text: 'Войти',
         type: 'submit',
-        link: '/chat.html',
         disabled: true,
         id: 'submit-button',
+        classList: ['modal__button'],
       }),
       link: new Link({
         href: '/sign-up',

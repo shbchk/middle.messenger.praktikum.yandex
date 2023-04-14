@@ -18,8 +18,6 @@ class AuthFormBase extends Block<IAuthForm> {
     super(props, 'form');
   }
 
-  init() {}
-
   render() {
     this.element!.id = this.props.formID;
 
@@ -32,7 +30,7 @@ class AuthFormBase extends Block<IAuthForm> {
   }
 }
 
-const withUser = withStore<IAuthForm>((state) => ({ ...state.user }));
+const withUser = withStore<IAuthForm>((state) => ({ user: { ...state.user } }));
 
 const AuthForm = withUser(AuthFormBase as typeof Block);
 

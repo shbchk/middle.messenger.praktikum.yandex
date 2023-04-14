@@ -11,13 +11,22 @@ import MessageInput from '../../components/chat/messageInput';
 import Textarea from '../../components/textarea';
 import Message, { IMessage } from '../../components/chat/message';
 import ChatsController from '../../controllers/ChatsController';
+import authController from '../../controllers/AuthController';
+import Router from '../../utils/Router';
+import { ROUTES } from '../../ROUTES';
+
+const router = new Router();
 
 export default class Chat extends Block {
   init() {
+    authController.checkAuth().then(async (loggedIn) => {
+      if (!loggedIn) {
+        router.go(ROUTES.index);
+      }
+    });
+
     // ПЕРВЫЙ ВЫЗОВ ChatsController.getChats(), еще раз я дергаю этот же контроллер в components/chat/chatlist/index.ts
     ChatsController.getChats();
-
-    console.log('дернулся init() в Chat');
 
     this.children.chatList = new Chatlist({
       chatSearch: new ChatSearch({
@@ -74,6 +83,12 @@ export default class Chat extends Block {
   }
 
   render() {
+    authController.checkAuth().then(async (loggedIn) => {
+      if (!loggedIn) {
+        router.go(ROUTES.index);
+      }
+    });
+
     document.title = 'Yandex.Messenger';
     this.element!.classList.add('chat-layout');
     return this.compile(Handlebars.compile(chatTemplate), this.props);

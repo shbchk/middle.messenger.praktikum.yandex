@@ -48,8 +48,6 @@ export default class ChatPreview extends Block<IChatPreview> {
   render() {
     this.element!.classList.add('chatlist__chat');
 
-    console.log('chatPreview props', this.props);
-
     const time = this.props.last_message?.time
       ? timeSince(new Date(this.props.last_message.time).getTime())
       : '';

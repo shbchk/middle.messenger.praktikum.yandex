@@ -5,6 +5,7 @@
 
   position: absolute;
   inset: 0;
+  background-color: hsla(0, 0%, 0%, 42%);
 }
 
 .modal__box {
@@ -14,10 +15,26 @@
   width: 23rem;
   height: max-content;
   box-shadow: var(--shadow-light);
+  background-color: #fff;
+  position: relative;
 }
 
 .modal__header {
   text-align: center;
   font-weight: 500;
   font-size: 1.2rem;
+}
+
+.modal__close-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: none;
+  font-size: 1.5rem;
+  background: none;
+  color: var(--accent);
+  cursor: pointer;
+  padding: 0.3rem;
+  width: 2rem;
+  height: 2rem;
 }

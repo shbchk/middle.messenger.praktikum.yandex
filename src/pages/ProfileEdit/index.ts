@@ -68,9 +68,6 @@ class ProfileEditBase extends Block {
   }
 
   render() {
-    console.log('ProfileEditBase props', this.props);
-    console.log('store state', store.getState());
-
     this.element!.id = 'profileEdit';
     this.element!.classList.add('profile-wrap');
 

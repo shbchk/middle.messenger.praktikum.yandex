@@ -16,7 +16,9 @@ class MessagesBase extends Block<IMessages> {
   }
 }
 
-const withMessages = withStore((state) => ({ ...state.messages }));
+const withMessages = withStore<IMessages>((state) => ({
+  messages: { ...state.messages },
+}));
 
 const Chatlist = withMessages(MessagesBase as typeof Block);
 

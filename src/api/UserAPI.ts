@@ -15,6 +15,7 @@ export interface IChangeAvatar {
 }
 
 export interface IChangePassword {
+  [key: string]: string;
   oldPassword: string;
   newPassword: string;
 }

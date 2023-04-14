@@ -37,4 +37,6 @@ export const chatlistTemplate = `
   {{{this}}}
 {{/each}}
 
+{{{addChatButton}}}
+
 `;

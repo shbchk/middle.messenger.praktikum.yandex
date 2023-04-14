@@ -88,14 +88,24 @@ export const validateField = (event: Event, formId: string): boolean => {
 
   const isValid = validateFieldContent(name, value);
 
+  const dangerMessage = document.querySelector(
+    `.dangerMessage`,
+  ) as HTMLDivElement;
+
   if (!isValid) {
     errorMessageDiv?.classList.add('active');
     targetInput?.classList.add('modal__input--error');
     submitButton?.setAttribute('disabled', '');
+    if (dangerMessage) {
+      dangerMessage.style.display = 'none';
+    }
   } else {
     errorMessageDiv?.classList.remove('active');
     targetInput?.classList.remove('modal__input--error');
     submitButton?.removeAttribute('disabled');
+    if (dangerMessage) {
+      dangerMessage.style.display = 'none';
+    }
   }
 
   return isValid;

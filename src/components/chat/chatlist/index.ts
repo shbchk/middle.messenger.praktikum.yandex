@@ -6,6 +6,14 @@ import ChatPreview, { IChat } from '../chatPreview';
 import Link from '../../link';
 import { ROUTES } from '../../../ROUTES';
 import Router from '../../../utils/Router';
+import Button from '../../button';
+import './chatlist.scss';
+import render from '../../../utils/render';
+import Modal from '../../modal';
+import AuthForm from '../../authForm';
+import InputGroup from '../../inputGroup';
+import Input from '../../input';
+import ChatsController from '../../../controllers/ChatsController';
 
 const router = new Router();
 
@@ -18,10 +26,6 @@ interface IChatlist {
 
 class ChatlistBase extends Block<IChatlist> {
   init() {
-    console.log('дернулся init() в ChatlistBase');
-
-    console.log('Chatlist.props in init', this.props);
-
     this.children.profileLink = new Link({
       href: ROUTES.profile,
       text: 'Профиль',
@@ -33,15 +37,59 @@ class ChatlistBase extends Block<IChatlist> {
         },
       },
     });
+
+    this.children.addChatButton = new Button({
+      type: 'button',
+      text: '+',
+      classList: ['chatlist__add-chat-button'],
+      events: {
+        click: (event) => {
+          event.preventDefault();
+          render(
+            '#root',
+            new Modal({
+              modalHeader: 'Добавить новый чат',
+              modalContent: new AuthForm({
+                inputgroups: [
+                  new InputGroup({
+                    input: new Input({
+                      inputName: 'title',
+                      inputId: 'title',
+                      inputType: 'text',
+                      inputClassList: ['modal__input'],
+                    }),
+                    errorMessage: 'Не менее трех символов',
+                    inputId: 'title',
+                    inputLabel: 'Название чата',
+                  }),
+                ],
+                button: new Button({
+                  text: 'Добавить',
+                }),
+                formID: 'chat-title',
+                events: {
+                  submit: (e: Event) => {
+                    e.preventDefault();
+                    const { value } = document.querySelector(
+                      '#title',
+                    ) as HTMLInputElement;
+
+                    ChatsController.createChat({ title: value }).then(() => {
+                      document.querySelector('.modal__backdrop')!.remove();
+                    });
+                  },
+                },
+              }),
+            }),
+          );
+        },
+      },
+    });
   }
 
   render() {
-    console.log('Chatlist.props in render', this.props);
-    console.log('this.props.chats!.data', this.props.chats!.data);
-
     this.children.chatPreviews = this.props.chats!.data.map(
       (chatPreview: IChat) => {
-        console.log('chatPreview', chatPreview);
         return new ChatPreview(chatPreview);
       },
     );

@@ -12,6 +12,10 @@ export const profileEditTemplate: string = `<div class="profile-wrap">
     {{#each profileRows}}
       {{{this}}}
     {{/each}}
+    
+    {{#if user.hasError}}
+      <div class="dangerMessage">{{user.errorReason}}</div>
+    {{/if}}
 
     {{{saveButton}}}
   </div>

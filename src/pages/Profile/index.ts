@@ -33,7 +33,7 @@ class ProfileBase extends Block {
           inputPlaceholder: 'Логин',
           inputRequired: 'required',
           inputDisabled: true,
-          inputValue: this.props.data.login,
+          inputValue: this.props.user.data.login,
           inputClassList: ['profile__row-value-input'],
         }),
       }),
@@ -46,7 +46,7 @@ class ProfileBase extends Block {
           inputPlaceholder: 'Почта',
           inputRequired: 'required',
           inputDisabled: true,
-          inputValue: this.props.data.email,
+          inputValue: this.props.user.data.email,
           inputClassList: ['profile__row-value-input'],
         }),
       }),
@@ -59,7 +59,7 @@ class ProfileBase extends Block {
           inputPlaceholder: 'Имя',
           inputRequired: 'required',
           inputDisabled: true,
-          inputValue: this.props.data.first_name,
+          inputValue: this.props.user.data.first_name,
           inputClassList: ['profile__row-value-input'],
         }),
       }),
@@ -72,7 +72,7 @@ class ProfileBase extends Block {
           inputPlaceholder: 'Фамилия',
           inputRequired: 'required',
           inputDisabled: true,
-          inputValue: this.props.data.second_name,
+          inputValue: this.props.user.data.second_name,
           inputClassList: ['profile__row-value-input'],
         }),
       }),
@@ -85,9 +85,9 @@ class ProfileBase extends Block {
           inputPlaceholder: 'Имя в чате',
           inputRequired: 'required',
           inputDisabled: true,
-          inputValue: this.props.data.display_name
-            ? this.props.data.display_name
-            : `${this.props.data.first_name} ${this.props.data.second_name}`,
+          inputValue: this.props.user.data.display_name
+            ? this.props.user.data.display_name
+            : `${this.props.user.data.first_name} ${this.props.user.data.second_name}`,
           inputClassList: ['profile__row-value-input'],
         }),
       }),
@@ -100,7 +100,7 @@ class ProfileBase extends Block {
           inputPlaceholder: 'Телефон',
           inputRequired: 'required',
           inputDisabled: true,
-          inputValue: this.props.data.phone,
+          inputValue: this.props.user.data.phone,
           inputClassList: ['profile__row-value-input'],
         }),
       }),
@@ -153,7 +153,7 @@ class ProfileBase extends Block {
   }
 }
 
-const withUser = withStore((state) => ({ ...state.user }));
+const withUser = withStore((state) => ({ user: { ...state.user } }));
 
 const Profile = withUser(ProfileBase as typeof Block);
 

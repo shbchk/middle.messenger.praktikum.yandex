@@ -10,7 +10,7 @@ import Link from '../../components/link';
 import Router from '../../utils/Router';
 import { ROUTES } from '../../ROUTES';
 import authController from '../../controllers/AuthController';
-import AuthForm from '../../components/AuthForm';
+import AuthForm from '../../components/authForm';
 import Button from '../../components/button';
 
 const router = new Router();
@@ -157,7 +157,7 @@ class Signup extends Block {
       ],
       button: new Button({
         classList: ['modal__button'],
-        text: 'Войти',
+        text: 'Зарегистрироваться',
         type: 'submit',
         disabled: true,
         id: 'submit-button',
