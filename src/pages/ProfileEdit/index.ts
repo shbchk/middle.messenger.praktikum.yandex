@@ -10,8 +10,6 @@ import authController from '../../controllers/AuthController';
 import usersController from '../../controllers/UsersController';
 import Router from '../../utils/Router';
 import { ROUTES } from '../../ROUTES';
-import Link from '../../components/link';
-import { IUser } from '../../api/AuthAPI';
 import Button from '../../components/button';
 import { validateField } from '../../utils/validateField';
 import { IChangeProfile } from '../../api/UserAPI';

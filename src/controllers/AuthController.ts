@@ -16,7 +16,7 @@ class AuthController {
   signup(data: ISignupData) {
     this.api
       .signup(escapeObjectValues<ISignupData>(data))
-      .then((response) => {
+      .then(() => {
         router.go('/profile');
       })
       .catch((err) => {

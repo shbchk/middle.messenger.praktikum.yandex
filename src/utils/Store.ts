@@ -1,6 +1,5 @@
 /* eslint-disable max-classes-per-file */
 import { IUser } from '../api/AuthAPI';
-import { IChat } from '../components/chat/chatPreview';
 import Block from './Block';
 import EventBus from './EventBus';
 import set from './set';

@@ -33,7 +33,7 @@ export default class UserAPI extends BaseAPI {
   }
 
   changePassword(data: IChangePassword) {
-    return this.http.put('/password');
+    return this.http.put('/password', { data });
   }
 
   create = undefined;
