@@ -2,6 +2,7 @@ import AuthAPI, { ISigninData, ISignupData, IUser } from '../api/AuthAPI';
 import store from '../utils/Store';
 import Router from '../utils/Router';
 import { ROUTES } from '../ROUTES';
+import { escapeObjectValues } from '../utils/escape';
 
 const router = new Router();
 
@@ -14,7 +15,7 @@ class AuthController {
 
   signup(data: ISignupData) {
     this.api
-      .signup(data)
+      .signup(escapeObjectValues<ISignupData>(data))
       .then((response) => {
         router.go('/profile');
       })
@@ -25,7 +26,7 @@ class AuthController {
 
   signin(data: ISigninData) {
     this.api
-      .signin(data)
+      .signin(escapeObjectValues<ISigninData>(data))
       .then(async () => {
         await this.fetchUser();
       })

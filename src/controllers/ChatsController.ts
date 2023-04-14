@@ -1,5 +1,6 @@
 import ChatsAPI from '../api/ChatsAPI';
 import store from '../utils/Store';
+import { escapeObjectValues } from '../utils/escape';
 
 class AuthController {
   private api: ChatsAPI;
@@ -22,7 +23,7 @@ class AuthController {
 
   async createChat(data: { title: string }) {
     await this.api
-      .createChat(data)
+      .createChat(escapeObjectValues<{ title: string }>(data))
       .then((result) => {
         console.log(result);
       })

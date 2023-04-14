@@ -1,40 +1,78 @@
+import '../Profile/profile.scss';
 import Handlebars from 'handlebars';
 import { profileEditTemplate } from './profileEdit.tmpl';
 import Block from '../../utils/Block';
 import ProfileRow from '../../components/profile/profileRow';
 import Input from '../../components/input';
 import BackButton from '../../components/profile/backButton';
-
-import ModalButton from '../../components/modalButton';
-import { validateField } from '../../utils/validateField';
-import '../Profile/profile.scss';
+import store, { withStore } from '../../utils/Store';
+import authController from '../../controllers/AuthController';
+import usersController from '../../controllers/UsersController';
+import Router from '../../utils/Router';
+import { ROUTES } from '../../ROUTES';
+import Link from '../../components/link';
 import { IUser } from '../../api/AuthAPI';
+import Button from '../../components/button';
+import { validateField } from '../../utils/validateField';
+import { IChangeProfile } from '../../api/UserAPI';
 
-interface IProfileEdit {
-  user: IUser;
-  // eslint-disable-next-line no-unused-vars
-  events: Record<string, (event: Event) => void>;
-}
+const router = new Router();
 
-export default class ProfileEdit extends Block<IProfileEdit> {
-  constructor(props: IProfileEdit) {
+class ProfileEditBase extends Block {
+  constructor(props: any) {
     super(props, 'form');
   }
 
   init() {
-    this.children.backButton = new BackButton({
-      link: '/profile.html',
+    authController.checkAuth().then(async (loggedIn) => {
+      if (!loggedIn) {
+        router.go(ROUTES.index);
+      }
     });
 
-    this.children.saveButton = new ModalButton({
+    this.children.backButton = new BackButton();
+
+    this.children.saveButton = new Button({
       id: 'submit-button',
       type: 'submit',
       text: 'Сохранить',
-      link: '/profile.html',
+      classList: ['modal__button'],
+      disabled: true,
     });
+
+    this.props.events = {
+      submit: (event: Event) => {
+        event.preventDefault();
+        const isValid = validateField(event, 'profileEdit');
+
+        const formData = new FormData(event.target as HTMLFormElement);
+
+        const data: IChangeProfile = {
+          login: '',
+          email: '',
+          first_name: '',
+          second_name: '',
+          display_name: '',
+          phone: '',
+        };
+
+        formData.forEach((value, key) => {
+          if (key in data) {
+            data[key as keyof IChangeProfile] = value.toString();
+          }
+        });
+
+        if (isValid) {
+          usersController.changeProfile(data);
+        }
+      },
+    };
   }
 
   render() {
+    console.log('ProfileEditBase props', this.props);
+    console.log('store state', store.getState());
+
     this.element!.id = 'profileEdit';
     this.element!.classList.add('profile-wrap');
 
@@ -47,7 +85,7 @@ export default class ProfileEdit extends Block<IProfileEdit> {
           inputName: 'login',
           inputPlaceholder: 'Логин',
           inputRequired: 'required',
-          inputValue: this.props.user.login,
+          inputValue: this.props.user.data.login,
           inputClassList: ['profile__row-value-input'],
           events: {
             blur: (event) => validateField(event, 'profileEdit'),
@@ -66,7 +104,7 @@ export default class ProfileEdit extends Block<IProfileEdit> {
           inputName: 'email',
           inputPlaceholder: 'Почта',
           inputRequired: 'required',
-          inputValue: this.props.user.email,
+          inputValue: this.props.user.data.email,
           inputClassList: ['profile__row-value-input'],
           events: {
             blur: (event) => validateField(event, 'profileEdit'),
@@ -85,7 +123,7 @@ export default class ProfileEdit extends Block<IProfileEdit> {
           inputName: 'first_name',
           inputPlaceholder: 'Имя',
           inputRequired: 'required',
-          inputValue: this.props.user.first_name,
+          inputValue: this.props.user.data.first_name,
           inputClassList: ['profile__row-value-input'],
           events: {
             blur: (event) => validateField(event, 'profileEdit'),
@@ -104,7 +142,7 @@ export default class ProfileEdit extends Block<IProfileEdit> {
           inputName: 'second_name',
           inputPlaceholder: 'Фамилия',
           inputRequired: 'required',
-          inputValue: this.props.user.second_name,
+          inputValue: this.props.user.data.second_name,
           inputClassList: ['profile__row-value-input'],
           events: {
             blur: (event) => validateField(event, 'profileEdit'),
@@ -123,7 +161,9 @@ export default class ProfileEdit extends Block<IProfileEdit> {
           inputName: 'display_name',
           inputPlaceholder: 'Имя в чате',
           inputRequired: 'required',
-          inputValue: this.props.user.display_name,
+          inputValue: this.props.user.data.display_name
+            ? this.props.user.data.display_name
+            : '',
           inputClassList: ['profile__row-value-input'],
           events: {
             blur: (event) => validateField(event, 'profileEdit'),
@@ -141,7 +181,7 @@ export default class ProfileEdit extends Block<IProfileEdit> {
           inputName: 'phone',
           inputPlaceholder: 'Телефон',
           inputRequired: 'required',
-          inputValue: this.props.user.phone,
+          inputValue: this.props.user.data.phone,
           inputClassList: ['profile__row-value-input'],
           events: {
             blur: (event) => validateField(event, 'profileEdit'),
@@ -163,3 +203,9 @@ export default class ProfileEdit extends Block<IProfileEdit> {
     });
   }
 }
+
+const withUser = withStore((state) => ({ user: { ...state.user } }));
+
+const ProfileEdit = withUser(ProfileEditBase as typeof Block);
+
+export default ProfileEdit;

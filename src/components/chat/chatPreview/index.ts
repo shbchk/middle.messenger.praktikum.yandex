@@ -8,8 +8,9 @@ import { AVATARSTUB } from '../../../AVATARSTUB';
 export interface IChat {
   id: number;
   title: string;
-  avatar: string;
+  avatar: string | null;
   unread_count: number;
+  created_by: number;
   last_message: {
     user: {
       first_name: string;
@@ -18,7 +19,7 @@ export interface IChat {
       email: string;
       login: string;
       phone: string;
-    };
+    } | null;
     time: string;
     content: string;
   };
@@ -47,14 +48,21 @@ export default class ChatPreview extends Block<IChatPreview> {
   render() {
     this.element!.classList.add('chatlist__chat');
 
-    const time = timeSince(new Date(this.props.last_message.time).getTime());
+    console.log('chatPreview props', this.props);
+
+    const time = this.props.last_message?.time
+      ? timeSince(new Date(this.props.last_message.time).getTime())
+      : '';
 
     return this.compile(Handlebars.compile(chatPreviewTemplate), {
-      display_name: `${this.props.last_message.user.first_name} ${this.props.last_message.user.second_name}`,
-      avatar: this.props.avatar ? AVATARSTUB : this.props.avatar,
-      content: this.props.last_message.content,
+      title: this.props?.title,
+      avatar: this.props.avatar ? this.props.avatar : AVATARSTUB,
+      content: this.props?.last_message?.content
+        ? this.props.last_message.content
+        : '😶 Нет сообщений',
       time,
-      unread_count: this.props.unread_count > 0 ? this.props.unread_count : '',
+      unread_count:
+        this.props.unread_count > 0 ? this.props.unread_count : null,
     });
   }
 }

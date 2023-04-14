@@ -81,14 +81,16 @@ class Block<P extends Record<string, any> = any> {
   }
 
   private _componentDidUpdate(oldProps: P, newProps: P) {
-    if (!isEqual(oldProps, newProps)) {
-      console.log(
-        'Block _CDU: isEqual(oldProps, newProps)',
-        isEqual(oldProps, newProps),
-      );
+    console.log(
+      'Block _CDU: isEqual(oldProps, newProps)',
+      isEqual(oldProps, newProps),
+    );
 
-      console.log('oldProps', oldProps, 'newProps', newProps);
+    console.log('oldProps', oldProps, 'newProps', newProps);
 
+    const isPropsEqual = isEqual(oldProps, newProps);
+
+    if (!isPropsEqual) {
       this._removeEvents();
       this.componentDidUpdate();
       this._eventBus().emit(Block.EVENTS.FLOW_RENDER);

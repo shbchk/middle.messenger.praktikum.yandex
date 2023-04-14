@@ -14,15 +14,21 @@ export enum StoreEvents {
 interface IState {
   user?: {
     data?: IUser;
-    isLoading?: boolean;
-    hasError?: boolean;
   };
-  messages?: any[];
-  chats?: IChat[];
+  messages?: {
+    data: any[];
+  };
+  chats?: {
+    data: any;
+  };
 }
 
 class Store extends EventBus {
-  private _state: IState = {};
+  private _state: IState = {
+    chats: {
+      data: [],
+    },
+  };
 
   public getState() {
     return this._state;
@@ -33,7 +39,7 @@ class Store extends EventBus {
 
     console.log('дернулся store.set, записал в стор вот что:', this.getState());
 
-    this.emit(StoreEvents.Updated, this._state);
+    this.emit(StoreEvents.Updated, this.getState());
   }
 }
 
@@ -52,12 +58,14 @@ export const withStore = <T>(mapStateToProps: (state: IState) => any) => {
         store.on(StoreEvents.Updated, (newState) => {
           const newMappedState = mapStateToProps(newState);
 
+          console.trace();
           console.log('newMappedState from withStore store.on', newMappedState);
+          // debugger;
 
           this.setProps(newMappedState);
         });
       }
-    };
+    } as typeof Block;
   };
 };
 

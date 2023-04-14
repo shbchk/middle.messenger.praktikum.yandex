@@ -2,8 +2,12 @@ import Handlebars from 'handlebars';
 import Block from '../../../utils/Block';
 import { chatlistTemplate } from './chatlist.tmpl';
 import { withStore } from '../../../utils/Store';
-import ChatsController from '../../../controllers/ChatsController';
 import ChatPreview, { IChat } from '../chatPreview';
+import Link from '../../link';
+import { ROUTES } from '../../../ROUTES';
+import Router from '../../../utils/Router';
+
+const router = new Router();
 
 interface IChatlist {
   chatSearch: Block | string;
@@ -16,15 +20,30 @@ class ChatlistBase extends Block<IChatlist> {
   init() {
     console.log('дернулся init() в ChatlistBase');
 
-    // ВТОРОЙ ВЫЗОВ ChatsController.getChats(), первый был в pages/Chat/index.ts
-    ChatsController.getChats();
+    console.log('Chatlist.props in init', this.props);
 
-    console.log('Chatlist.props in init after getChats', this.props);
+    this.children.profileLink = new Link({
+      href: ROUTES.profile,
+      text: 'Профиль',
+      classList: ['chatlist__chattext'],
+      events: {
+        click: (event) => {
+          event.preventDefault();
+          router.go(ROUTES.profile);
+        },
+      },
+    });
   }
 
   render() {
+    console.log('Chatlist.props in render', this.props);
+    console.log('this.props.chats!.data', this.props.chats!.data);
+
     this.children.chatPreviews = this.props.chats!.data.map(
-      (chatPreview: IChat) => new ChatPreview(chatPreview),
+      (chatPreview: IChat) => {
+        console.log('chatPreview', chatPreview);
+        return new ChatPreview(chatPreview);
+      },
     );
 
     this.element!.classList.add('chatlist');

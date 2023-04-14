@@ -1,5 +1,6 @@
 import Handlebars from 'handlebars';
 import Block from '../../utils/Block';
+import './button.scss';
 
 interface IButtonProps {
   text: string;
@@ -29,7 +30,7 @@ export default class Button extends Block<IButtonProps> {
     }
 
     if (this.props.type) {
-      (this.element! as HTMLButtonElement).title = this.props.type;
+      (this.element! as HTMLButtonElement).type = this.props.type;
     }
 
     if (this.props.disabled) {

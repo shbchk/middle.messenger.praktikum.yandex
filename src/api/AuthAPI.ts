@@ -1,6 +1,7 @@
 import BaseAPI from './baseAPI';
 
 export interface ISignupData {
+  [key: string]: string;
   first_name: string;
   second_name: string;
   login: string;
@@ -10,19 +11,21 @@ export interface ISignupData {
 }
 
 export interface ISigninData {
+  [key: string]: string;
   login: string;
   password: string;
 }
 
 export interface IUser {
+  [key: string]: string | number | null;
   id: number;
   first_name: string;
   second_name: string;
-  display_name: string;
+  display_name: string | null;
   login: string;
   email: string;
   phone: string;
-  avatar: string;
+  avatar: string | null;
 }
 
 export default class AuthAPI extends BaseAPI {
