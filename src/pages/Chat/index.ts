@@ -14,10 +14,11 @@ import ChatsController from '../../controllers/ChatsController';
 import authController from '../../controllers/AuthController';
 import Router from '../../utils/Router';
 import { ROUTES } from '../../ROUTES';
+import store, { withStore } from '../../utils/Store';
 
 const router = new Router();
 
-export default class Chat extends Block {
+class ChatBase extends Block {
   init() {
     authController.checkAuth().then(async (loggedIn) => {
       if (!loggedIn) {
@@ -25,7 +26,6 @@ export default class Chat extends Block {
       }
     });
 
-    // ПЕРВЫЙ ВЫЗОВ ChatsController.getChats(), еще раз я дергаю этот же контроллер в components/chat/chatlist/index.ts
     ChatsController.getChats();
 
     this.children.chatList = new Chatlist({
@@ -76,6 +76,10 @@ export default class Chat extends Block {
           submit: (event) => {
             event.preventDefault();
             validateField(event, 'message-input-form');
+            const text = (
+              document.querySelector('#message') as HTMLTextAreaElement
+            ).value;
+            store.getState().chat.api.send({ content: text, type: 'message' });
           },
         },
       }),
@@ -94,3 +98,11 @@ export default class Chat extends Block {
     return this.compile(Handlebars.compile(chatTemplate), this.props);
   }
 }
+
+const withMessages = withStore((state) => ({
+  chat: { ...state.chat },
+}));
+
+const Chat = withMessages(ChatBase as typeof Block);
+
+export default Chat;

@@ -1,8 +1,8 @@
 export const messagesTemplate = `
 
-{{#if messages.currentChatId}}
+{{#if chat.currentChatId}}
   <div class="messages__messages-wrap">
-    {{#each data.messagesArray }}
+    {{#each messagesArray }}
       {{{ this }}}
     {{/each}}
   </div>
@@ -10,7 +10,7 @@ export const messagesTemplate = `
   {{{ messagesInput }}}
 
   <div class="messages__infobar">
-    В чате: {{#each userList }}<span>{{this}}</span>{{/each}}
+    {{#each userList }}<span class="messages_user-in-chat">{{this}}</span>{{/each}}
     {{{ addUserButton }}}
   </div>
 {{else}}

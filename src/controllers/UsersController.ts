@@ -1,5 +1,6 @@
 import { ROUTES } from '../ROUTES';
 import UserAPI, { IChangePassword, IChangeProfile } from '../api/UserAPI';
+import { IUser } from '../typings/interfaces';
 import Router from '../utils/Router';
 import store from '../utils/Store';
 import { escapeObjectValues } from '../utils/escape';
@@ -41,6 +42,13 @@ class UserController {
         store.set('user.errorReason', err.reason);
         console.log('IChangePassword error', err);
       });
+  }
+
+  async getUserByLogin(data: { login: string }) {
+    await this.api.getUserByLogin(data).then((response) => {
+      console.log(response);
+      store.set('addUsers.found', response as IUser[]);
+    });
   }
 }
 

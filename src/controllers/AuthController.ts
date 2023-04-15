@@ -1,8 +1,9 @@
-import AuthAPI, { ISigninData, ISignupData, IUser } from '../api/AuthAPI';
+import AuthAPI from '../api/AuthAPI';
 import store from '../utils/Store';
 import Router from '../utils/Router';
 import { ROUTES } from '../ROUTES';
 import { escapeObjectValues } from '../utils/escape';
+import { ISigninData, ISignupData, IUser } from '../typings/interfaces';
 
 const router = new Router();
 

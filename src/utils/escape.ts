@@ -11,7 +11,9 @@ export function escapeInput(text: string): string {
   return text.replace(/[&<>"'/]/g, (m) => map[m]);
 }
 
-export function escapeObjectValues<T extends { [key: string]: string }>(
+export function escapeObjectValues<
+  T extends { [key: string]: string | undefined },
+>(
   obj: T,
   // eslint-disable-next-line no-unused-vars
 ): { [key in keyof T]: string } {
@@ -20,8 +22,10 @@ export function escapeObjectValues<T extends { [key: string]: string }>(
 
   Object.keys(obj).forEach((key) => {
     const value = obj[key as keyof T];
-    const escapedValue = escapeInput(value);
-    escapedObj[key as keyof T] = escapedValue;
+    if (value) {
+      const escapedValue = escapeInput(value);
+      escapedObj[key as keyof T] = escapedValue;
+    }
   });
 
   return escapedObj;

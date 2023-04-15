@@ -9,11 +9,12 @@ class ChatsController {
     this.api = new ChatsAPI();
   }
 
-  getChats() {
-    this.api
+  async getChats() {
+    await this.api
       .getChats({})
       .then((data) => {
         store.set('chats.data', data);
+        console.log(data);
       })
       .catch((err) => {
         console.log('getChats err', err);
@@ -34,27 +35,26 @@ class ChatsController {
 
   async fetchChatToken(chatId: number) {
     await this.api.getChatToken(chatId).then((response) => {
-      store.set(
-        'messages.currentChatToken',
-        (response as { token: string }).token,
-      );
-      store.set('messages.currentChatId', chatId);
+      store.set('chat.currentChatToken', (response as { token: string }).token);
+      store.set('chat.currentChatId', chatId);
       console.log(response);
     });
   }
 
   async fetchChatUsers(chatId: number) {
     await this.api.getChatUsers(chatId).then((response) => {
-      store.set('messages.users', response);
+      store.set('chat.users', response);
       console.log(response);
     });
   }
 
   async addUsers(data: { users: number[]; chatId: number }) {
+    console.log('addUsers data', data);
+
     await this.api
       .addUsers(data)
-      .then((response) => {
-        console.log(response);
+      .then(() => {
+        this.fetchChatUsers(data.chatId);
       })
       .catch((err) => console.log);
   }

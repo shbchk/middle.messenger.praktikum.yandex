@@ -5,9 +5,6 @@ import Router from '../../../utils/Router';
 
 const router = new Router();
 
-// interface IBackButton {
-//   link: string;
-// }
 export default class BackButton extends Block {
   constructor() {
     super({}, 'button');

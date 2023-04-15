@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import { IUser } from '../api/AuthAPI';
+import { IState } from '../typings/interfaces';
 import Block from './Block';
 import EventBus from './EventBus';
 import set from './set';
@@ -10,27 +10,18 @@ export enum StoreEvents {
   Updated = 'Updated',
 }
 
-export interface IState {
-  user?: {
-    data?: IUser;
-    hasError?: boolean;
-    errorReason?: string | null;
-  };
-  messages?: {
-    data: any[];
-    currentChatToken: string;
-    currentChatId: number;
-    users: IUser[];
-  };
-  chats?: {
-    data: any;
-  };
-}
-
 class Store extends EventBus {
   private _state: IState = {
     chats: {
       data: [],
+    },
+    chat: {
+      messages: [],
+      users: [],
+    },
+    addUsers: {
+      found: [],
+      usersToAdd: [],
     },
   };
 
@@ -49,9 +40,9 @@ const store = new Store();
 
 // eslint-disable-next-line no-unused-vars
 export const withStore = <T>(mapStateToProps: (state: IState) => any) => {
-  return (Component: typeof Block) => {
+  return <K>(Component: typeof Block) => {
     return class extends Component {
-      constructor(props: T) {
+      constructor(props: K) {
         const mappedState = mapStateToProps(store.getState());
         super({ ...props, ...mappedState });
 

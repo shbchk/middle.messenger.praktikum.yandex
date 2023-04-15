@@ -1,24 +1,25 @@
 import Handlebars from 'handlebars';
 import Block from '../../../utils/Block';
-import { IMessage } from '../message';
+import Message, { IMessage } from '../message';
 import { messagesTemplate } from './messages.tmpl';
-import { IState, withStore } from '../../../utils/Store';
+import store, { withStore } from '../../../utils/Store';
 import Button from '../../button';
-import { IUser } from '../../../api/AuthAPI';
 import render from '../../../utils/render';
 import Modal from '../../modal';
-import AuthForm from '../../authForm';
 import InputGroup from '../../inputGroup';
 import Input from '../../input';
+import UsersController from '../../../controllers/UsersController';
+import AddUsers from '../../addUsers';
 import ChatsController from '../../../controllers/ChatsController';
+import { IState, IUser } from '../../../typings/interfaces';
 
-interface IMessages {
+interface IChat {
   messagesArray: IMessage[];
   messagesInput: Block;
-  messages: IState['messages'];
+  chat: IState['chat'];
 }
 
-class MessagesBase extends Block<IMessages> {
+class MessagesBase extends Block<IChat> {
   protected init(): void {
     this.children.addUserButton = new Button({
       type: 'button',
@@ -31,34 +32,49 @@ class MessagesBase extends Block<IMessages> {
             '#root',
             new Modal({
               modalHeader: 'Добавить пользователя',
-              modalContent: new AuthForm({
+              modalContent: new AddUsers({
                 inputgroups: [
                   new InputGroup({
                     input: new Input({
-                      inputName: 'title',
-                      inputId: 'title',
-                      inputType: 'text',
+                      inputName: 'login',
+                      inputId: 'login',
+                      inputType: 'login',
                       inputClassList: ['modal__input'],
                     }),
                     errorMessage: 'Не менее трех символов',
-                    inputId: 'title',
+                    inputId: 'login',
                     inputLabel: 'Логин пользователя',
                   }),
                 ],
-                button: new Button({
-                  text: 'Добавить',
+                searchButton: new Button({
+                  text: 'Найти пользователя',
+                  classList: ['modal__button'],
+                  type: 'submit',
                 }),
-                formID: 'chat-title',
+                addButton: new Button({
+                  text: 'Добавить выбранных',
+                  classList: ['modal__button'],
+                  type: 'button',
+                  events: {
+                    click: (e: Event) => {
+                      e.preventDefault();
+                      ChatsController.addUsers({
+                        users: (
+                          store.getState().addUsers?.usersToAdd as IUser[]
+                        ).map((user) => user.id),
+                        chatId: store.getState().chat.currentChatId as number,
+                      });
+                    },
+                  },
+                }),
+                formID: 'addUserByLogin',
                 events: {
                   submit: (e: Event) => {
                     e.preventDefault();
                     const { value } = document.querySelector(
-                      '#title',
+                      '#login',
                     ) as HTMLInputElement;
-
-                    ChatsController.createChat({ title: value }).then(() => {
-                      document.querySelector('.modal__backdrop')!.remove();
-                    });
+                    UsersController.getUserByLogin({ login: value });
                   },
                 },
               }),
@@ -73,15 +89,25 @@ class MessagesBase extends Block<IMessages> {
     this.element!.classList.add('messages');
     return this.compile(Handlebars.compile(messagesTemplate), {
       ...this.props,
-      userList: Array.isArray(this.props.messages!.users)
-        ? this.props.messages!.users.map((user: IUser) => user.first_name)
+      userList: Array.isArray(this.props.chat!.users)
+        ? this.props.chat!.users.map((user: IUser) => user.first_name)
         : '',
+      messagesArray: this.props.chat.messages.map(
+        (message) =>
+          new Message({
+            content: message.content,
+            content_type: message.type,
+            time: message.time,
+            user_id: message.user_id,
+            id: message.id,
+          }),
+      ),
     });
   }
 }
 
-const withMessages = withStore<IMessages>((state) => ({
-  messages: { ...state.messages },
+const withMessages = withStore<IChat>((state) => ({
+  chat: { ...state.chat },
   chats: { ...state.chats },
 }));
 

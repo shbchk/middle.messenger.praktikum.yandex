@@ -286,3 +286,13 @@ body {
   right: 1rem;
   cursor: pointer;
 }
+
+.messages_user-in-chat {
+  font-size: 0.9rem;
+  padding: 0.2rem;
+  display: inline-block;
+  background-color: var(--accent);
+  border-radius: 5px;
+  margin: 0.1rem;
+  color: #fff;
+}
