@@ -16,7 +16,7 @@ import { IChangeProfile } from '../../api/UserAPI';
 import render from '../../utils/render';
 import Modal from '../../components/modal';
 import InputGroup from '../../components/inputGroup';
-import AuthForm from '../../components/authForm';
+import AuthForm from '../../components/AuthForm';
 
 const router = new Router();
 

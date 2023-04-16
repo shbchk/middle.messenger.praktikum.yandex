@@ -10,7 +10,7 @@ import Link from '../../components/link';
 import Router from '../../utils/Router';
 import { ROUTES } from '../../ROUTES';
 import authController from '../../controllers/AuthController';
-import AuthForm from '../../components/authForm';
+import AuthForm from '../../components/AuthForm';
 import Button from '../../components/button';
 import chatsController from '../../controllers/ChatsController';
 

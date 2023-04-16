@@ -10,7 +10,7 @@ import Button from '../../button';
 import './chatlist.scss';
 import render from '../../../utils/render';
 import Modal from '../../modal';
-import AuthForm from '../../authForm';
+import AuthForm from '../../AuthForm';
 import InputGroup from '../../inputGroup';
 import Input from '../../input';
 import ChatsController from '../../../controllers/ChatsController';
