@@ -49,14 +49,21 @@ class ChatsController {
   }
 
   async addUsers(data: { users: number[]; chatId: number }) {
-    console.log('addUsers data', data);
-
     await this.api
       .addUsers(data)
       .then(() => {
         this.fetchChatUsers(data.chatId);
       })
-      .catch((err) => console.log);
+      .catch(console.log);
+  }
+
+  async deleteUsers(data: { users: number[]; chatId: number }) {
+    await this.api
+      .addUsers(data)
+      .then(() => {
+        this.fetchChatUsers(data.chatId);
+      })
+      .catch(console.log);
   }
 }
 

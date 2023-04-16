@@ -2,6 +2,10 @@ const validateFieldContent = (
   fieldName: string,
   fieldValue: string,
 ): boolean => {
+  if (fieldValue.length > 1000) {
+    return false;
+  }
+
   switch (fieldName) {
     case 'first_name':
     case 'second_name':

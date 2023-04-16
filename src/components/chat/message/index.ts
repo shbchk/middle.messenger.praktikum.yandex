@@ -2,7 +2,6 @@ import Handlebars from 'handlebars';
 import Block from '../../../utils/Block';
 import timeSince from '../../../utils/timeSince';
 import { messageTemplate } from './message.tmpl';
-import { IUser } from '../../../typings/interfaces';
 import store from '../../../utils/Store';
 
 Handlebars.registerHelper('if_equal', (val1: any, val2: any) => val1 === val2);

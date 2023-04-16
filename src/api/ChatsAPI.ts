@@ -25,6 +25,10 @@ export default class ChatsAPI extends BaseAPI {
     return this.http.put('/chats/users', { data });
   }
 
+  deleteUsers(data: { users: number[]; chatId: number }) {
+    return this.http.delete('/chats/users', { data });
+  }
+
   getChatToken(chatId: number) {
     return this.http.post(`/chats/token/${chatId}`);
   }
