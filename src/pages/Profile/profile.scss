@@ -32,9 +32,11 @@
 .profile__avatar-change-overlay {
   position: absolute;
   border-radius: 100%;
+
   @include common.fullscreen;
   @include common.flex-centered;
-  background-color: hsla(0, 0%, 0%, 50%);
+
+  background-color: hsla(0deg, 0%, 0%, 50%);
   font-size: 0.7rem;
   color: white;
   text-align: center;

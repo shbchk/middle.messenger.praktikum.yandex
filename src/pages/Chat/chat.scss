@@ -271,10 +271,7 @@ body {
 
 .messages__infobar {
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: auto;
-  left: 0;
+  inset: 0 0 auto;
   background-color: var(--accent--light);
   padding: 0.5rem;
 }
