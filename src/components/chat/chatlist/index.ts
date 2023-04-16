@@ -66,11 +66,13 @@ class ChatlistBase extends Block<IChatlist> {
                 ],
                 button: new Button({
                   text: 'Добавить',
+                  type: 'submit',
                 }),
                 formID: 'chat-title',
                 events: {
                   submit: (e: Event) => {
                     e.preventDefault();
+                    console.log('nsw  ');
                     const { value } = document.querySelector(
                       '#title',
                     ) as HTMLInputElement;

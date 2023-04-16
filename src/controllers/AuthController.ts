@@ -18,8 +18,10 @@ class AuthController {
   signup(data: ISignupData) {
     this.api
       .signup(escapeObjectValues<ISignupData>(data))
-      .then(() => {
-        router.go('/profile');
+      .then(async () => {
+        await this.fetchUser();
+        await ChatsController.getChats();
+        router.go(ROUTES.chat);
       })
       .catch((err) => {
         console.log('signup err', err);
