@@ -1,0 +1,23 @@
+@use '../../styles/common';
+
+.modal__backdrop {
+  @include common.flex-centered;
+
+  position: absolute;
+  inset: 0;
+}
+
+.modal__box {
+  @include common.rounded;
+
+  padding: 4rem 2rem 3rem;
+  width: 23rem;
+  height: max-content;
+  box-shadow: var(--shadow-light);
+}
+
+.modal__header {
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.2rem;
+}

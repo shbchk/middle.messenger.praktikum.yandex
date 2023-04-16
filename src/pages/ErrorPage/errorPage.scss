@@ -1,0 +1,11 @@
+@use '../../styles/common';
+
+.error {
+  @include common.flex-centered;
+
+  position: fixed;
+
+  @include common.fullscreen;
+
+  flex-direction: column;
+}

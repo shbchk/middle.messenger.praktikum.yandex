@@ -1,0 +1,13 @@
+@use '../../styles/common';
+
+.modal__button {
+  @include common.action-button;
+
+  margin-top: 2rem;
+  width: 100%;
+  text-decoration: none;
+}
+
+.modal__button:disabled {
+  background-color: var(--neutral-200);
+}

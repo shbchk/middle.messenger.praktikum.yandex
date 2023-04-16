@@ -1,0 +1,39 @@
+@use '../../../styles/common';
+
+.profile__row {
+  padding: 0.8rem 0;
+  border-bottom: 1px var(--neutral-200) solid;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+}
+
+.profile__row:first-of-type {
+  margin-top: 3rem;
+}
+
+.profile__row:last-of-type {
+  border: none;
+  margin-bottom: 3rem;
+}
+
+.profile__row-label {
+  font-weight: 500;
+}
+
+.profile__row-value {
+  text-align: right;
+  color: var(--neutral-600);
+}
+
+.profile__row-value-input {
+  text-align: right;
+  padding: 0.1rem;
+  border: none;
+  border-bottom: 1px var(--neutral-200) dashed;
+  outline: none;
+}
+
+.profile__row-value-input:disabled {
+  background-color: #fff;
+  border: none;
+}

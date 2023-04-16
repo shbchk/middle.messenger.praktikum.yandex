@@ -1,0 +1,50 @@
+@use '../../styles/common';
+
+.modal__inputgroup {
+  position: relative;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.modal__input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--accent);
+  padding: 0.3rem 0;
+}
+
+.modal__input:focus {
+  outline: none;
+}
+
+.modal__float-placeholder {
+  font-size: 1rem;
+  color: var(--neutral-600);
+  position: absolute;
+  pointer-events: none;
+  top: 0.25rem;
+  left: 0;
+  transition: top 0.3s ease, font-size 0.3s ease;
+}
+
+.modal__input:focus ~ .modal__float-placeholder,
+.modal__input:not(:focus):valid ~ .modal__float-placeholder {
+  top: -1rem;
+  font-size: 0.7rem;
+}
+
+.modal__validation-error-message {
+  margin-top: 0.4rem;
+  font-size: 0.7rem;
+  color: var(--danger);
+  display: none;
+
+  &.active {
+    display: block;
+  }
+}
+
+.modal__input--error {
+  border-bottom-color: var(--danger);
+  color: var(--danger);
+}

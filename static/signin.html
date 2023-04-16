@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SuperYandexChat</title>
+  <script src="index.js" type="module"></script>
+
+  <!-- GOOGLE FONTS  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500&display=swap"
+    rel="stylesheet">
+  <!-- / GOOGLE FONTS  -->
+
+</head>
+
+<body>
+  <div class="modal__backdrop">
+    <div class="modal__box">
+      <div class="modal__header">Вход</div>
+      <form class="form">
+        <div class="modal__inputgroup">
+          <input type="text" name="login" id="login" class="modal__input" required />
+          <label for="login" class="modal__float-placeholder">Логин</label>
+        </div>
+        <div class="modal__inputgroup">
+          <input type="password" name="password" id="password" class="modal__input modal__input--error" required />
+          <label for="password" class="modal__float-placeholder">Пароль</label>
+          <div class="modal__validation-error-message">Кажется, вы ввели неверный пароль 😱</div>
+        </div>
+        <div class="modal__buttonsgroup">
+          <button type="submit" class="modal__button">Войти</button>
+          <a href="#" class="modal__authlink">Ещё не зарегистрированы?</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</body>
+
+</html>
