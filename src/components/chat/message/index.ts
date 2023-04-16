@@ -28,8 +28,6 @@ export default class Message extends Block<IMessage> {
       this.element!.classList.add('messages__message--image');
     }
 
-    console.log('this.props', this.props);
-
     const time = timeSince(this.props.time);
 
     return this.compile(Handlebars.compile(messageTemplate), {

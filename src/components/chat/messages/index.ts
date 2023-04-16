@@ -88,8 +88,6 @@ class MessagesBase extends Block<IChat> {
   render() {
     this.element!.classList.add('messages');
 
-    console.log('this.props.chat.messages', this.props.chat.messages);
-
     this.children.messagesArray = this.props.chat.messages.map(
       (message) =>
         new Message({
@@ -100,8 +98,6 @@ class MessagesBase extends Block<IChat> {
           id: message.id,
         }),
     );
-
-    console.log('this.children.messagesArray', this.children.messagesArray);
 
     return this.compile(Handlebars.compile(messagesTemplate), {
       ...this.props,

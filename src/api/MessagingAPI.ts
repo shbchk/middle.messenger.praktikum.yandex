@@ -67,21 +67,17 @@ class MessagingAPI {
       };
 
       this.ws.onmessage = (event) => {
-        console.log('Сообщение!', event.data);
         const msgs = store.getState().chat.messages;
         const received = JSON.parse(event.data) as IMsg;
         if (received.type === 'message') {
           store.set('chat.messages', [received, ...msgs]);
-          console.log(store.getState().chat);
         }
         if (Array.isArray(received)) {
           store.set('chat.messages', [...received]);
-          console.log(store.getState().chat);
         }
       };
 
       this.ws.onerror = (event) => {
-        console.log(event);
         reject(event);
       };
 
