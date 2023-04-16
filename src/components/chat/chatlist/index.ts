@@ -2,7 +2,7 @@ import Handlebars from 'handlebars';
 import Block from '../../../utils/Block';
 import { chatlistTemplate } from './chatlist.tmpl';
 import { withStore } from '../../../utils/Store';
-import ChatPreview, { IChat } from '../chatPreview';
+import ChatPreview from '../chatPreview';
 import Link from '../../link';
 import { ROUTES } from '../../../ROUTES';
 import Router from '../../../utils/Router';
@@ -14,6 +14,7 @@ import AuthForm from '../../authForm';
 import InputGroup from '../../inputGroup';
 import Input from '../../input';
 import ChatsController from '../../../controllers/ChatsController';
+import { IChat } from '../../../typings/interfaces';
 
 const router = new Router();
 

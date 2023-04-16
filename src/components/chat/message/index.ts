@@ -12,7 +12,7 @@ export interface IMessage {
   user_id: number;
   time: string;
   content_type: string;
-  content: string;
+  text: string;
 }
 
 export default class Message extends Block<IMessage> {
@@ -28,6 +28,8 @@ export default class Message extends Block<IMessage> {
     if (this.props.content_type === 'image') {
       this.element!.classList.add('messages__message--image');
     }
+
+    console.log('this.props', this.props);
 
     const time = timeSince(this.props.time);
 

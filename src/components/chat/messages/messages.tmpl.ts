@@ -2,6 +2,7 @@ export const messagesTemplate = `
 
 {{#if chat.currentChatId}}
   <div class="messages__messages-wrap">
+
     {{#each messagesArray }}
       {{{ this }}}
     {{/each}}

@@ -87,21 +87,27 @@ class MessagesBase extends Block<IChat> {
 
   render() {
     this.element!.classList.add('messages');
+
+    console.log('this.props.chat.messages', this.props.chat.messages);
+
+    this.children.messagesArray = this.props.chat.messages.map(
+      (message) =>
+        new Message({
+          text: message.content,
+          content_type: message.type,
+          time: message.time,
+          user_id: message.user_id,
+          id: message.id,
+        }),
+    );
+
+    console.log('this.children.messagesArray', this.children.messagesArray);
+
     return this.compile(Handlebars.compile(messagesTemplate), {
       ...this.props,
       userList: Array.isArray(this.props.chat!.users)
         ? this.props.chat!.users.map((user: IUser) => user.first_name)
         : '',
-      messagesArray: this.props.chat.messages.map(
-        (message) =>
-          new Message({
-            content: message.content,
-            content_type: message.type,
-            time: message.time,
-            user_id: message.user_id,
-            id: message.id,
-          }),
-      ),
     });
   }
 }
