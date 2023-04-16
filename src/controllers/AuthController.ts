@@ -4,6 +4,7 @@ import Router from '../utils/Router';
 import { ROUTES } from '../ROUTES';
 import { escapeObjectValues } from '../utils/escape';
 import { ISigninData, ISignupData, IUser } from '../typings/interfaces';
+import ChatsController from './ChatsController';
 
 const router = new Router();
 
@@ -36,7 +37,8 @@ class AuthController {
         store.set('user.hasError', false);
         store.set('user.errorReason', '');
       })
-      .then(() => {
+      .then(async () => {
+        await ChatsController.getChats();
         router.go(ROUTES.chat);
       })
       .catch((err) => {

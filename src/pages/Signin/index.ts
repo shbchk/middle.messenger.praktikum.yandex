@@ -12,6 +12,7 @@ import { ROUTES } from '../../ROUTES';
 import authController from '../../controllers/AuthController';
 import AuthForm from '../../components/authForm';
 import Button from '../../components/button';
+import chatsController from '../../controllers/ChatsController';
 
 const router = new Router();
 
@@ -20,6 +21,7 @@ class Signin extends Block {
     authController.checkAuth().then(async (loggedIn) => {
       if (loggedIn) {
         await authController.fetchUser();
+        await chatsController.getChats();
         router.go(ROUTES.chat);
       }
     });
