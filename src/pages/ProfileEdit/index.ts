@@ -13,6 +13,10 @@ import { ROUTES } from '../../ROUTES';
 import Button from '../../components/button';
 import { validateField } from '../../utils/validateField';
 import { IChangeProfile } from '../../api/UserAPI';
+import render from '../../utils/render';
+import Modal from '../../components/modal';
+import InputGroup from '../../components/inputGroup';
+import AuthForm from '../../components/authForm';
 
 const router = new Router();
 
@@ -36,6 +40,56 @@ class ProfileEditBase extends Block {
       text: 'Сохранить',
       classList: ['modal__button'],
       disabled: true,
+    });
+
+    this.children.changeAvatarButton = new Button({
+      text: 'Изменить аватар',
+      classList: ['type'],
+      events: {
+        click: (event) => {
+          event.preventDefault();
+          render(
+            '#root',
+            new Modal({
+              modalHeader: 'Изменить аватар',
+              modalContent: new AuthForm({
+                inputgroups: [
+                  new InputGroup({
+                    input: new Input({
+                      inputType: 'file',
+                      inputName: 'avatar',
+                      inputId: 'avatar',
+                      inputClassList: ['fileInput'],
+                      events: {
+                        change: () => {},
+                      },
+                    }),
+                    errorMessage: 'Ощшыбка',
+                    inputId: 'avatar',
+                    inputLabel: '',
+                  }),
+                ],
+                button: new Button({
+                  text: 'Изменить',
+                  type: 'submit',
+                }),
+                formID: 'changeAvatarForm',
+                events: {
+                  submit: (e: Event) => {
+                    e.preventDefault();
+
+                    const formData = new FormData(e.target as HTMLFormElement);
+
+                    usersController.changeAvatar(formData).then(() => {
+                      document.querySelector('.modal__backdrop')!.remove();
+                    });
+                  },
+                },
+              }),
+            }),
+          );
+        },
+      },
     });
 
     this.props.events = {

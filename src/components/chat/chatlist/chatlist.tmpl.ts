@@ -9,7 +9,7 @@ export const chatlistTemplate = `
       <img
         src="
       {{#if user.data.avatar}}
-        {{user.data.avatar}}
+        https://ya-praktikum.tech/api/v2/resources/{{user.data.avatar}}
       {{else}}
         ${AVATARSTUB}
       {{/if}}

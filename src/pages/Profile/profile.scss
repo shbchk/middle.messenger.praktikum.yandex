@@ -24,25 +24,23 @@
   cursor: pointer;
 }
 
-.profile__avatar:hover {
-  filter: brightness(0.5);
-}
-
 .profile__avatar:hover ~ .profile__avatar-change-overlay {
   visibility: visible;
+  cursor: pointer;
 }
 
 .profile__avatar-change-overlay {
   position: absolute;
-
+  border-radius: 100%;
   @include common.fullscreen;
   @include common.flex-centered;
-
+  background-color: hsla(0, 0%, 0%, 50%);
   font-size: 0.7rem;
   color: white;
   text-align: center;
-  pointer-events: none;
   visibility: hidden;
+  border: none;
+  appearance: unset;
 }
 
 .profile__display-name {

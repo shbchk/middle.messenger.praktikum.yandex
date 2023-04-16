@@ -29,9 +29,9 @@ export default class Button extends Block<IButtonProps> {
       (this.element! as HTMLButtonElement).name = this.props.name;
     }
 
-    if (this.props.type) {
-      (this.element! as HTMLButtonElement).type = this.props.type;
-    }
+    (this.element! as HTMLButtonElement).type = this.props.type
+      ? this.props.type
+      : 'button';
 
     if (this.props.disabled) {
       (this.element! as HTMLButtonElement).setAttribute('disabled', 'true');

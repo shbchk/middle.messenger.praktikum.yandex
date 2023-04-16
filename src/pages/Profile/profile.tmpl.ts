@@ -5,7 +5,7 @@ import { AVATARSTUB } from '../../AVATARSTUB';
 export const profileTemplate: string = `<div class="profile-wrap">
 
   <div class="profile__avatar-wrap">
-    <img src="{{#if user.data.avatar}}{{user.data.avatar}}{{else}}${AVATARSTUB}{{/if}}" class="profile__avatar" alt="Аватар"/>
+    <img src="{{#if user.data.avatar}}https://ya-praktikum.tech/api/v2/resources/{{user.data.avatar}}{{else}}${AVATARSTUB}{{/if}}" class="profile__avatar" alt="Аватар"/>
     <div class="profile__avatar-change-overlay">Изменить аватар</div>
   </div>
   <div class="profile__display-name">{{display_name}}</div>

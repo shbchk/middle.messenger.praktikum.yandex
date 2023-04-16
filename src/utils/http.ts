@@ -12,8 +12,9 @@ function queryStringify(data: any): string {
 type Options = {
   method?: string;
   data: any;
-  headers?: Record<string, string>;
+  headers?: Record<string, string> | null;
   timeout?: number;
+  stringify?: boolean;
 };
 
 // eslint-disable-next-line no-unused-vars
@@ -37,21 +38,42 @@ export default class HTTPTransport {
     });
   };
 
-  post: HTTPMethod = (url, options = { data: {} }) => {
+  post: HTTPMethod = (
+    url,
+    options = {
+      data: {},
+    },
+  ) => {
     return this.request(url, { ...options, method: METHODS.POST });
   };
 
-  put: HTTPMethod = (url, options = { data: {} }) => {
+  put: HTTPMethod = (
+    url,
+    options = {
+      data: {},
+    },
+  ) => {
     return this.request(url, { ...options, method: METHODS.PUT });
   };
 
-  delete: HTTPMethod = (url, options = { data: {} }) => {
+  delete: HTTPMethod = (
+    url,
+    options = {
+      data: {},
+    },
+  ) => {
     return this.request(url, { ...options, method: METHODS.DELETE });
   };
 
   request = (
     url: string,
-    { method = METHODS.GET, data, headers, timeout = 5000 }: Options,
+    {
+      method = METHODS.GET,
+      data,
+      headers = { key: 'Content-Type', value: 'application/json' },
+      stringify = true,
+      timeout = 5000,
+    }: Options,
   ) => {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
@@ -59,7 +81,7 @@ export default class HTTPTransport {
       xhr.timeout = timeout;
       // xhr.onload = () => resolve(xhr.response);
 
-      if (headers) {
+      if (headers !== null) {
         const { key, value } = headers;
         xhr.setRequestHeader(key, value);
       }
@@ -76,6 +98,11 @@ export default class HTTPTransport {
         }
       };
 
+      if (stringify) {
+        // eslint-disable-next-line no-param-reassign
+        data = JSON.stringify(data);
+      }
+
       xhr.onerror = errorHandler;
       xhr.onabort = errorHandler;
       xhr.ontimeout = errorHandler;
@@ -86,8 +113,7 @@ export default class HTTPTransport {
       if (method === METHODS.GET || !data) {
         xhr.send();
       } else {
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(JSON.stringify(data));
+        xhr.send(data);
       }
     });
   };

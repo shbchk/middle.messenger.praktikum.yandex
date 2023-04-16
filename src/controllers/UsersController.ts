@@ -4,6 +4,7 @@ import { IUser } from '../typings/interfaces';
 import Router from '../utils/Router';
 import store from '../utils/Store';
 import { escapeObjectValues } from '../utils/escape';
+import authController from './AuthController';
 
 const router = new Router();
 
@@ -46,8 +47,13 @@ class UserController {
 
   async getUserByLogin(data: { login: string }) {
     await this.api.getUserByLogin(data).then((response) => {
-      console.log(response);
       store.set('addUsers.found', response as IUser[]);
+    });
+  }
+
+  async changeAvatar(file: FormData) {
+    await this.api.changeAvatar(file).then(async (response) => {
+      await authController.fetchUser();
     });
   }
 }

@@ -63,6 +63,8 @@ class MessagesBase extends Block<IChat> {
                           store.getState().addUsers?.usersToAdd as IUser[]
                         ).map((user) => user.id),
                         chatId: store.getState().chat.currentChatId as number,
+                      }).then(() => {
+                        document.querySelector('.modal__backdrop')!.remove();
                       });
                     },
                   },
