@@ -6,9 +6,9 @@ interface IModalButton {
   type: string;
   text: string;
   link?: string;
-  // eslint-disable-next-line no-unused-vars
+
   events?: Record<string, (event: Event) => void>;
-  disabled?: boolean;
+  disabled?: true;
   id: string;
 }
 

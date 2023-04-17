@@ -1,6 +1,7 @@
 import { nanoid } from 'nanoid';
 import { TemplateDelegate } from 'handlebars';
 import EventBus from './EventBus';
+import isEqual from './isEqual';
 
 class Block<P extends Record<string, any> = any> {
   private static EVENTS: Record<string, string> = {
@@ -61,7 +62,9 @@ class Block<P extends Record<string, any> = any> {
 
   private _init() {
     this._createResources();
+
     this.init();
+
     this._eventBus().emit(Block.EVENTS.FLOW_RENDER);
   }
 
@@ -78,15 +81,16 @@ class Block<P extends Record<string, any> = any> {
   }
 
   private _componentDidUpdate(oldProps: P, newProps: P) {
-    if (this.componentDidUpdate(oldProps, newProps)) {
+    const isPropsEqual = isEqual(oldProps, newProps);
+
+    if (!isPropsEqual) {
       this._removeEvents();
+      this.componentDidUpdate();
       this._eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
   }
 
-  protected componentDidUpdate(oldProps: P, newProps: P) {
-    return true;
-  }
+  protected componentDidUpdate() {}
 
   public setProps = (nextProps: Partial<P>): void => {
     if (!nextProps) {
@@ -113,29 +117,6 @@ class Block<P extends Record<string, any> = any> {
   protected render(): DocumentFragment {
     return new DocumentFragment();
   }
-
-  // protected compile(template: TemplateDelegate, context: any) {
-  //   const contextAndStubs = { ...context };
-  //   Object.entries(this.children).forEach(([name, component]) => {
-  //     contextAndStubs[name] = `<div data-id="${component.id}"></div>`;
-  //   });
-
-  //   const html = template(contextAndStubs);
-
-  //   const temp = document.createElement('template');
-
-  //   temp.innerHTML = html;
-
-  //   Object.entries(this.children).forEach(([_, component]) => {
-  //     const stub = temp.content.querySelector(`[data-id="${component.id}"]`);
-  //     if (!stub) {
-  //       return;
-  //     }
-  //     stub.replaceWith(component.getContent()!);
-  //   });
-
-  //   return temp.content;
-  // }
 
   protected compile(template: TemplateDelegate, context: any) {
     const contextAndStubs = { ...context };
@@ -168,8 +149,7 @@ class Block<P extends Record<string, any> = any> {
       stub.replaceWith(component.getContent()!);
     };
 
-    // eslint-disable-next-line no-unused-vars
-    Object.entries(this.children).forEach(([_, component]) => {
+    Object.values(this.children).forEach((component) => {
       if (Array.isArray(component)) {
         component.forEach(replaceStub);
       } else {
@@ -182,7 +162,6 @@ class Block<P extends Record<string, any> = any> {
 
   private _addEvents() {
     const { events = {} } = this.props as P & {
-      // eslint-disable-next-line no-unused-vars
       events: Record<string, (event: Event) => void>;
     };
 
@@ -193,7 +172,6 @@ class Block<P extends Record<string, any> = any> {
 
   private _removeEvents() {
     const { events = {} } = this.props as P & {
-      // eslint-disable-next-line no-unused-vars
       events: Record<string, (event: Event) => void>;
     };
 
@@ -203,6 +181,8 @@ class Block<P extends Record<string, any> = any> {
   }
 
   public getContent() {
+    this._render();
+
     return this.element;
   }
 
@@ -259,12 +239,16 @@ class Block<P extends Record<string, any> = any> {
     return element;
   }
 
-  protected show() {
+  public show() {
     this.getContent()!.style.display = 'block';
   }
 
-  protected hide() {
+  public hide() {
     this.getContent()!.style.display = 'none';
+  }
+
+  public remove() {
+    this.getContent()!.remove();
   }
 }
 

@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 type Callback = (...args: any[]) => void;
 
 export default class EventBus {
@@ -25,7 +24,7 @@ export default class EventBus {
     );
   }
 
-  emit(event: string, ...args: any[]) {
+  emit(event: string, ...args: unknown[]) {
     if (!this.listeners[event]) {
       throw new Error(`Нет события: ${event}`);
     }

@@ -5,20 +5,24 @@ import Block from '../../utils/Block';
 import ProfileRow from '../../components/profile/profileRow';
 import Input from '../../components/input';
 import BackButton from '../../components/profile/backButton';
+import { withStore } from '../../utils/Store';
+import authController from '../../controllers/AuthController';
+import Router from '../../utils/Router';
+import { ROUTES } from '../../ROUTES';
+import Link from '../../components/link';
 
-export interface IUser {
-  id?: number;
-  first_name: string;
-  second_name: string;
-  display_name: string;
-  avatar: string;
-  email: string;
-  login: string;
-  phone: string;
-}
+const router = new Router();
 
-export default class Profile extends Block<IUser> {
+class ProfileBase extends Block {
   init() {
+    authController.checkAuth().then(async (loggedIn) => {
+      if (!loggedIn) {
+        router.go(ROUTES.index);
+      }
+    });
+  }
+
+  render() {
     this.children.profileRows = [
       new ProfileRow({
         rowLabel: 'Логин',
@@ -28,8 +32,8 @@ export default class Profile extends Block<IUser> {
           inputName: 'login',
           inputPlaceholder: 'Логин',
           inputRequired: 'required',
-          inputDisabled: 'disabled',
-          inputValue: this.props.login,
+          inputDisabled: true,
+          inputValue: this.props.user.data.login,
           inputClassList: ['profile__row-value-input'],
         }),
       }),
@@ -41,8 +45,8 @@ export default class Profile extends Block<IUser> {
           inputName: 'email',
           inputPlaceholder: 'Почта',
           inputRequired: 'required',
-          inputDisabled: 'disabled',
-          inputValue: this.props.email,
+          inputDisabled: true,
+          inputValue: this.props.user.data.email,
           inputClassList: ['profile__row-value-input'],
         }),
       }),
@@ -54,8 +58,8 @@ export default class Profile extends Block<IUser> {
           inputName: 'first_name',
           inputPlaceholder: 'Имя',
           inputRequired: 'required',
-          inputDisabled: 'disabled',
-          inputValue: this.props.first_name,
+          inputDisabled: true,
+          inputValue: this.props.user.data.first_name,
           inputClassList: ['profile__row-value-input'],
         }),
       }),
@@ -67,8 +71,8 @@ export default class Profile extends Block<IUser> {
           inputName: 'second_name',
           inputPlaceholder: 'Фамилия',
           inputRequired: 'required',
-          inputDisabled: 'disabled',
-          inputValue: this.props.second_name,
+          inputDisabled: true,
+          inputValue: this.props.user.data.second_name,
           inputClassList: ['profile__row-value-input'],
         }),
       }),
@@ -80,8 +84,10 @@ export default class Profile extends Block<IUser> {
           inputName: 'display_name',
           inputPlaceholder: 'Имя в чате',
           inputRequired: 'required',
-          inputDisabled: 'disabled',
-          inputValue: this.props.display_name,
+          inputDisabled: true,
+          inputValue: this.props.user.data.display_name
+            ? this.props.user.data.display_name
+            : `${this.props.user.data.first_name} ${this.props.user.data.second_name}`,
           inputClassList: ['profile__row-value-input'],
         }),
       }),
@@ -93,24 +99,62 @@ export default class Profile extends Block<IUser> {
           inputName: 'phone',
           inputPlaceholder: 'Телефон',
           inputRequired: 'required',
-          inputDisabled: 'disabled',
-          inputValue: this.props.phone,
+          inputDisabled: true,
+          inputValue: this.props.user.data.phone,
           inputClassList: ['profile__row-value-input'],
         }),
       }),
     ];
 
-    this.children.backButton = new BackButton({
-      link: '/chat.html',
-    });
-  }
+    this.children.backButton = new BackButton();
 
-  render() {
+    this.children.logoutLink = new Link({
+      href: ROUTES.index,
+      text: 'Выйти',
+      classList: ['profile__edit-button', 'profile__edit-button--logout'],
+      events: {
+        click: (event) => {
+          event.preventDefault();
+          authController.logout();
+        },
+      },
+    });
+
+    this.children.settingsLink = new Link({
+      href: ROUTES.profileEdit,
+      text: 'Изменить данные',
+      classList: ['profile__edit-button'],
+      events: {
+        click: (event) => {
+          event.preventDefault();
+          router.go(ROUTES.profileEdit);
+        },
+      },
+    });
+
+    this.children.passwordLink = new Link({
+      href: ROUTES.password,
+      text: 'Изменить пароль',
+      classList: ['profile__edit-button'],
+      events: {
+        click: (event) => {
+          event.preventDefault();
+          router.go(ROUTES.password);
+        },
+      },
+    });
+
     return this.compile(Handlebars.compile(profileTemplate), {
       ...this.props,
-      profileRows: Array.isArray(this.children.profileRows)
-        ? this.children.profileRows.map((profileRow) => profileRow.getContent())
-        : this.children.profileRows.getContent(),
+      profileRows: this.children.profileRows.map((profileRow) =>
+        profileRow.getContent(),
+      ),
     });
   }
 }
+
+const withUser = withStore((state) => ({ user: { ...state.user } }));
+
+const Profile = withUser(ProfileBase as typeof Block);
+
+export default Profile;

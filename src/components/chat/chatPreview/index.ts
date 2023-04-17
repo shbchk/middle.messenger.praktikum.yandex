@@ -1,36 +1,39 @@
 import Handlebars from 'handlebars';
-import { IUser } from '../../../pages/Profile';
+import { IChat } from '../../../typings/interfaces';
 import Block from '../../../utils/Block';
 import timeSince from '../../../utils/timeSince';
 import { chatPreviewTemplate } from './chatPreview.tmpl';
+import { AVATARSTUB } from '../../../AVATARSTUB';
+import ChatsController from '../../../controllers/ChatsController';
+import store from '../../../utils/Store';
+import MessagingAPI from '../../../api/MessagingAPI';
 
-export interface ILastMessage {
-  user: IUser;
-  time: string;
-  content: string;
-}
-
-export interface IChat {
-  id: number;
-  title: string;
-  avatar: string;
-  unread_count: number;
-  last_message: ILastMessage;
-  // eslint-disable-next-line no-unused-vars
+interface IChatPreview extends IChat {
   events?: Record<string, (event: Event) => void>;
 }
 
-export default class ChatPreview extends Block<IChat> {
+export default class ChatPreview extends Block<IChatPreview> {
   init() {
     this.props.events = {
       click: () => {
-        document
-          .querySelector('.chatlist__chat--active')
-          ?.classList.remove('chatlist__chat--active');
+        ChatsController.fetchChatToken(this.props)
+          .then(async () => {
+            await ChatsController.fetchChatUsers(this.props.id);
+          })
+          .then(async () => {
+            store.set('chat.api', new MessagingAPI());
 
-        document
-          .querySelector(`[data-id="${this.id}"]`)
-          ?.classList.add('chatlist__chat--active');
+            await store
+              .getState()
+              .chat.api.connect({
+                chatId: this.props.id,
+                token: store.getState().chat.currentChatToken as string,
+                userId: store.getState().user?.data?.id as number,
+              })
+              .then(() => {
+                store.getState().chat.api.fetchOldMessages();
+              });
+          });
       },
     };
   }
@@ -38,14 +41,23 @@ export default class ChatPreview extends Block<IChat> {
   render() {
     this.element!.classList.add('chatlist__chat');
 
-    const time = timeSince(new Date(this.props.last_message.time).getTime());
+    if (this.props.id === store.getState().chat.currentChatId) {
+      this.element!.classList.add('chatlist__chat--active');
+    }
+
+    const time = this.props.last_message?.time
+      ? timeSince(new Date(this.props.last_message.time).getTime())
+      : '';
 
     return this.compile(Handlebars.compile(chatPreviewTemplate), {
-      display_name: this.props.last_message.user.display_name,
-      avatar: this.props.avatar,
-      content: this.props.last_message.content,
+      title: this.props?.title,
+      avatar: this.props.avatar ? this.props.avatar : AVATARSTUB,
+      content: this.props?.last_message?.content
+        ? this.props.last_message.content
+        : '😶 Нет сообщений',
       time,
-      unread_count: this.props.unread_count > 0 ? this.props.unread_count : '',
+      unread_count:
+        this.props.unread_count > 0 ? this.props.unread_count : null,
     });
   }
 }

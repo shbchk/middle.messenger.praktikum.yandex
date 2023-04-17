@@ -1,28 +1,75 @@
+import '../Profile/profile.scss';
 import Handlebars from 'handlebars';
 import { profileEditTemplate } from '../ProfileEdit/profileEdit.tmpl';
 import Block from '../../utils/Block';
 import ProfileRow from '../../components/profile/profileRow';
 import Input from '../../components/input';
 import BackButton from '../../components/profile/backButton';
-import { IUser } from '../Profile';
-import ModalButton from '../../components/modalButton';
+import { withStore } from '../../utils/Store';
+import authController from '../../controllers/AuthController';
+import usersController from '../../controllers/UsersController';
+import Router from '../../utils/Router';
+import { ROUTES } from '../../ROUTES';
+import Button from '../../components/button';
 import { validateField } from '../../utils/validateField';
+import { IChangePassword } from '../../api/UserAPI';
 
-interface IPasswordChange {
-  user: IUser;
-  // eslint-disable-next-line no-unused-vars
-  events: Record<string, (event: Event) => void>;
-}
+const router = new Router();
 
-export default class PasswordChange extends Block<IPasswordChange> {
-  constructor(props: IPasswordChange) {
+class PasswordChangeBase extends Block {
+  constructor(props: { events: Record<string, (event: Event) => void> }) {
     super(props, 'form');
   }
 
   init() {
+    authController.checkAuth().then(async (loggedIn) => {
+      if (!loggedIn) {
+        router.go(ROUTES.index);
+      }
+    });
+
+    this.children.backButton = new BackButton();
+
+    this.children.saveButton = new Button({
+      id: 'submit-button',
+      type: 'submit',
+      text: 'Изменить пароль',
+      classList: ['modal__button'],
+      disabled: true,
+    });
+
+    this.props.events = {
+      submit: (event: Event) => {
+        event.preventDefault();
+        const isValid = validateField(event, 'profileEdit');
+
+        const formData = new FormData(event.target as HTMLFormElement);
+
+        const data: IChangePassword = {
+          oldPassword: '',
+          newPassword: '',
+        };
+
+        formData.forEach((value, key) => {
+          if (key in data) {
+            data[key as keyof IChangePassword] = value.toString();
+          }
+        });
+
+        if (isValid) {
+          usersController.changePassword(data);
+        }
+      },
+    };
+  }
+
+  render() {
+    this.element!.id = 'passwordChange';
+    this.element!.classList.add('profile-wrap');
+
     this.children.profileRows = [
       new ProfileRow({
-        rowLabel: 'Старенький пароль',
+        rowLabel: 'Старый',
         rowInput: new Input({
           inputType: 'password',
           inputId: 'oldPassword',
@@ -76,27 +123,18 @@ export default class PasswordChange extends Block<IPasswordChange> {
       }),
     ];
 
-    this.children.backButton = new BackButton({
-      link: '/profile.html',
-    });
-
-    this.children.saveButton = new ModalButton({
-      id: 'submit-button',
-      type: 'submit',
-      text: 'Изменить пароль',
-      link: '/profile.html',
-    });
-  }
-
-  render() {
-    this.element!.id = 'passwordChange';
-
     return this.compile(Handlebars.compile(profileEditTemplate), {
       ...this.props,
-      profileRows: Array.isArray(this.children.profileRows)
-        ? this.children.profileRows.map((profileRow) => profileRow.getContent())
-        : this.children.profileRows.getContent(),
+      profileRows: this.children.profileRows.map((profileRow) =>
+        profileRow.getContent(),
+      ),
       saveButton: this.children.saveButton,
     });
   }
 }
+
+const withUser = withStore((state) => ({ user: { ...state.user } }));
+
+const PasswordChange = withUser(PasswordChangeBase as typeof Block);
+
+export default PasswordChange;

@@ -4,7 +4,6 @@ import { chatSearchTemplate } from './chatSearch.tmpl';
 
 interface IChatSearch {
   chatSearchInput: Block;
-  // eslint-disable-next-line no-unused-vars
   events: Record<string, (event: Event) => void>;
 }
 

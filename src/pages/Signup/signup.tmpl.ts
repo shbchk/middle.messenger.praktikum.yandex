@@ -1,10 +1,6 @@
 export const signupTemplate: string = `
-  {{#each inputgroups}}
-    {{{this}}}
-  {{/each}}
-
-  <div class='signup__buttonsgroup'>
-    {{{button}}}
-    <a href='/signin.html' class='signup__authlink'>Уже есть аккаунт?</a>
-  </div>
+<div class='modal__box'>
+  <div class='modal__header'>{{header}}</div>
+  {{{ authForm }}}
+</div>
 `;
