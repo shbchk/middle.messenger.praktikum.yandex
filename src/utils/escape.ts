@@ -13,11 +13,7 @@ export function escapeInput(text: string): string {
 
 export function escapeObjectValues<
   T extends { [key: string]: string | undefined },
->(
-  obj: T,
-  // eslint-disable-next-line no-unused-vars
-): { [key in keyof T]: string } {
-  // eslint-disable-next-line no-unused-vars
+>(obj: T): { [key in keyof T]: string } {
   const escapedObj = {} as { [key in keyof T]: string };
 
   Object.keys(obj).forEach((key) => {

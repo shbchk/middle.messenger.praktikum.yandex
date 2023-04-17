@@ -37,29 +37,6 @@ export interface IMsg {
   file?: string | null;
 }
 
-export interface IState {
-  user?: {
-    data?: IUser;
-    hasError?: boolean;
-    errorReason?: string | null;
-  };
-  chat: {
-    messages: IMsg[];
-    currentChatToken?: string;
-    currentChatId?: number;
-    users: IUser[];
-    api?: any;
-  };
-  chats: {
-    data: any;
-  };
-  addUsers?: {
-    found: IUser[];
-    usersToAdd: IUser[];
-    hasError?: boolean;
-  };
-}
-
 export interface IChat {
   id: number;
   title: string;
@@ -77,5 +54,29 @@ export interface IChat {
     } | null;
     time: string;
     content: string;
+  };
+}
+
+export interface IState {
+  user?: {
+    data?: IUser;
+    hasError?: boolean;
+    errorReason?: string | null;
+  };
+  chat: {
+    messages: IMsg[];
+    currentChatToken?: string;
+    currentChatId?: number;
+    currentChatCreatedBy?: number;
+    users: IUser[];
+    api?: any;
+  };
+  chats: {
+    data: IChat[];
+  };
+  addUsers?: {
+    found: IUser[];
+    usersToAdd: IUser[];
+    hasError?: boolean;
   };
 }

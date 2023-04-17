@@ -17,7 +17,6 @@ type Options = {
   stringify?: boolean;
 };
 
-// eslint-disable-next-line no-unused-vars
 type HTTPMethod = (url: string, options?: Options) => Promise<unknown>;
 
 export default class HTTPTransport {

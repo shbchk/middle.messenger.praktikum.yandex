@@ -9,9 +9,12 @@
     "no-underscore-dangle": "off",
     "default-param-last": "off",
     "class-methods-use-this": "off",
-    "no-unused-vars": "warn",
+    "no-unused-vars": "off",
     "arrow-body-style": "off",
     "no-plusplus": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": "warn",
     "import/extensions": [
       "error",
       "ignorePackages",

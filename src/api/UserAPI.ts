@@ -44,12 +44,4 @@ export default class UserAPI extends BaseAPI {
   getUserByLogin(data: { login: string }) {
     return this.http.post('/search', { data });
   }
-
-  create = undefined;
-
-  read = undefined;
-
-  update = undefined;
-
-  delete = undefined;
 }

@@ -6,12 +6,4 @@ export default abstract class BaseAPI {
   constructor(endpoint: string) {
     this.http = new HTTPTransport(endpoint);
   }
-
-  abstract create?(data: unknown): Promise<unknown>;
-
-  abstract read?(identifier: string): Promise<unknown>;
-
-  abstract update?(identifier: string, data: unknown): Promise<unknown>;
-
-  abstract delete?(identifier: string): Promise<unknown>;
 }

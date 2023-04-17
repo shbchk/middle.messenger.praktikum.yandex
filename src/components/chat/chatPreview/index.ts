@@ -9,7 +9,6 @@ import store from '../../../utils/Store';
 import MessagingAPI from '../../../api/MessagingAPI';
 
 interface IChatPreview extends IChat {
-  // eslint-disable-next-line no-unused-vars
   events?: Record<string, (event: Event) => void>;
 }
 
@@ -17,7 +16,7 @@ export default class ChatPreview extends Block<IChatPreview> {
   init() {
     this.props.events = {
       click: () => {
-        ChatsController.fetchChatToken(this.props.id)
+        ChatsController.fetchChatToken(this.props)
           .then(async () => {
             await ChatsController.fetchChatUsers(this.props.id);
           })

@@ -4,9 +4,7 @@ import Block from './Block';
 import EventBus from './EventBus';
 import set from './set';
 
-// eslint-disable-next-line no-shadow
 export enum StoreEvents {
-  // eslint-disable-next-line no-unused-vars
   Updated = 'Updated',
 }
 
@@ -38,7 +36,6 @@ class Store extends EventBus {
 
 const store = new Store();
 
-// eslint-disable-next-line no-unused-vars
 export const withStore = <T>(mapStateToProps: (state: IState) => any) => {
   return <K>(Component: typeof Block) => {
     return class extends Component {

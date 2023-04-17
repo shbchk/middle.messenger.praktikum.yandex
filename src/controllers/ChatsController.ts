@@ -1,6 +1,11 @@
 import ChatsAPI from '../api/ChatsAPI';
+import { IChat } from '../typings/interfaces';
 import store from '../utils/Store';
 import { escapeObjectValues } from '../utils/escape';
+
+interface IChatPreview extends IChat {
+  events?: Record<string, (event: Event) => void>;
+}
 
 class ChatsController {
   private api: ChatsAPI;
@@ -11,7 +16,7 @@ class ChatsController {
 
   async getChats() {
     await this.api
-      .getChats({})
+      .getChats()
       .then((data) => {
         store.set('chats.data', data);
       })
@@ -23,7 +28,7 @@ class ChatsController {
   async createChat(data: { title: string }) {
     await this.api
       .createChat(escapeObjectValues<{ title: string }>(data))
-      .then((result) => {
+      .then(() => {
         this.getChats();
       })
       .catch((err) => {
@@ -31,10 +36,11 @@ class ChatsController {
       });
   }
 
-  async fetchChatToken(chatId: number) {
-    await this.api.getChatToken(chatId).then((response) => {
+  async fetchChatToken(props: IChatPreview) {
+    await this.api.getChatToken(props.id).then((response) => {
       store.set('chat.currentChatToken', (response as { token: string }).token);
-      store.set('chat.currentChatId', chatId);
+      store.set('chat.currentChatId', props.id);
+      store.set('chat.currentChatCreatedBy', props.created_by);
     });
   }
 
@@ -55,11 +61,17 @@ class ChatsController {
 
   async deleteUsers(data: { users: number[]; chatId: number }) {
     await this.api
-      .addUsers(data)
+      .deleteUsers(data)
       .then(() => {
         this.fetchChatUsers(data.chatId);
       })
       .catch(console.log);
+  }
+
+  async deleteChat(data: { chatId: number }) {
+    await this.api.deleteChat(data).then(async () => {
+      await this.getChats();
+    });
   }
 }
 

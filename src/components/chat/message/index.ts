@@ -4,7 +4,10 @@ import timeSince from '../../../utils/timeSince';
 import { messageTemplate } from './message.tmpl';
 import store from '../../../utils/Store';
 
-Handlebars.registerHelper('if_equal', (val1: any, val2: any) => val1 === val2);
+Handlebars.registerHelper(
+  'if_equal',
+  (val1: unknown, val2: unknown) => val1 === val2,
+);
 
 export interface IMessage {
   id: number;

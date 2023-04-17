@@ -15,7 +15,7 @@ interface IAddUsers {
   usersToAdd: string[];
   usersFound: Block[];
   addUsers?: IState['addUsers'];
-  // eslint-disable-next-line no-unused-vars
+
   events: Record<string, (event: Event) => void>;
 }
 

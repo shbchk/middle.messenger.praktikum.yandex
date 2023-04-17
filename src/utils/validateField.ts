@@ -43,8 +43,8 @@ export const validateField = (event: Event, formId: string): boolean => {
   if (event.type === 'submit') {
     const formData = new FormData(event.target as HTMLFormElement);
     let result = true;
-    // eslint-disable-next-line no-undef
-    const data: Record<string, FormDataEntryValue> = {};
+
+    const data: Record<string, unknown> = {};
     formData.forEach((val, key) => {
       data[key] = val;
 

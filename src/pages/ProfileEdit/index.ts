@@ -5,7 +5,7 @@ import Block from '../../utils/Block';
 import ProfileRow from '../../components/profile/profileRow';
 import Input from '../../components/input';
 import BackButton from '../../components/profile/backButton';
-import store, { withStore } from '../../utils/Store';
+import { withStore } from '../../utils/Store';
 import authController from '../../controllers/AuthController';
 import usersController from '../../controllers/UsersController';
 import Router from '../../utils/Router';
@@ -21,7 +21,7 @@ import AuthForm from '../../components/AuthForm';
 const router = new Router();
 
 class ProfileEditBase extends Block {
-  constructor(props: any) {
+  constructor(props: { events: Record<string, (event: Event) => void> }) {
     super(props, 'form');
   }
 
@@ -61,7 +61,16 @@ class ProfileEditBase extends Block {
                       inputId: 'avatar',
                       inputClassList: ['fileInput'],
                       events: {
-                        change: () => {},
+                        change: () => {
+                          const input = document.querySelector(
+                            '#avatar',
+                          ) as HTMLInputElement;
+                          const file = input.files?.[0];
+                          const maxFileSize = 1024 * 1024;
+                          if ((file?.size as number) > maxFileSize) {
+                            input.value = '';
+                          }
+                        },
                       },
                     }),
                     errorMessage: 'Ощшыбка',

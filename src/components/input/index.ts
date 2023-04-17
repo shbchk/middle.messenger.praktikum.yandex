@@ -10,7 +10,6 @@ interface IInput {
   inputDisabled?: true;
   inputPlaceholder?: string;
   inputValue?: string;
-  // eslint-disable-next-line no-unused-vars
   events?: Record<string, (event: Event) => void>;
 }
 

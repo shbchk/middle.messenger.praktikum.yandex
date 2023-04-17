@@ -12,6 +12,7 @@ import UsersController from '../../../controllers/UsersController';
 import AddUsers from '../../addUsers';
 import ChatsController from '../../../controllers/ChatsController';
 import { IState, IUser } from '../../../typings/interfaces';
+import UserInChat from '../userInChat';
 
 interface IChat {
   messagesArray: IMessage[];
@@ -65,6 +66,8 @@ class MessagesBase extends Block<IChat> {
                         chatId: store.getState().chat.currentChatId as number,
                       }).then(() => {
                         document.querySelector('.modal__backdrop')!.remove();
+                        store.set('addUsers.usersToAdd', []);
+                        store.set('addUsers.found', []);
                       });
                     },
                   },
@@ -90,6 +93,27 @@ class MessagesBase extends Block<IChat> {
   render() {
     this.element!.classList.add('messages');
 
+    if (
+      store.getState().user?.data?.id ===
+      store.getState().chat.currentChatCreatedBy
+    ) {
+      this.children.deleteChatButton = new Button({
+        text: '✖',
+        classList: ['messages__delete-chat-button'],
+        events: {
+          click: () => {
+            ChatsController.deleteChat({
+              chatId: store.getState().chat.currentChatId as number,
+            }).then(() => {
+              store.set('chat.currentChatId', 0);
+            });
+          },
+        },
+      });
+    } else if (this.children.deleteChatButton) {
+      delete this.children.deleteChatButton;
+    }
+
     this.children.messagesArray = this.props.chat.messages.map(
       (message) =>
         new Message({
@@ -101,11 +125,16 @@ class MessagesBase extends Block<IChat> {
         }),
     );
 
+    this.children.userList = this.props.chat.users.map(
+      (user: IUser) =>
+        new UserInChat({
+          name: user.display_name ? user.display_name : user.first_name,
+          userId: user.id,
+        }),
+    );
+
     return this.compile(Handlebars.compile(messagesTemplate), {
       ...this.props,
-      userList: Array.isArray(this.props.chat!.users)
-        ? this.props.chat!.users.map((user: IUser) => user.first_name)
-        : '',
     });
   }
 }

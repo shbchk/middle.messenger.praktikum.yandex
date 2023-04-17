@@ -9,7 +9,6 @@ import { validateField } from '../../utils/validateField';
 import Messages from '../../components/chat/messages';
 import MessageInput from '../../components/chat/messageInput';
 import Textarea from '../../components/textarea';
-import Message, { IMessage } from '../../components/chat/message';
 import ChatsController from '../../controllers/ChatsController';
 import authController from '../../controllers/AuthController';
 import Router from '../../utils/Router';
@@ -52,7 +51,6 @@ class ChatBase extends Block {
     });
 
     this.children.messages = new Messages({
-      messagesArray: [].reverse().map((msg: IMessage) => new Message(msg)),
       messagesInput: new MessageInput({
         textarea: new Textarea({
           id: 'message',
@@ -76,10 +74,13 @@ class ChatBase extends Block {
           submit: (event) => {
             event.preventDefault();
             validateField(event, 'message-input-form');
-            const text = (
-              document.querySelector('#message') as HTMLTextAreaElement
-            ).value;
+
+            const textarea = document.querySelector(
+              '#message',
+            ) as HTMLTextAreaElement;
+            const text = textarea.value;
             store.getState().chat.api.send({ content: text, type: 'message' });
+            textarea.value = '';
           },
         },
       }),

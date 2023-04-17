@@ -1,6 +1,6 @@
 import isObject from './isObject';
 
-type StringIndexed = Record<string, any>;
+type StringIndexed = Record<string, unknown>;
 
 const obj: StringIndexed = {
   key: 1,

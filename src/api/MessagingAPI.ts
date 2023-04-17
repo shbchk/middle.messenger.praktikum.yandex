@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-cycle
 import { IMsg } from '../typings/interfaces';
 import store from '../utils/Store';
 import { escapeObjectValues } from '../utils/escape';

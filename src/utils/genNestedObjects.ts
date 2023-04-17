@@ -1,7 +1,7 @@
 const genNestedObjects = (
   keys: string,
-  value: any = {},
-): Record<string, any> => {
+  value: unknown = {},
+): Record<string, unknown> => {
   return keys
     .split('.')
     .reduceRight((accumulator, currentValue, currentIndex, array) => {

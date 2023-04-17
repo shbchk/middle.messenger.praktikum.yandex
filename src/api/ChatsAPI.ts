@@ -5,8 +5,8 @@ export default class ChatsAPI extends BaseAPI {
     super('');
   }
 
-  getChats(data: any) {
-    return this.http.get('/chats', { data });
+  getChats() {
+    return this.http.get('/chats');
   }
 
   createChat(data: { title: string }) {
@@ -17,7 +17,7 @@ export default class ChatsAPI extends BaseAPI {
     return this.http.delete('/chats', { data });
   }
 
-  uploadAvatar(data: any) {
+  uploadAvatar(data: FormData) {
     return this.http.put('/chats/avatar', { data });
   }
 
@@ -36,12 +36,4 @@ export default class ChatsAPI extends BaseAPI {
   getChatUsers(chatId: number) {
     return this.http.get(`/chats/${chatId}/users`);
   }
-
-  create = undefined;
-
-  read = undefined;
-
-  update = undefined;
-
-  delete = undefined;
 }

@@ -7,7 +7,7 @@ interface ITextarea {
   classList: string[];
   placeholder?: string;
   id: string;
-  // eslint-disable-next-line no-unused-vars
+
   events?: Record<string, (event: Event) => void>;
 }
 

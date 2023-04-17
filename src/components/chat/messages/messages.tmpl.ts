@@ -11,8 +11,14 @@ export const messagesTemplate = `
   {{{ messagesInput }}}
 
   <div class="messages__infobar">
-    {{#each userList }}<span class="messages_user-in-chat">{{this}}</span>{{/each}}
-    {{{ addUserButton }}}
+    <div class="messages__users-in-chat">
+      {{#each userList }}{{{this}}}{{/each}}
+    </div>
+    <div class="messages__infobar-buttons">
+      {{{ addUserButton }}}
+
+      {{{ deleteChatButton }}}
+    </div>
   </div>
 {{else}}
   <div class="messages__empty-message">

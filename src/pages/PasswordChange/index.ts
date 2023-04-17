@@ -5,19 +5,19 @@ import Block from '../../utils/Block';
 import ProfileRow from '../../components/profile/profileRow';
 import Input from '../../components/input';
 import BackButton from '../../components/profile/backButton';
-import store, { withStore } from '../../utils/Store';
+import { withStore } from '../../utils/Store';
 import authController from '../../controllers/AuthController';
 import usersController from '../../controllers/UsersController';
 import Router from '../../utils/Router';
 import { ROUTES } from '../../ROUTES';
 import Button from '../../components/button';
 import { validateField } from '../../utils/validateField';
-import { IChangePassword, IChangeProfile } from '../../api/UserAPI';
+import { IChangePassword } from '../../api/UserAPI';
 
 const router = new Router();
 
 class PasswordChangeBase extends Block {
-  constructor(props: any) {
+  constructor(props: { events: Record<string, (event: Event) => void> }) {
     super(props, 'form');
   }
 
