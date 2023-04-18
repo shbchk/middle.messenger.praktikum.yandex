@@ -78,7 +78,6 @@ export default class HTTPTransport {
       const xhr = new XMLHttpRequest();
       xhr.open(method, this.endpoint + url);
       xhr.timeout = timeout;
-      // xhr.onload = () => resolve(xhr.response);
 
       if (headers !== null) {
         const { key, value } = headers;
@@ -87,7 +86,7 @@ export default class HTTPTransport {
 
       const errorHandler = () => reject(xhr.response);
 
-      xhr.onreadystatechange = (e) => {
+      xhr.onreadystatechange = () => {
         if (xhr.readyState === XMLHttpRequest.DONE) {
           if (xhr.status < 400) {
             resolve(xhr.response);
