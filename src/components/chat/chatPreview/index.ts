@@ -25,13 +25,13 @@ export default class ChatPreview extends Block<IChatPreview> {
 
             await store
               .getState()
-              .chat.api.connect({
+              .chat.api!.connect({
                 chatId: this.props.id,
                 token: store.getState().chat.currentChatToken as string,
                 userId: store.getState().user?.data?.id as number,
               })
               .then(() => {
-                store.getState().chat.api.fetchOldMessages();
+                store.getState().chat.api!.fetchOldMessages();
               });
           });
       },
