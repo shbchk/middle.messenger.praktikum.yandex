@@ -64,10 +64,10 @@ class AddUsersBase extends Block<IAddUsers> {
   }
 }
 
-const withUser = withStore((state) => ({
+const withUser = withStore<IAddUsers>((state) => ({
   addUsers: { ...state.addUsers },
 }));
 
-const AddUsers = withUser<IAddUsers>(AddUsersBase as typeof Block);
+const AddUsers = withUser(AddUsersBase as typeof Block);
 
 export default AddUsers;

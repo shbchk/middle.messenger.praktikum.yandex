@@ -3,7 +3,6 @@ import Block from '../../utils/Block';
 
 import './modal.scss';
 import { modalTemplate } from './modal.tmpl';
-import render from '../../utils/render';
 import Button from '../button';
 
 interface IModal {
@@ -18,7 +17,7 @@ export default class Modal extends Block<IModal> {
       type: 'button',
       classList: ['modal__close-button'],
       events: {
-        click: (event) => {
+        click: () => {
           this.remove();
         },
       },
