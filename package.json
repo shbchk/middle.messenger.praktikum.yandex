@@ -15,7 +15,7 @@
     "dev": "npm-run-all env:dev webpack --mode development",
     "prod": "webpack --mode production",
     "devserver": "webpack-dev-server --mode development --open",
-    "serve": "npm-run-all env:dev devserv",
+    "serve": "npm-run-all env:dev devserver",
     "test:stylelint": "stylelint \"./src/**/*.scss\""
   },
   "repository": {

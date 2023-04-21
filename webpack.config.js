@@ -12,7 +12,7 @@ module.exports = {
   context: path.resolve(__dirname, 'src'),
   mode: isDev ? 'development' : 'production',
   entry: './index.ts',
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
   output: {
     filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
