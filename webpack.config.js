@@ -2,6 +2,8 @@ const path = require('path');
 
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const TerserWebpackPlugin = require('terser-webpack-plugin');
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
@@ -69,13 +71,14 @@ module.exports = {
     }),
     new MiniCssExtractPlugin({
       filename: '[contenthash].[name].css'
-    })
+    }),
+    new CssMinimizerPlugin()
   ],
   optimization: {
     splitChunks: {
       chunks: 'all',
     },
-    // minimizer: [new CssMinimizerPlugin(), new TerserWebpackPlugin()],
-    // minimize: isProd,
+    minimizer: [new TerserWebpackPlugin(), new CssMinimizerPlugin()],
+    minimize: isProd,
   },
 };

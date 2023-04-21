@@ -8,11 +8,15 @@
     "clean:dist": "rimraf dist",
     "clean": "npm-run-all clean:*",
     "makeRedirectsFileForNetlify": "echo \"/* /index.html 200\" > ./dist/_redirects",
+    "env:dev": "cross-env NODE_ENV=development",
+    "env:prod": "cross-env NODE_ENV=production",
     "start": "npm-run-all build express:start",
-    "build": "npm-run-all prod makeRedirectsFileForNetlify",
-    "dev": "cross-env NODE_ENV=development webpack --mode development",
-    "prod": "cross-env NODE_ENV=production webpack --mode production",
-    "devserver": "cross-env NODE_ENV=development webpack-dev-server --mode development --open"
+    "build": "npm-run-all env:prod prod makeRedirectsFileForNetlify",
+    "dev": "npm-run-all env:dev webpack --mode development",
+    "prod": "webpack --mode production",
+    "devserver": "webpack-dev-server --mode development --open",
+    "serve": "npm-run-all env:dev devserv",
+    "test:stylelint": "stylelint \"./src/**/*.scss\""
   },
   "repository": {
     "type": "git",
@@ -33,6 +37,7 @@
     "chai": "4.3.7",
     "cross-env": "^7.0.3",
     "css-loader": "^6.7.3",
+    "css-minimizer-webpack-plugin": "^5.0.0",
     "eslint": "8.36.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-prettier": "8.7.0",
