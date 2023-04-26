@@ -18,7 +18,8 @@
     "serve": "npm-run-all env:dev devserver",
     "lint:stylelint": "stylelint \"./src/**/*.scss\"",
     "test:mocha": "mocha --require ts-node/register --require ./mochaSetup.js './src/**/*.test.ts'",
-    "test": "npm-run-all test:*"
+    "test": "npm-run-all test:*",
+    "testall": "npm-run-all test:* lint:*"
   },
   "repository": {
     "type": "git",
