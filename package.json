@@ -16,10 +16,9 @@
     "prod": "webpack --mode production",
     "devserver": "webpack-dev-server --mode development --open",
     "serve": "npm-run-all env:dev devserver",
-    "test:stylelint": "stylelint \"./src/**/*.scss\"",
+    "lint:stylelint": "stylelint \"./src/**/*.scss\"",
     "test:mocha": "mocha --require ts-node/register --require ./mochaSetup.js './src/**/*.test.ts'",
-    "test": "npm-run-all test:mocha",
-    "testall": "npm-run-all test:*"
+    "test": "npm-run-all test:*"
   },
   "repository": {
     "type": "git",
@@ -74,5 +73,10 @@
     "handlebars": "4.7.7",
     "nanoid": "3",
     "normalize.css": "8.0.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm-run-all lint:* test:*"
+    }
   }
 }
