@@ -1,5 +1,4 @@
 const { JSDOM } = require('jsdom');
-const fs = require('fs');
 
 const { window } = new JSDOM('<div id="root"></div>', {
   url: 'http://localhost:3000',

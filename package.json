@@ -17,8 +17,9 @@
     "devserver": "webpack-dev-server --mode development --open",
     "serve": "npm-run-all env:dev devserver",
     "test:stylelint": "stylelint \"./src/**/*.scss\"",
-    "test:mocha": "mocha --require ts-node/register --require ./mochaSetup.js \"./src/**/*.test.ts\"",
-    "test": "npm-run-all test:*"
+    "test:mocha": "mocha --require ts-node/register --require ./mochaSetup.js './src/**/*.test.ts'",
+    "test": "npm-run-all test:mocha",
+    "testall": "npm-run-all test:*"
   },
   "repository": {
     "type": "git",
