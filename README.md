@@ -1,3 +1,5 @@
+# YaMessenger
+
 ### Учебный проект Яндекс.Практикума, курс «Middle Frontend-разработчик»
 
 Сборка (development): `npm run dev`  
