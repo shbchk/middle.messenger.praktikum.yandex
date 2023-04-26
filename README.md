@@ -1,7 +1,7 @@
 ### Учебный проект Яндекс.Практикума, курс «Middle Frontend-разработчик»
 
-Сборка (development): "npm run dev"
+Сборка (development): "npm run dev"  
 Сборка (production): "npm run build"
 
-Запуск Webpack-dev-server: "npm run serve"
+Запуск Webpack-dev-server: "npm run serve"  
 Запуск Express.js: "npm run start"
