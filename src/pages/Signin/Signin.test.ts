@@ -2,9 +2,16 @@ import { expect } from 'chai';
 import Signin from '.';
 
 describe('Signin component', () => {
-  it('expect(classList).to.contain(modal__backdrop)', () => {
-    const signin = new Signin({});
-    const { classList } = signin.element!;
-    expect(classList).to.contain('modal__backdrop');
+  const signin = new Signin({});
+
+  it('should contain modal__backdrop class', () => {
+    const isModalBackdrop =
+      signin.element!.classList.contains('modal__backdrop');
+    expect(isModalBackdrop).to.equal(true);
+  });
+
+  it('should change document.title to "Авторизация"', () => {
+    const { title } = document;
+    expect(title).to.equal('Авторизация');
   });
 });
