@@ -2,6 +2,8 @@
 
 ### Учебный проект Яндекс.Практикума, курс «Middle Frontend-разработчик»
 
+Проект на Heroku: https://yamessenger.herokuapp.com/
+
 Сборка (development): `npm run dev`  
 Сборка (production): `npm run build`
 
