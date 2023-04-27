@@ -1,9 +1,9 @@
 const path = require('path');
 
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
@@ -21,12 +21,12 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
     alias: {
-      handlebars: 'handlebars/dist/handlebars.min.js'
-    }
+      handlebars: 'handlebars/dist/handlebars.min.js',
+    },
   },
   devServer: {
     port: 1234,
-    historyApiFallback: true
+    historyApiFallback: true,
   },
   module: {
     rules: [
@@ -37,15 +37,11 @@ module.exports = {
       },
       {
         test: /\.css$/i,
-        use: [MiniCssExtractPlugin.loader, "css-loader"],
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
         test: /\.s[ac]ss$/i,
-        use: [
-          MiniCssExtractPlugin.loader,
-          "css-loader",
-          "sass-loader",
-        ],
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
@@ -67,12 +63,12 @@ module.exports = {
   plugins: [
     new HTMLWebpackPlugin({
       template: './index.html',
-      minify: isProd
+      minify: isProd,
     }),
     new MiniCssExtractPlugin({
-      filename: '[contenthash].[name].css'
+      filename: '[contenthash].[name].css',
     }),
-    new CssMinimizerPlugin()
+    new CssMinimizerPlugin(),
   ],
   optimization: {
     splitChunks: {
