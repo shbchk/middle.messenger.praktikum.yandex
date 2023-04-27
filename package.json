@@ -19,7 +19,8 @@
     "lint:stylelint": "stylelint \"./src/**/*.scss\"",
     "test:mocha": "mocha --require ts-node/register --require ./mochaSetup.js './src/**/*.test.ts'",
     "test": "npm-run-all test:*",
-    "testall": "npm-run-all test:* lint:*"
+    "testall": "npm-run-all test:* lint:*",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -50,7 +51,7 @@
     "express": "4.18.2",
     "html-loader": "^4.2.0",
     "html-webpack-plugin": "^5.5.1",
-    "husky": "8.0.3",
+    "husky": "^8.0.0",
     "jsdom": "^21.1.1",
     "mini-css-extract-plugin": "^2.7.5",
     "mocha": "10.2.0",
