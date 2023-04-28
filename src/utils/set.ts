@@ -4,7 +4,7 @@ import merge from './merge';
 
 function set(
   object: Record<string, any> | unknown,
-  path: string,
+  path: string | unknown,
   value: unknown,
 ): Record<string, any> | unknown {
   if (typeof path !== 'string') {

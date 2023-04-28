@@ -3,7 +3,7 @@
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
   "rules": {
-    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "import/no-extraneous-dependencies": "off",
     "no-console": "off",
     "import/prefer-default-export": "off",
     "no-underscore-dangle": "off",
@@ -40,6 +40,7 @@
   },
   "env": {
     "browser": true,
-    "es6": true
+    "es6": true,
+    "mocha": true
   }
 }

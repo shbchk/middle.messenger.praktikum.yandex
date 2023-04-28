@@ -1,9 +1,21 @@
-### Классный мессенджер
+# YaMessenger
 
-Макет тут: https://www.figma.com/file/IjLW6OLjj7h7qNgEiaM9KI/Chat-Yandex-Praktikum?node-id=0%3A1&t=1ZWh1uxqVEoGeaZ7-0
+### Учебный проект Яндекс.Практикума, курс «Middle Frontend-разработчик»
 
-Нетлифай тут: https://yamessenger.netlify.app/
+В проекте использованы следующие технологии:
 
-Запуск Парселя: "npm run build"
+- Язык программирования: **Typescript**
+- CSS-препроцессор: **SCSS**
+- Шаблонизатор: **Handlebars**
+- Сервер: **Express.js**
+- Сборщик: **Webpack**
 
-Запуск Express.js: "npm run start"
+Проект размещен на Render.com с помощью Docker: https://yamessenger.onrender.com/
+
+Сборка (development): `npm run dev`  
+Сборка (production): `npm run build`
+
+Запуск Webpack-dev-server: `npm run serve`  
+Запуск Express.js: `npm run start`
+
+Запуск юнит-тестов: `npm run test`

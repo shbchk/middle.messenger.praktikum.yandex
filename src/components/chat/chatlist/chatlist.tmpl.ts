@@ -1,5 +1,4 @@
 import { AVATARSTUB } from '../../../AVATARSTUB';
-import { ROUTES } from '../../../ROUTES';
 
 export const chatlistTemplate = `
 

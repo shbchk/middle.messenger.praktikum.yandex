@@ -33,7 +33,7 @@ class UserController {
 
     this.api
       .changePassword(escapeObjectValues<IChangePassword>(data))
-      .then((response) => {
+      .then(() => {
         store.set('user.hasError', false);
         store.set('user.errorReason', null);
         router.go(ROUTES.profile);
@@ -52,7 +52,7 @@ class UserController {
   }
 
   async changeAvatar(file: FormData) {
-    await this.api.changeAvatar(file).then(async (response) => {
+    await this.api.changeAvatar(file).then(async () => {
       await authController.fetchUser();
     });
   }

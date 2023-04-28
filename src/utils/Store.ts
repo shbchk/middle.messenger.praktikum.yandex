@@ -37,9 +37,9 @@ class Store extends EventBus {
 const store = new Store();
 
 export const withStore = <T>(mapStateToProps: (state: IState) => any) => {
-  return <K>(Component: typeof Block) => {
+  return (Component: typeof Block) => {
     return class extends Component {
-      constructor(props: K) {
+      constructor(props: T) {
         const mappedState = mapStateToProps(store.getState());
         super({ ...props, ...mappedState });
 

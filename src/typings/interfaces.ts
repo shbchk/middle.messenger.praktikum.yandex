@@ -1,3 +1,5 @@
+import type MessagingAPI from '../api/MessagingAPI';
+
 export interface ISignupData {
   [key: string]: string;
   first_name: string;
@@ -69,7 +71,7 @@ export interface IState {
     currentChatId?: number;
     currentChatCreatedBy?: number;
     users: IUser[];
-    api?: any;
+    api?: MessagingAPI;
   };
   chats: {
     data: IChat[];

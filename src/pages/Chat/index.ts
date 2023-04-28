@@ -79,7 +79,7 @@ class ChatBase extends Block {
               '#message',
             ) as HTMLTextAreaElement;
             const text = textarea.value;
-            store.getState().chat.api.send({ content: text, type: 'message' });
+            store.getState().chat.api!.send({ content: text, type: 'message' });
             textarea.value = '';
           },
         },
