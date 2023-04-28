@@ -2,7 +2,15 @@
 
 ### Учебный проект Яндекс.Практикума, курс «Middle Frontend-разработчик»
 
-Проект на Heroku: https://yamessenger.herokuapp.com/
+В проекте использованы следующие технологии:
+
+- Язык программирования: **Typescript**
+- CSS-препроцессор: **SCSS**
+- Шаблонизатор: **Handlebars**
+- Сервер: **Express.js**
+- Сборщик: **Webpack**
+
+Проект размещен на Render.com с помощью Docker: https://yamessenger.onrender.com/
 
 Сборка (development): `npm run dev`  
 Сборка (production): `npm run build`

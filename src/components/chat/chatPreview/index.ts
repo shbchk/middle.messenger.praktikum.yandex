@@ -51,7 +51,9 @@ export default class ChatPreview extends Block<IChatPreview> {
 
     return this.compile(Handlebars.compile(chatPreviewTemplate), {
       title: this.props?.title,
-      avatar: this.props.avatar ? this.props.avatar : AVATARSTUB,
+      avatar: this.props.avatar
+        ? `https://ya-praktikum.tech/api/v2/resources/${this.props.avatar}`
+        : AVATARSTUB,
       content: this.props?.last_message?.content
         ? this.props.last_message.content
         : '😶 Нет сообщений',
