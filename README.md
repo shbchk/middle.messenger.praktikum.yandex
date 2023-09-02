@@ -1,21 +1,19 @@
 # YaMessenger
 
-### Учебный проект Яндекс.Практикума, курс «Middle Frontend-разработчик»
+### Educational project, course "Middle Frontend Developer" by Yandex.Praktikum
 
-В проекте использованы следующие технологии:
+Technologies used:
 
-- Язык программирования: **Typescript**
-- CSS-препроцессор: **SCSS**
-- Шаблонизатор: **Handlebars**
-- Сервер: **Express.js**
-- Сборщик: **Webpack**
+- Programming language: **Typescript**
+- CSS preprocessor: **SCSS**
+- Templating engine: **Handlebars**
+- Server: **Express.js**
+- Build tool: **Webpack**
 
-Проект размещен на Render.com с помощью Docker: https://yamessenger.onrender.com/
+Development build: `npm run dev`  
+Production build: `npm run build`
 
-Сборка (development): `npm run dev`  
-Сборка (production): `npm run build`
+Start Webpack-dev-server: `npm run serve`  
+Start Express.js: `npm run start`
 
-Запуск Webpack-dev-server: `npm run serve`  
-Запуск Express.js: `npm run start`
-
-Запуск юнит-тестов: `npm run test`
+Run unit tests: `npm run test`
